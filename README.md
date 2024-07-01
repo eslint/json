@@ -90,7 +90,7 @@ export default [
 	{
 		files: ["**/*.jsonc"],
 		language: "json/jsonc",
-		...js.configs.recommended,
+		...json.configs.recommended,
 	},
 ];
 ```
