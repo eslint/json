@@ -83,7 +83,7 @@ export default [
 	{
 		files: ["**/*.json"],
 		language: "json/json",
-		...js.configs.recommended,
+		...json.configs.recommended,
 	},
 
 	// lint JSON-C files
