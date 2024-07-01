@@ -52,19 +52,6 @@ export default [
 			),
 		},
 	},
-
-	// Tools and CLI
-	{
-		files: [
-			"scripts/**",
-			"packages/migrate-config/src/migrate-config-cli.js",
-		],
-		rules: {
-			"no-console": "off",
-			"n/no-process-exit": "off",
-		},
-	},
-
 	{
 		files: ["**/tests/**"],
 		languageOptions: {
