@@ -63,7 +63,7 @@
     "@eslint/core": "^0.1.0",
     "@types/eslint": "^8.56.10",
     "c8": "^9.1.0",
-    "eslint": "github:eslint/eslint",
+    "eslint": "^9.6.0",
     "eslint-config-eslint": "^11.0.0",
     "eslint-doc-generator": "^1.7.1",
     "lint-staged": "^15.2.7",
