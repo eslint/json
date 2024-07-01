@@ -79,5 +79,8 @@
   },
   "dependencies": {
     "@humanwhocodes/momoa": "^3.0.2"
+  },
+  "peerDependencies": {
+    "eslint": "^9.6.0"
   }
 }
