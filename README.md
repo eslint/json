@@ -50,7 +50,7 @@ export default [
 		files: ["**/*.json"],
 		language: "json/json",
 		rules: {
-			"no-duplicate-keys": "error",
+			"json/no-duplicate-keys": "error",
 		},
 	},
 
