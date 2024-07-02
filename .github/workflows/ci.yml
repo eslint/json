@@ -7,8 +7,8 @@ on:
         branches:
             - main
 jobs:
-    lint:
-        name: Lint
+    verify_files:
+        name: Verify Files
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -18,10 +18,12 @@ jobs:
                   node-version: "lts/*"
             - name: Install dependencies
               run: npm install
-            - name: Build commonjs
+            - name: Build
               run: npm run build
             - name: Lint files
               run: npm run lint
+            - name: Check Formatting
+              run: npm run fmt:check
     test:
         name: Test
         strategy:
@@ -43,3 +45,17 @@ jobs:
               run: npm install
             - name: Run tests
               run: npm run test
+    jsr_test:
+        name: Verify JSR Publish
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: "lts/*"
+            - name: Install Packages
+              run: npm install
+            - name: Run --dry-run
+              run: |
+                  npm run build
+                  npm run test:jsr
