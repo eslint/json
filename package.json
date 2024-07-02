@@ -78,7 +78,7 @@
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
   },
   "dependencies": {
-    "@humanwhocodes/momoa": "^3.0.2"
+    "@humanwhocodes/momoa": "^3.0.6"
   },
   "peerDependencies": {
     "eslint": "^9.6.0"
