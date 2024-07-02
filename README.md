@@ -59,7 +59,7 @@ export default [
 		files: ["**/*.jsonc"],
 		language: "json/jsonc",
 		rules: {
-			"no-duplicate-keys": "error",
+			"json/no-duplicate-keys": "error",
 		},
 	},
 ];
