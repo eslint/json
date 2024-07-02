@@ -3,6 +3,10 @@
  * @author Nicholas C. Zakas
  */
 
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
 export default {
 	meta: {
 		type: "problem",
@@ -22,9 +26,10 @@ export default {
 
 		return {
 			Object() {
-				keys = new Map();
 				objectKeys.push(keys);
+				keys = new Map();
 			},
+
 			Member(node) {
 				const key = node.name.value;
 
@@ -41,7 +46,7 @@ export default {
 				}
 			},
 			"Object:exit"() {
-				objectKeys.pop();
+				keys = objectKeys.pop();
 			},
 		};
 	},
