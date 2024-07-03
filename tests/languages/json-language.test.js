@@ -15,6 +15,14 @@ import assert from "node:assert";
 //-----------------------------------------------------------------------------
 
 describe("JSONLanguage", () => {
+	describe("visitorKeys", () => {
+		it("should have visitorKeys property", () => {
+			const language = new JSONLanguage({ mode: "json" });
+
+			assert.deepStrictEqual(language.visitorKeys.Document, ["body"]);
+		});
+	});
+
 	describe("parse()", () => {
 		it("should not parse jsonc by default", () => {
 			const language = new JSONLanguage({ mode: "json" });

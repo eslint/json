@@ -9,6 +9,7 @@
 
 import { parse } from "@humanwhocodes/momoa";
 import { JSONSourceCode } from "./json-source-code.js";
+import { visitorKeys } from "@humanwhocodes/momoa";
 
 //-----------------------------------------------------------------------------
 // Types
@@ -58,6 +59,12 @@ export class JSONLanguage {
 	 * @type {"json"|"jsonc"}
 	 */
 	#mode = "json";
+
+	/**
+	 * The visitor keys.
+	 * @type {Record<string, string[]>}
+	 */
+	visitorKeys = Object.fromEntries([...visitorKeys]);
 
 	/**
 	 * Creates a new instance.
