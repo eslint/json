@@ -73,7 +73,6 @@ To use the recommended configuration for this plugin, specify your matching `fil
 import json from "@eslint/json";
 
 export default [
-
 	// lint JSON files
 	{
 		files: ["**/*.json"],

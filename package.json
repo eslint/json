@@ -47,6 +47,8 @@
     "test:jsr": "npx jsr@latest publish --dry-run",
     "pretest": "npm run build",
     "lint": "eslint",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
     "test": "mocha tests/**/*.js",
     "test:coverage": "c8 npm test"
   },
