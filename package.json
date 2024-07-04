@@ -60,6 +60,9 @@
     "linting"
   ],
   "license": "Apache-2.0",
+  "dependencies": {
+    "@humanwhocodes/momoa": "^3.1.1"
+  },
   "devDependencies": {
     "@eslint/core": "^0.1.0",
     "@types/eslint": "^8.56.10",
@@ -76,9 +79,6 @@
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
-  "dependencies": {
-    "@humanwhocodes/momoa": "^3.0.6"
   },
   "peerDependencies": {
     "eslint": "^9.6.0"
