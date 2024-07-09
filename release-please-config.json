@@ -1,18 +1,13 @@
 {
-  "bootstrap-sha": "505795a1312e90f1ce3b59b530622929bc38b4fe",
+  "last-release-sha": "48545ebe503d661af0562b240648253199758d9f",
   "bump-minor-pre-major": true,
-  "packages": {
-    ".": {
-      "release-type": "node",
-      "release-as": "0.1.0",
-      "pull-request-title-pattern": "chore: release ${version} 🚀",
-      "extra-files": [
-        {
-          "type": "json",
-          "path": "jsr.json",
-          "jsonpath": "$.version"
-        }
-      ]
+  "release-type": "node",
+  "pull-request-title-pattern": "chore: release ${version} 🚀",
+  "extra-files": [
+    {
+      "type": "json",
+      "path": "jsr.json",
+      "jsonpath": "$.version"
     }
-  }
+  ]
 }
