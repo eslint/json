@@ -31,7 +31,7 @@ deno add @eslint/json
 This package exports two different languages:
 
 -   `"json/json"` is for regular JSON files
--   `"json/jsonc"` is for JSON files that support comments (JSON-C)
+-   `"json/jsonc"` is for JSON files that support comments (JSON-C) such as those used for Visual Studio Code configuration files
 
 Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints both JSON and JSON-C files:
 
@@ -56,7 +56,7 @@ export default [
 
 	// lint JSON-C files
 	{
-		files: ["**/*.jsonc"],
+		files: ["**/*.jsonc", ".vscode/*.json"],
 		language: "json/jsonc",
 		rules: {
 			"json/no-duplicate-keys": "error",
@@ -76,6 +76,7 @@ export default [
 	// lint JSON files
 	{
 		files: ["**/*.json"],
+		ignores: ["package-lock.json"],
 		language: "json/json",
 		...json.configs.recommended,
 	},
@@ -89,10 +90,12 @@ export default [
 ];
 ```
 
+**Note:** You generally want to ignore `package-lock.json` because it is auto-generated and you typically will not want to manually make changes to it.
+
 ## Rules
 
 -   `no-duplicate-keys` - warns when there are two keys in an object with the same text.
--   `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace
+-   `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
 
 ## License
 
