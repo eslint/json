@@ -4,14 +4,14 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "release-as": "0.1.0",
       "pull-request-title-pattern": "chore: release ${version} 🚀",
       "extra-files": [
         {
           "type": "json",
           "path": "jsr.json",
           "jsonpath": "$.version"
-        }
+        },
+        "src/index.js"
       ]
     }
   }
