@@ -16,13 +16,12 @@ import { iterator } from "@humanwhocodes/momoa";
 /** @typedef {import("@humanwhocodes/momoa").DocumentNode} DocumentNode */
 /** @typedef {import("@humanwhocodes/momoa").Node} JSONNode */
 /** @typedef {import("@humanwhocodes/momoa").Token} JSONToken */
-/** @typedef {import("@eslint/core").SyntaxElement} SyntaxElement */
-/** @typedef {import("@eslint/core").Language} Language */
+/** @typedef {import("@eslint/core").SourceRange} SourceRange */
+/** @typedef {import("@eslint/core").SourceLocation} SourceLocation */
 /** @typedef {import("@eslint/core").File} File */
 /** @typedef {import("@eslint/core").TraversalStep} TraversalStep */
-/** @typedef {import("@eslint/core").VisitTraversalStep} VisitTraversalStep */
 /** @typedef {import("@eslint/core").TextSourceCode} TextSourceCode */
-/** @typedef {import("@eslint/core").ParseResult} ParseResult */
+/** @typedef {import("@eslint/core").VisitTraversalStep} VisitTraversalStep */
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -50,7 +49,7 @@ class JSONTraversalStep {
 
 	/**
 	 * The target of the step.
-	 * @type {JSONNode & SyntaxElement}
+	 * @type {JSONNode}
 	 */
 	target;
 
@@ -69,7 +68,7 @@ class JSONTraversalStep {
 	/**
 	 * Creates a new instance.
 	 * @param {Object} options The options for the step.
-	 * @param {JSONNode & SyntaxElement} options.target The target of the step.
+	 * @param {JSONNode} options.target The target of the step.
 	 * @param {1|2} options.phase The phase of the step.
 	 * @param {Array<any>} options.args The arguments of the step.
 	 */
@@ -109,7 +108,7 @@ export class JSONSourceCode {
 
 	/**
 	 * The AST of the source code.
-	 * @type {DocumentNode & SyntaxElement}
+	 * @type {DocumentNode}
 	 */
 	ast;
 
@@ -129,7 +128,7 @@ export class JSONSourceCode {
 	 * Creates a new instance.
 	 * @param {Object} options The options for the instance.
 	 * @param {string} options.text The source code text.
-	 * @param {DocumentNode & SyntaxElement} options.ast The root AST node.
+	 * @param {DocumentNode} options.ast The root AST node.
 	 */
 	constructor({ text, ast }) {
 		this.ast = ast;
@@ -138,6 +137,28 @@ export class JSONSourceCode {
 			token.type.endsWith("Comment"),
 		);
 	}
+
+	/* eslint-disable class-methods-use-this -- Required to complete interface. */
+
+	/**
+	 * Returns the loc information for the given node or token.
+	 * @param {JSONNode|JSONToken} nodeOrToken The node or token to get the loc information for.
+	 * @returns {SourceLocation} The loc information for the node or token.
+	 */
+	getLoc(nodeOrToken) {
+		return nodeOrToken.loc;
+	}
+
+	/**
+	 * Returns the range information for the given node or token.
+	 * @param {JSONNode|JSONToken} nodeOrToken The node or token to get the range information for.
+	 * @returns {SourceRange} The range information for the node or token.
+	 */
+	getRange(nodeOrToken) {
+		return nodeOrToken.range;
+	}
+
+	/* eslint-enable class-methods-use-this -- Required to complete interface. */
 
 	/**
 	 * Returns the parent of the given node.
@@ -205,7 +226,7 @@ export class JSONSourceCode {
 
 	/**
 	 * Traverse the source code and return the steps that were taken.
-	 * @returns {Iterable<TraversalStep>} The steps that were taken while traversing the source code.
+	 * @returns {Iterable<JSONTraversalStep>} The steps that were taken while traversing the source code.
 	 */
 	traverse() {
 		// Because the AST doesn't mutate, we can cache the steps
@@ -213,15 +234,14 @@ export class JSONSourceCode {
 			return this.#steps.values();
 		}
 
+		/** @type {Array<JSONTraversalStep>} */
 		const steps = (this.#steps = []);
 
-		for (const { node, parent, phase } of iterator(
-			/** @type {DocumentNode} */ (this.ast),
-		)) {
+		for (const { node, parent, phase } of iterator(this.ast)) {
 			this.#parents.set(node, parent);
 			steps.push(
 				new JSONTraversalStep({
-					target: /** @type {JSONNode & SyntaxElement} */ (node),
+					target: node,
 					phase: phase === "enter" ? 1 : 2,
 					args: [node, parent],
 				}),
