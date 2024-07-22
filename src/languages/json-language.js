@@ -16,10 +16,11 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 //-----------------------------------------------------------------------------
 
 /** @typedef {import("@humanwhocodes/momoa").DocumentNode} DocumentNode */
+/** @typedef {import("@humanwhocodes/momoa").Node} JSONNode */
 /** @typedef {import("@eslint/core").Language} Language */
+/** @typedef {import("@eslint/core").OkParseResult<DocumentNode>} OkParseResult */
+/** @typedef {import("@eslint/core").ParseResult<DocumentNode>} ParseResult */
 /** @typedef {import("@eslint/core").File} File */
-/** @typedef {import("@eslint/core").ParseResult} ParseResult */
-/** @typedef {import("@eslint/core").SyntaxElement} SyntaxElement */
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -111,7 +112,7 @@ export class JSONLanguage {
 
 			return {
 				ok: true,
-				ast: /** @type {DocumentNode & SyntaxElement} */ (root),
+				ast: root,
 			};
 		} catch (ex) {
 			// error messages end with (line:column) so we strip that off for ESLint
@@ -135,7 +136,7 @@ export class JSONLanguage {
 	/**
 	 * Creates a new `JSONSourceCode` object from the given information.
 	 * @param {File} file The virtual file to create a `JSONSourceCode` object from.
-	 * @param {ParseResult} parseResult The result returned from `parse()`.
+	 * @param {OkParseResult} parseResult The result returned from `parse()`.
 	 * @returns {JSONSourceCode} The new `JSONSourceCode` object.
 	 */
 	createSourceCode(file, parseResult) {

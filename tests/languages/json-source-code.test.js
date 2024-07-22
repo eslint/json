@@ -52,6 +52,61 @@ describe("JSONSourceCode", () => {
 		});
 	});
 
+	describe("getLoc()", () => {
+		it("should return the loc property of a node", () => {
+			const loc = {
+				start: {
+					line: 1,
+					column: 1,
+					offset: 0,
+				},
+				end: {
+					line: 1,
+					column: 2,
+					offset: 1,
+				},
+			};
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					properties: [],
+				},
+				tokens: [],
+				loc,
+			};
+			const text = "{}";
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+
+			assert.strictEqual(sourceCode.getLoc(ast), loc);
+		});
+	});
+
+	describe("getRange()", () => {
+		it("should return the range property of a node", () => {
+			const range = [0, 1];
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					properties: [],
+				},
+				tokens: [],
+				range,
+			};
+			const text = "{}";
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+
+			assert.strictEqual(sourceCode.getRange(ast), range);
+		});
+	});
+
 	describe("comments", () => {
 		it("should contain an empty array when parsing JSON", () => {
 			const file = { body: "{}", path: "test.json" };
