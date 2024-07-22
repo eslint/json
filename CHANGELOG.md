@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/eslint/json/compare/json-v0.1.0...json-v0.2.0) (2024-07-22)
+
+
+### Features
+
+* Add getLoc and getRange to JSONSourceCode ([#13](https://github.com/eslint/json/issues/13)) ([2225f63](https://github.com/eslint/json/commit/2225f630284b601d4cfc4ecc19148121d6e11a3f))
+* Add meta info to plugin ([#12](https://github.com/eslint/json/issues/12)) ([f419757](https://github.com/eslint/json/commit/f419757b837fce5e37b29a2afe0b2885590ca8bd))
+
 ## [0.1.0](https://github.com/eslint/json/compare/json-v0.0.1...json-v0.1.0) (2024-07-06)
 
 
