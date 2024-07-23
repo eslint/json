@@ -4,7 +4,7 @@
  */
 
 //-----------------------------------------------------------------------------
-// Type Definitions
+// Rule Definition
 //-----------------------------------------------------------------------------
 
 export default {
@@ -31,7 +31,10 @@ export default {
 			},
 
 			Member(node) {
-				const key = node.name.value;
+				const key =
+					node.name.type === "String"
+						? node.name.value
+						: node.name.name;
 
 				if (keys.has(key)) {
 					context.report({

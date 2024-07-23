@@ -57,7 +57,7 @@ export class JSONLanguage {
 
 	/**
 	 * The parser mode.
-	 * @type {"json"|"jsonc"}
+	 * @type {"json"|"jsonc"|"json5"}
 	 */
 	#mode = "json";
 
@@ -70,7 +70,7 @@ export class JSONLanguage {
 	/**
 	 * Creates a new instance.
 	 * @param {Object} options The options to use for this instance.
-	 * @param {"json"|"jsonc"} options.mode The parser mode to use.
+	 * @param {"json"|"jsonc"|"json5"} options.mode The parser mode to use.
 	 */
 	constructor({ mode }) {
 		this.#mode = mode;
