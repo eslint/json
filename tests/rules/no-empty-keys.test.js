@@ -29,6 +29,10 @@ ruleTester.run("no-empty-keys", rule, {
 			code: '{"foo": 1, "bar": 2, "baz": 3}',
 			language: "json/json5",
 		},
+		{
+			code: '{foo: 1, bar: 2, "baz": 3}',
+			language: "json/json5",
+		},
 	],
 	invalid: [
 		{

@@ -19,7 +19,10 @@ export default {
 	create(context) {
 		return {
 			Member(node) {
-				const key = node.name.value;
+				const key =
+					node.name.type === "String"
+						? node.name.value
+						: node.name.name;
 
 				if (key.trim() === "") {
 					context.report({
