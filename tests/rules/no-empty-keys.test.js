@@ -23,7 +23,17 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run("no-empty-keys", rule, {
-	valid: ['{"foo": 1, "bar": 2}'],
+	valid: [
+		'{"foo": 1, "bar": 2}',
+		{
+			code: '{"foo": 1, "bar": 2, "baz": 3}',
+			language: "json/json5",
+		},
+		{
+			code: '{foo: 1, bar: 2, "baz": 3}',
+			language: "json/json5",
+		},
+	],
 	invalid: [
 		{
 			code: '{"": 1}',
@@ -39,6 +49,32 @@ ruleTester.run("no-empty-keys", rule, {
 		},
 		{
 			code: '{"  ": 1}',
+			errors: [
+				{
+					messageId: "emptyKey",
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 6,
+				},
+			],
+		},
+		{
+			code: "{'': 1}",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "emptyKey",
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 4,
+				},
+			],
+		},
+		{
+			code: "{'  ': 1}",
+			language: "json/json5",
 			errors: [
 				{
 					messageId: "emptyKey",

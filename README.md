@@ -28,12 +28,13 @@ deno add @eslint/json
 
 ## Usage
 
-This package exports two different languages:
+This package exports these languages:
 
 -   `"json/json"` is for regular JSON files
--   `"json/jsonc"` is for JSON files that support comments (JSON-C) such as those used for Visual Studio Code configuration files
+-   `"json/jsonc"` is for JSON files that support comments ([JSONC](https://github.com/microsoft/node-jsonc-parser)) such as those used for Visual Studio Code configuration files
+-   `"json/json5"` is for [JSON5](https://json5.org) files
 
-Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints both JSON and JSON-C files:
+Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints JSON, JSONC, and JSON5 files:
 
 ```js
 import json from "@eslint/json";
@@ -54,10 +55,19 @@ export default [
 		},
 	},
 
-	// lint JSON-C files
+	// lint JSONC files
 	{
 		files: ["**/*.jsonc", ".vscode/*.json"],
 		language: "json/jsonc",
+		rules: {
+			"json/no-duplicate-keys": "error",
+		},
+	},
+
+	// lint JSON5 files
+	{
+		files: ["**/*.json5"],
+		language: "json/json5",
 		rules: {
 			"json/no-duplicate-keys": "error",
 		},
@@ -81,10 +91,17 @@ export default [
 		...json.configs.recommended,
 	},
 
-	// lint JSON-C files
+	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
 		language: "json/jsonc",
+		...json.configs.recommended,
+	},
+
+	// lint JSON5 files
+	{
+		files: ["**/*.json5"],
+		language: "json/json5",
 		...json.configs.recommended,
 	},
 ];

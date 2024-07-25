@@ -23,6 +23,7 @@ const plugin = {
 	languages: {
 		json: new JSONLanguage({ mode: "json" }),
 		jsonc: new JSONLanguage({ mode: "jsonc" }),
+		json5: new JSONLanguage({ mode: "json5" }),
 	},
 	rules: {
 		"no-duplicate-keys": noDuplicateKeys,
