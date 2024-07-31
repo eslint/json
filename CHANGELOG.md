@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/eslint/json/compare/json-v0.2.0...json-v0.3.0) (2024-07-25)
+
+
+### Features
+
+* Add JSON5 support ([#15](https://github.com/eslint/json/issues/15)) ([ea8dbb5](https://github.com/eslint/json/commit/ea8dbb53e1aa54dc9a6027393109c2988a3209f5))
+
 ## [0.2.0](https://github.com/eslint/json/compare/json-v0.1.0...json-v0.2.0) (2024-07-22)
 
 
