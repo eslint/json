@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 
 import { JSONLanguage } from "./languages/json-language.js";
+import { JSONSourceCode } from "./languages/json-source-code.js";
 import noDuplicateKeys from "./rules/no-duplicate-keys.js";
 import noEmptyKeys from "./rules/no-empty-keys.js";
 
@@ -43,3 +44,4 @@ Object.assign(plugin.configs, {
 });
 
 export default plugin;
+export { JSONLanguage, JSONSourceCode };
