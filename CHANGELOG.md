@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/eslint/json/compare/json-v0.3.0...json-v0.4.0) (2024-08-20)
+
+
+### Features
+
+* Export internal constructs for other plugin authors ([#17](https://github.com/eslint/json/issues/17)) ([ad729f0](https://github.com/eslint/json/commit/ad729f0c60d42a84b2c87da52a6d2456b5211b48))
+
 ## [0.3.0](https://github.com/eslint/json/compare/json-v0.2.0...json-v0.3.0) (2024-07-25)
 
 
