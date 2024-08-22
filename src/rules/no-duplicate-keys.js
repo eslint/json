@@ -4,9 +4,17 @@
  */
 
 //-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {import("../types.ts").JSONRuleVisitor} JSONRuleVisitor */
+/** @typedef {import("../../../rewrite/packages/core/src/types.ts").RuleDefinition<JSONRuleVisitor>} RuleDefinition */
+
+//-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
+/** @type {RuleDefinition} */
 export default {
 	meta: {
 		type: /** @type {const} */ ("problem"),
