@@ -142,7 +142,7 @@ describe("JSONSourceCode", () => {
 		});
 	});
 
-	describe("get lines", () => {
+	describe("lines", () => {
 		it("should return an array of lines", () => {
 			const file = { body: "{\n//test\n}", path: "test.jsonc" };
 			const language = new JSONLanguage({ mode: "jsonc" });
@@ -153,6 +153,126 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.deepStrictEqual(sourceCode.lines, ["{", "//test", "}"]);
+		});
+	});
+
+	describe("getParent()", () => {
+		it("should return the parent node for a given node", () => {
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					properties: [],
+				},
+				tokens: [],
+			};
+			const text = "{}";
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+			const node = ast.body;
+
+			// call traverse to initialize the parent map
+			sourceCode.traverse();
+
+			assert.strictEqual(sourceCode.getParent(node), ast);
+		});
+
+		it("should return the parent node for a deeply nested node", () => {
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					members: [
+						{
+							type: "Member",
+							name: {
+								type: "Identifier",
+								name: "foo",
+							},
+							value: {
+								type: "Object",
+								properties: [],
+							},
+						},
+					],
+				},
+				tokens: [],
+			};
+			const text = '{"foo":{}}';
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+			const node = ast.body.members[0].value;
+
+			// call traverse to initialize the parent map
+			sourceCode.traverse();
+
+			assert.strictEqual(sourceCode.getParent(node), ast.body.members[0]);
+		});
+	});
+
+	describe("getAncestors()", () => {
+		it("should return an array of ancestors for a given node", () => {
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					members: [],
+				},
+				tokens: [],
+			};
+			const text = "{}";
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+			const node = ast.body;
+
+			// call traverse to initialize the parent map
+			sourceCode.traverse();
+
+			assert.deepStrictEqual(sourceCode.getAncestors(node), [ast]);
+		});
+
+		it("should return an array of ancestors for a deeply nested node", () => {
+			const ast = {
+				type: "Document",
+				body: {
+					type: "Object",
+					members: [
+						{
+							type: "Member",
+							name: {
+								type: "Identifier",
+								name: "foo",
+							},
+							value: {
+								type: "Object",
+								members: [],
+							},
+						},
+					],
+				},
+				tokens: [],
+			};
+			const text = '{"foo":{}}';
+			const sourceCode = new JSONSourceCode({
+				text,
+				ast,
+			});
+			const node = ast.body.members[0].value;
+
+			// call traverse to initialize the parent map
+			sourceCode.traverse();
+
+			assert.deepStrictEqual(sourceCode.getAncestors(node), [
+				ast,
+				ast.body,
+				ast.body.members[0],
+			]);
 		});
 	});
 });
