@@ -75,6 +75,47 @@ export default [
 ];
 ```
 
+In CommonJS format:
+
+```js
+const json = require("@eslint/json").default;
+
+module.exports = [
+	{
+		plugins: {
+			json,
+		},
+	},
+
+	// lint JSON files
+	{
+		files: ["**/*.json"],
+		language: "json/json",
+		rules: {
+			"json/no-duplicate-keys": "error",
+		},
+	},
+
+	// lint JSONC files
+	{
+		files: ["**/*.jsonc", ".vscode/*.json"],
+		language: "json/jsonc",
+		rules: {
+			"json/no-duplicate-keys": "error",
+		},
+	},
+
+	// lint JSON5 files
+	{
+		files: ["**/*.json5"],
+		language: "json/json5",
+		rules: {
+			"json/no-duplicate-keys": "error",
+		},
+	},
+];
+```
+
 ## Recommended Configuration
 
 To use the recommended configuration for this plugin, specify your matching `files` and then use the `json.configs.recommended` object, like this:
