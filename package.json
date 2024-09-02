@@ -83,5 +83,10 @@
   },
   "peerDependencies": {
     "eslint": "^9.6.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
   }
 }
