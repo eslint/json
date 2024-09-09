@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/eslint/json/compare/json-v0.4.0...json-v0.4.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* Don't require ESLint ([#25](https://github.com/eslint/json/issues/25)) ([dd112e1](https://github.com/eslint/json/commit/dd112e1ccf514a87a68d5068882ec7393aa6dd9b))
+
 ## [0.4.0](https://github.com/eslint/json/compare/json-v0.3.0...json-v0.4.0) (2024-08-20)
 
 
