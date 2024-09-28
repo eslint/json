@@ -299,6 +299,28 @@ describe("JSONSourceCode", () => {
 				// not rule config comments
 				//eslintjson/no-duplicate-keys: error
 				/*-eslint json/no-duplicate-keys: error*/
+
+				/* disable directives */
+				//eslint-disable
+				/* eslint-disable json/no-duplicate-keys -- we want duplicate keys */
+				// eslint-enable json/no-duplicate-keys, json/no-empty-keys
+				/*eslint-enable*/
+				"": 5, // eslint-disable-line json/no-empty-keys
+				/*eslint-disable-line json/no-empty-keys -- special case*/ "": 6,
+				//eslint-disable-next-line
+				"": 7,
+				/* eslint-disable-next-line json/no-duplicate-keys, json/no-empty-keys
+				   -- another special case
+				*/
+				"": 8
+
+				// invalid disable directives
+				/* eslint-disable-line json/no-duplicate-keys
+				*/
+
+				// not disable directives
+				///eslint-disable
+				/*eslint-disable-*/
 			}
 		`;
 
@@ -326,7 +348,10 @@ describe("JSONSourceCode", () => {
 						const configComments =
 							sourceCode.getInlineConfigNodes();
 
-						const configCommentsIndexes = [1, 2, 3, 4, 6, 7];
+						const configCommentsIndexes = [
+							1, 2, 3, 4, 6, 7, 12, 13, 14, 15, 16, 17, 18, 19,
+							21,
+						];
 
 						assert.strictEqual(
 							configComments.length,
@@ -394,6 +419,79 @@ describe("JSONSourceCode", () => {
 						assert.strictEqual(problems[1].ruleId, null);
 						assert.match(problems[1].message, /Failed to parse/u);
 						assert.strictEqual(problems[1].loc, allComments[7].loc);
+					});
+				});
+
+				describe("getDisableDirectives()", () => {
+					it("should return disable directives and problems", () => {
+						const allComments = sourceCode.comments;
+						const { directives, problems } =
+							sourceCode.getDisableDirectives();
+
+						assert.deepStrictEqual(
+							directives.map(obj => ({ ...obj })),
+							[
+								{
+									type: "disable",
+									value: "",
+									justification: "",
+									node: allComments[12],
+								},
+								{
+									type: "disable",
+									value: "json/no-duplicate-keys",
+									justification: "we want duplicate keys",
+									node: allComments[13],
+								},
+								{
+									type: "enable",
+									value: "json/no-duplicate-keys, json/no-empty-keys",
+									justification: "",
+									node: allComments[14],
+								},
+								{
+									type: "enable",
+									value: "",
+									justification: "",
+									node: allComments[15],
+								},
+								{
+									type: "disable-line",
+									value: "json/no-empty-keys",
+									justification: "",
+									node: allComments[16],
+								},
+								{
+									type: "disable-line",
+									value: "json/no-empty-keys",
+									justification: "special case",
+									node: allComments[17],
+								},
+								{
+									type: "disable-next-line",
+									value: "",
+									justification: "",
+									node: allComments[18],
+								},
+								{
+									type: "disable-next-line",
+									value: "json/no-duplicate-keys, json/no-empty-keys",
+									justification: "another special case",
+									node: allComments[19],
+								},
+							],
+						);
+
+						assert.strictEqual(problems.length, 1);
+						assert.strictEqual(problems[0].ruleId, null);
+						assert.strictEqual(
+							problems[0].message,
+							"eslint-disable-line comment should not span multiple lines.",
+						);
+						assert.strictEqual(
+							problems[0].loc,
+							allComments[21].loc,
+						);
 					});
 				});
 			});
