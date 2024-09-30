@@ -228,12 +228,13 @@ export class JSONSourceCode extends TextSourceCodeBase {
 						},
 						loc: comment.loc,
 					});
-
-					// Explicit check needed for TypeScript
-				} else if (parseResult.ok === false) {
+				} else {
 					problems.push({
 						ruleId: null,
-						message: parseResult.error.message,
+						message:
+							/** @type {{ok: false, error: { message: string }}} */ (
+								parseResult
+							).error.message,
 						loc: comment.loc,
 					});
 				}
