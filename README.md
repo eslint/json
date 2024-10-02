@@ -155,6 +155,36 @@ export default [
 -   `no-duplicate-keys` - warns when there are two keys in an object with the same text.
 -   `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
 
+## Configuration Comments
+
+In JSONC and JSON5 files, you can also use [rule configurations comments](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments) and [disable directives](https://eslint.org/docs/latest/use/configure/rules#disabling-rules).
+
+```jsonc
+/* eslint json/no-empty-keys: "error" */
+
+{
+	"foo": {
+		"": 1, // eslint-disable-line json/no-empty-keys -- We want an empty key here
+	},
+	"bar": {
+		// eslint-disable-next-line json/no-empty-keys -- We want an empty key here too
+		"": 2,
+	},
+	/* eslint-disable json/no-empty-keys -- Empty keys are allowed in the following code as well */
+	"baz": [
+		{
+			"": 3,
+		},
+		{
+			"": 4,
+		},
+	],
+	/* eslint-enable json/no-empty-keys -- re-enable now */
+}
+```
+
+Both line and block comments can be used for all kinds of configuration comments.
+
 ## Frequently Asked Questions
 
 ### How does this relate to `eslint-plugin-json` and `eslint-plugin-jsonc`?

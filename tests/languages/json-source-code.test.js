@@ -10,6 +10,7 @@
 import { JSONSourceCode } from "../../src/languages/json-source-code.js";
 import { JSONLanguage } from "../../src/languages/json-language.js";
 import assert from "node:assert";
+import dedent from "dedent";
 
 //-----------------------------------------------------------------------------
 // Tests
@@ -273,6 +274,227 @@ describe("JSONSourceCode", () => {
 				ast.body,
 				ast.body.members[0],
 			]);
+		});
+	});
+
+	describe("config comments", () => {
+		const text = dedent`
+			{
+				/* rule config comments */
+				//eslint json/no-duplicate-keys: error
+				// eslint json/no-duplicate-keys: [1] -- comment
+				/*eslint json/no-duplicate-keys: [2, { allow: ["foo"] }]*/
+				/*
+					eslint
+						json/no-empty-keys: warn,
+						json/no-duplicate-keys: [2, "strict"]
+					--
+					comment
+				*/
+
+				// invalid rule config comments
+				// eslint json/no-duplicate-keys: [error
+				/*eslint json/no-duplicate-keys: [1, { allow: ["foo"] ]*/
+
+				// not rule config comments
+				//eslintjson/no-duplicate-keys: error
+				/*-eslint json/no-duplicate-keys: error*/
+
+				/* disable directives */
+				//eslint-disable
+				/* eslint-disable json/no-duplicate-keys -- we want duplicate keys */
+				// eslint-enable json/no-duplicate-keys, json/no-empty-keys
+				/*eslint-enable*/
+				"": 5, // eslint-disable-line json/no-empty-keys
+				/*eslint-disable-line json/no-empty-keys -- special case*/ "": 6,
+				//eslint-disable-next-line
+				"": 7,
+				/* eslint-disable-next-line json/no-duplicate-keys, json/no-empty-keys
+				   -- another special case
+				*/
+				"": 8
+
+				// invalid disable directives
+				/* eslint-disable-line json/no-duplicate-keys
+				*/
+
+				// not disable directives
+				///eslint-disable
+				/*eslint-disable-*/
+			}
+		`;
+
+		["jsonc", "json5"].forEach(languageMode => {
+			describe(`with ${languageMode} language`, () => {
+				let sourceCode = null;
+
+				beforeEach(() => {
+					const file = { body: text, path: `test.${languageMode}` };
+					const language = new JSONLanguage({ mode: languageMode });
+					const parseResult = language.parse(file);
+					sourceCode = new JSONSourceCode({
+						text: file.body,
+						ast: parseResult.ast,
+					});
+				});
+
+				afterEach(() => {
+					sourceCode = null;
+				});
+
+				describe("getInlineConfigNodes()", () => {
+					it("should return inline config comments", () => {
+						const allComments = sourceCode.comments;
+						const configComments =
+							sourceCode.getInlineConfigNodes();
+
+						const configCommentsIndexes = [
+							1, 2, 3, 4, 6, 7, 12, 13, 14, 15, 16, 17, 18, 19,
+							21,
+						];
+
+						assert.strictEqual(
+							configComments.length,
+							configCommentsIndexes.length,
+						);
+
+						configComments.forEach((configComment, i) => {
+							assert.strictEqual(
+								configComment,
+								allComments[configCommentsIndexes[i]],
+							);
+						});
+					});
+				});
+
+				describe("applyInlineConfig()", () => {
+					it("should return rule configs and problems", () => {
+						const allComments = sourceCode.comments;
+						const { configs, problems } =
+							sourceCode.applyInlineConfig();
+
+						assert.deepStrictEqual(configs, [
+							{
+								config: {
+									rules: {
+										"json/no-duplicate-keys": "error",
+									},
+								},
+								loc: allComments[1].loc,
+							},
+							{
+								config: {
+									rules: {
+										"json/no-duplicate-keys": [1],
+									},
+								},
+								loc: allComments[2].loc,
+							},
+							{
+								config: {
+									rules: {
+										"json/no-duplicate-keys": [
+											2,
+											{ allow: ["foo"] },
+										],
+									},
+								},
+								loc: allComments[3].loc,
+							},
+							{
+								config: {
+									rules: {
+										"json/no-empty-keys": "warn",
+										"json/no-duplicate-keys": [2, "strict"],
+									},
+								},
+								loc: allComments[4].loc,
+							},
+						]);
+
+						assert.strictEqual(problems.length, 2);
+						assert.strictEqual(problems[0].ruleId, null);
+						assert.match(problems[0].message, /Failed to parse/u);
+						assert.strictEqual(problems[0].loc, allComments[6].loc);
+						assert.strictEqual(problems[1].ruleId, null);
+						assert.match(problems[1].message, /Failed to parse/u);
+						assert.strictEqual(problems[1].loc, allComments[7].loc);
+					});
+				});
+
+				describe("getDisableDirectives()", () => {
+					it("should return disable directives and problems", () => {
+						const allComments = sourceCode.comments;
+						const { directives, problems } =
+							sourceCode.getDisableDirectives();
+
+						assert.deepStrictEqual(
+							directives.map(obj => ({ ...obj })),
+							[
+								{
+									type: "disable",
+									value: "",
+									justification: "",
+									node: allComments[12],
+								},
+								{
+									type: "disable",
+									value: "json/no-duplicate-keys",
+									justification: "we want duplicate keys",
+									node: allComments[13],
+								},
+								{
+									type: "enable",
+									value: "json/no-duplicate-keys, json/no-empty-keys",
+									justification: "",
+									node: allComments[14],
+								},
+								{
+									type: "enable",
+									value: "",
+									justification: "",
+									node: allComments[15],
+								},
+								{
+									type: "disable-line",
+									value: "json/no-empty-keys",
+									justification: "",
+									node: allComments[16],
+								},
+								{
+									type: "disable-line",
+									value: "json/no-empty-keys",
+									justification: "special case",
+									node: allComments[17],
+								},
+								{
+									type: "disable-next-line",
+									value: "",
+									justification: "",
+									node: allComments[18],
+								},
+								{
+									type: "disable-next-line",
+									value: "json/no-duplicate-keys, json/no-empty-keys",
+									justification: "another special case",
+									node: allComments[19],
+								},
+							],
+						);
+
+						assert.strictEqual(problems.length, 1);
+						assert.strictEqual(problems[0].ruleId, null);
+						assert.strictEqual(
+							problems[0].message,
+							"eslint-disable-line comment should not span multiple lines.",
+						);
+						assert.strictEqual(
+							problems[0].loc,
+							allComments[21].loc,
+						);
+					});
+				});
+			});
 		});
 	});
 });
