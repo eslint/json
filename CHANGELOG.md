@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/eslint/json/compare/json-v0.4.1...json-v0.5.0) (2024-10-02)
+
+
+### Features
+
+* Add support for config comments ([#27](https://github.com/eslint/json/issues/27)) ([723ddf4](https://github.com/eslint/json/commit/723ddf4cc2593ce0469231a76f6dcf4dfb58c3e3))
+
 ## [0.4.1](https://github.com/eslint/json/compare/json-v0.4.0...json-v0.4.1) (2024-09-09)
 
 
