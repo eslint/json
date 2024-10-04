@@ -26,11 +26,12 @@ import {
 /** @typedef {import("@eslint/core").SourceLocation} SourceLocation */
 /** @typedef {import("@eslint/core").File} File */
 /** @typedef {import("@eslint/core").TraversalStep} TraversalStep */
-/** @typedef {import("@eslint/core").TextSourceCode} TextSourceCode */
 /** @typedef {import("@eslint/core").VisitTraversalStep} VisitTraversalStep */
 /** @typedef {import("@eslint/core").FileProblem} FileProblem */
 /** @typedef {import("@eslint/core").DirectiveType} DirectiveType */
 /** @typedef {import("@eslint/core").RulesConfig} RulesConfig */
+/** @typedef {import("../types.ts").IJSONSourceCode} IJSONSourceCode */
+/** @typedef {import("../types.ts").JSONSyntaxElement} JSONSyntaxElement */
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -71,6 +72,7 @@ class JSONTraversalStep extends VisitNodeStep {
 
 /**
  * JSON Source Code Object
+ * @implements {IJSONSourceCode}
  */
 export class JSONSourceCode extends TextSourceCodeBase {
 	/**
@@ -115,6 +117,26 @@ export class JSONSourceCode extends TextSourceCodeBase {
 		this.comments = ast.tokens
 			? ast.tokens.filter(token => token.type.endsWith("Comment"))
 			: [];
+	}
+
+	/* eslint-disable class-methods-use-this -- Required to complete interface. */
+
+	/**
+	 * Returns the loc information for the given node or token.
+	 * @param {JSONSyntaxElement} nodeOrToken The node or token to get the loc information for.
+	 * @returns {SourceLocation} The loc information for the node or token.
+	 */
+	getLoc(nodeOrToken) {
+		return nodeOrToken.loc;
+	}
+
+	/**
+	 * Returns the range information for the given node or token.
+	 * @param {JSONSyntaxElement} nodeOrToken The node or token to get the range information for.
+	 * @returns {SourceRange} The range information for the node or token.
+	 */
+	getRange(nodeOrToken) {
+		return nodeOrToken.range;
 	}
 
 	/**

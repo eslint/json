@@ -25,6 +25,7 @@ import { visitorKeys } from "@humanwhocodes/momoa";
  * @typedef {Object} JSONLanguageOptions
  * @property {boolean} [allowTrailingCommas] Whether to allow trailing commas.
  */
+/** @typedef {import("../types.ts").IJSONLanguage} IJSONLanguage */
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -32,7 +33,7 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 
 /**
  * JSON Language Object
- * @implements {Language}
+ * @implements {IJSONLanguage}
  */
 export class JSONLanguage {
 	/**

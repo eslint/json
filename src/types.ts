@@ -7,7 +7,11 @@
 // Imports
 //------------------------------------------------------------------------------
 
-import { RuleVisitor } from "../../rewrite/packages/core/src/types.ts";
+import type {
+	RuleVisitor,
+	TextSourceCode,
+	Language,
+} from "../../rewrite/packages/core/src/types.ts";
 import {
 	DocumentNode,
 	MemberNode,
@@ -21,6 +25,8 @@ import {
 	NaNNode,
 	InfinityNode,
 	IdentifierNode,
+	AnyNode,
+	Token,
 } from "@humanwhocodes/momoa";
 
 //------------------------------------------------------------------------------
@@ -28,6 +34,16 @@ import {
 //------------------------------------------------------------------------------
 
 type ValueNodeParent = DocumentNode | MemberNode | ElementNode;
+
+/**
+ * A JSON syntax element, including nodes and tokens.
+ */
+export type JSONSyntaxElement = Token | AnyNode;
+
+/**
+ * Language options provided for JSON files.
+ */
+export type JSONLanguageOptions = Record<string, unknown>;
 
 /**
  * The visitor format returned from rules in this package.
@@ -59,3 +75,21 @@ export interface JSONRuleVisitor extends RuleVisitor {
 	"Infinity:exit"?(node: InfinityNode, parent?: ValueNodeParent): void;
 	"Identifier:exit"?(node: IdentifierNode, parent?: ValueNodeParent): void;
 }
+
+/**
+ * The `SourceCode` implementation for JSON files.
+ */
+export type IJSONSourceCode = TextSourceCode<{
+	LangOptions: JSONLanguageOptions;
+	RootNode: DocumentNode;
+	Node: JSONSyntaxElement;
+	SyntaxElementWithLoc: JSONSyntaxElement;
+	ConfigNode: null;
+}>;
+
+export type IJSONLanguage = Language<{
+	LangOptions: JSONLanguageOptions;
+	Code: IJSONSourceCode;
+	RootNode: DocumentNode;
+	Node: AnyNode;
+}>;
