@@ -204,6 +204,11 @@ Similarly, many of the rules in `eslint-plugin-jsonc` specifically disallow vali
 
 Any other rules that catch potential problems in JSON are welcome to be implemented. You can [open an issue](https://github.com/eslint/json/issues/new/choose) to propose a new rule.
 
+## Translations
+
+- [English](https://github.com/eslint/json/blob/main/README.md)
+- [Spanish](https://github.com/eslint/json/blob/main/docs/es/README.md)
+
 ## License
 
 Apache 2.0
