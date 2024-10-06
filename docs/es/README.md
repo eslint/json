@@ -1,6 +1,6 @@
 ---
-original-commit: 723ddf4cc2593ce0469231a76f6dcf4dfb58c3e3
-last-translation-date(yyyy-mm-dd): 2024-10-05 
+translated-from-English-original-commit: cac8847d651eaf4bf945c89480c7d12c9cf0ad12
+last-translation-date(yyyy-mm-dd): 2024-10-06
 ---
 
 # Complemento de lenguaje JSON de ESLint
@@ -51,7 +51,7 @@ export default [
 		},
 	},
 
-	// lint archivos JSON 
+	// lint archivos JSON
 	{
 		files: ["**/*.json"],
 		language: "json/json",
@@ -60,7 +60,7 @@ export default [
 		},
 	},
 
-	// lint archivos JSONC 
+	// lint archivos JSONC
 	{
 		files: ["**/*.jsonc", ".vscode/*.json"],
 		language: "json/jsonc",
@@ -69,7 +69,7 @@ export default [
 		},
 	},
 
-	// lint archivos JSON5 
+	// lint archivos JSON5
 	{
 		files: ["**/*.json5"],
 		language: "json/json5",
@@ -164,13 +164,12 @@ export default [
 
 En los archivos JSONC y JSON5, también puede usar [comentarios de configuración de reglas](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments) y [directivas de desactivación](https://eslint.org/docs/latest/use/configure/rules#disabling-rules).
 
-
 ```jsonc
 /* eslint json/no-empty-keys: "error" */
 
 {
 	"foo": {
-		"": 1, // eslint-disable-line json/no-empty-keys -- Aquí queremos una clave vacía 
+		"": 1, // eslint-disable-line json/no-empty-keys -- Aquí queremos una clave vacía
 	},
 	"bar": {
 		// eslint-disable-next-line json/no-empty-keys -- Aquí también queremos una clave vacía
@@ -188,6 +187,7 @@ En los archivos JSONC y JSON5, también puede usar [comentarios de configuració
 	/* eslint-enable json/no-empty-keys -- volver a habilitar ahora */
 }
 ```
+
 Se pueden utilizar comentarios de línea y de bloque para todo tipo de comentarios de configuración.
 
 ## Preguntas frecuentes
@@ -211,18 +211,26 @@ Se aceptan otras reglas que detecten posibles problemas en JSON. Puede [abrir un
 
 ## Translations
 
-- [English](https://github.com/eslint/json/blob/main/README.md)
-- [Spanish](https://github.com/eslint/json/blob/main/docs/es/README.md)
+-   [English](https://github.com/eslint/json/blob/main/README.md)
+-   [Spanish](https://github.com/eslint/json/blob/main/docs/es/README.md)
 
 ## Licencia
 
 Apache 2.0
 
+<!-- NOTE: Esta sección se genera automáticamente. No la edites manualmente. -->
+<!--sponsorsstart-->
+
 ## Patrocinadores
 
-<!-- NOTA: Esta sección se genera automáticamente. No la edites manualmente.-->
-<!--sponsorsstart-->
-<!--sponsorsend-->
+para que su logotipo aparezca en nuestros archivos README y en nuestro [sitio web](https://eslint.org/sponsors).
 
-<!--techsponsorsstart-->
-<!--techsponsorsend-->
+<h3>Patrocinadores Platino</h3>
+<p><a href="https://automattic.com"><img src="https://images.opencollective.com/automattic/d0ef3e1/logo.png" alt="Automattic" height="128"></a> <a href="https://www.airbnb.com/"><img src="https://images.opencollective.com/airbnb/d327d66/logo.png" alt="Airbnb" height="128"></a></p><h3>Patrocinadores Oro</h3>
+<p><a href="https://trunk.io/"><img src="https://images.opencollective.com/trunkio/fb92d60/avatar.png" alt="trunk.io" height="96"></a></p><h3>Patrocinadores Plata</h3>
+<p><a href="https://www.jetbrains.com/"><img src="https://images.opencollective.com/jetbrains/fe76f99/logo.png" alt="JetBrains" height="64"></a> <a href="https://liftoff.io/"><img src="https://images.opencollective.com/liftoff/5c4fa84/logo.png" alt="Liftoff" height="64"></a> <a href="https://americanexpress.io"><img src="https://avatars.githubusercontent.com/u/3853301?v=4" alt="American Express" height="64"></a> <a href="https://www.workleap.com"><img src="https://avatars.githubusercontent.com/u/53535748?u=d1e55d7661d724bf2281c1bfd33cb8f99fe2465f&v=4" alt="Workleap" height="64"></a></p><h3>Patrocinadores Bronce</h3>
+<p><a href="https://www.wordhint.net/"><img src="https://images.opencollective.com/wordhint/be86813/avatar.png" alt="WordHint" height="32"></a> <a href="https://www.crosswordsolver.org/anagram-solver/"><img src="https://images.opencollective.com/anagram-solver/2666271/logo.png" alt="Anagram Solver" height="32"></a> <a href="https://icons8.com/"><img src="https://images.opencollective.com/icons8/7fa1641/logo.png" alt="Icons8" height="32"></a> <a href="https://discord.com"><img src="https://images.opencollective.com/discordapp/f9645d9/logo.png" alt="Discord" height="32"></a> <a href="https://www.gitbook.com"><img src="https://avatars.githubusercontent.com/u/7111340?v=4" alt="GitBook" height="32"></a> <a href="https://nx.dev"><img src="https://avatars.githubusercontent.com/u/23692104?v=4" alt="Nx" height="32"></a> <a href="https://herocoders.com"><img src="https://avatars.githubusercontent.com/u/37549774?v=4" alt="HeroCoders" height="32"></a> <a href="https://usenextbase.com"><img src="https://avatars.githubusercontent.com/u/145838380?v=4" alt="Nextbase Starter Kit" height="32"></a></p>
+<h3>Patrocinadores tecnológicos</h3>
+Los patrocinadores tecnológicos nos permiten utilizar sus productos y servicios de forma gratuita como parte de una contribución al ecosistema de código abierto y a nuestro trabajo.
+<p><a href="https://netlify.com"><img src="https://raw.githubusercontent.com/eslint/eslint.org/main/src/assets/images/techsponsors/netlify-icon.svg" alt="Netlify" height="32"></a> <a href="https://algolia.com"><img src="https://raw.githubusercontent.com/eslint/eslint.org/main/src/assets/images/techsponsors/algolia-icon.svg" alt="Algolia" height="32"></a> <a href="https://1password.com"><img src="https://raw.githubusercontent.com/eslint/eslint.org/main/src/assets/images/techsponsors/1password-icon.svg" alt="1Password" height="32"></a></p>
+<!--sponsorsend-->
