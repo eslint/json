@@ -1,5 +1,5 @@
 /**
- * @fileoverview Rule to unsafe values in JSON.
+ * @fileoverview Rule to detect unsafe values in JSON.
  * @author Bradley Meck Farias
  */
 
