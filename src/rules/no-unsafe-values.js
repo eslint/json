@@ -13,7 +13,7 @@ export default {
 
 		messages: {
 			unsafeNumber: "Number outside safe range found.",
-			loneSurrogate: "Lone surrogate found.",
+			loneSurrogate: "Lone surrogate '{{ surrogate }}' found.",
 		},
 	},
 
@@ -44,6 +44,12 @@ export default {
 						context.report({
 							loc: node.loc,
 							messageId: "loneSurrogate",
+							data: {
+								surrogate: JSON.stringify(match[0]).slice(
+									1,
+									-1,
+								),
+							},
 						});
 					}
 					match = surrogatePattern.exec(node.value);

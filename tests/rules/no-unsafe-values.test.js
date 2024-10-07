@@ -113,7 +113,14 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: '"\ud83d\ud83d"',
 			errors: [
 				{
-					messageId: "loneSurrogate",
+					message: "Lone surrogate '\\ud83d' found.",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 5,
+				},
+				{
+					message: "Lone surrogate '\\ud83d' found.",
 					line: 1,
 					column: 1,
 					endLine: 1,
