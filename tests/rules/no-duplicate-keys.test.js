@@ -41,6 +41,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 1,
 					column: 12,
 					endLine: 1,
@@ -58,6 +59,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 5,
 					column: 5,
 					endLine: 5,
@@ -71,6 +73,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 1,
 					column: 10,
 					endLine: 1,
@@ -89,6 +92,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 5,
 					column: 5,
 					endLine: 5,
@@ -102,6 +106,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 1,
 					column: 12,
 					endLine: 1,
@@ -120,6 +125,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
+					data: { key: "foo" },
 					line: 5,
 					column: 5,
 					endLine: 5,
