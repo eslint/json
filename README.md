@@ -185,6 +185,37 @@ In JSONC and JSON5 files, you can also use [rule configurations comments](https:
 
 Both line and block comments can be used for all kinds of configuration comments.
 
+## Allowing trailing commas in JSONC
+
+The Microsoft implementation of JSONC optionally allows for trailing commas in objects and arrays (files like `tsconfig.json` have this option enabled by default in Visual Studio Code). To enable trailing commas in JSONC files, use the `allowTrailingCommas` language option, as in this example:
+
+```js
+import json from "@eslint/json";
+
+export default [
+
+	// lint JSONC files
+	{
+		files: ["**/*.jsonc"],
+		language: "json/jsonc",
+		...json.configs.recommended,
+	},
+
+	// lint JSONC files and allow trailing commas
+	{
+		files: ["**/tsconfig.json", ".vscode/*.json"],
+		language: "json/jsonc",
+		languageOptions: {
+			allowTrailingCommas: true
+		}
+		...json.configs.recommended,
+	},
+
+];
+```
+
+**Note:** The `allowTrailingCommas` option is only valid for the `json/jsonc` language.
+
 ## Frequently Asked Questions
 
 ### How does this relate to `eslint-plugin-json` and `eslint-plugin-jsonc`?

@@ -21,6 +21,10 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 /** @typedef {import("@eslint/core").OkParseResult<DocumentNode>} OkParseResult */
 /** @typedef {import("@eslint/core").ParseResult<DocumentNode>} ParseResult */
 /** @typedef {import("@eslint/core").File} File */
+/**
+ * @typedef {Object} JSONLanguageOptions
+ * @property {boolean} [allowTrailingCommas] Whether to allow trailing commas.
+ */
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -76,26 +80,42 @@ export class JSONLanguage {
 		this.#mode = mode;
 	}
 
-	/* eslint-disable class-methods-use-this, no-unused-vars -- Required to complete interface. */
 	/**
 	 * Validates the language options.
-	 * @param {Object} languageOptions The language options to validate.
+	 * @param {JSONLanguageOptions} languageOptions The language options to validate.
 	 * @returns {void}
 	 * @throws {Error} When the language options are invalid.
 	 */
 	validateLanguageOptions(languageOptions) {
-		// no-op
+		if (languageOptions.allowTrailingCommas !== undefined) {
+			if (typeof languageOptions.allowTrailingCommas !== "boolean") {
+				throw new Error(
+					"allowTrailingCommas must be a boolean if provided.",
+				);
+			}
+		}
+
+		// we know that allowTrailingCommas is a boolean here
+
+		// only allowed in JSONC mode
+		if (this.#mode !== "jsonc") {
+			throw new Error(
+				"allowTrailingCommas option is only available in JSONC.",
+			);
+		}
 	}
-	/* eslint-enable class-methods-use-this, no-unused-vars -- Required to complete interface. */
 
 	/**
 	 * Parses the given file into an AST.
 	 * @param {File} file The virtual file to parse.
+	 * @param {{languageOptions: JSONLanguageOptions}} context The options to use for parsing.
 	 * @returns {ParseResult} The result of parsing.
 	 */
-	parse(file) {
+	parse(file, context) {
 		// Note: BOM already removed
 		const text = /** @type {string} */ (file.body);
+		const allowTrailingCommas =
+			context?.languageOptions?.allowTrailingCommas;
 
 		/*
 		 * Check for parsing errors first. If there's a parsing error, nothing
@@ -108,6 +128,7 @@ export class JSONLanguage {
 				mode: this.#mode,
 				ranges: true,
 				tokens: true,
+				allowTrailingCommas,
 			});
 
 			return {
