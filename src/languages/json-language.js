@@ -93,15 +93,15 @@ export class JSONLanguage {
 					"allowTrailingCommas must be a boolean if provided.",
 				);
 			}
-		}
 
-		// we know that allowTrailingCommas is a boolean here
+			// we know that allowTrailingCommas is a boolean here
 
-		// only allowed in JSONC mode
-		if (this.#mode !== "jsonc") {
-			throw new Error(
-				"allowTrailingCommas option is only available in JSONC.",
-			);
+			// only allowed in JSONC mode
+			if (this.#mode !== "jsonc") {
+				throw new Error(
+					"allowTrailingCommas option is only available in JSONC.",
+				);
+			}
 		}
 	}
 

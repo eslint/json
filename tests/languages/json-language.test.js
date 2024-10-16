@@ -63,6 +63,13 @@ describe("JSONLanguage", () => {
 				language.validateLanguageOptions({});
 			});
 		});
+
+		it("should not throw an error when allowTrailingCommas is not provided and other keys are present", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions({ foo: "bar" });
+			});
+		});
 	});
 
 	describe("parse()", () => {
