@@ -207,7 +207,7 @@ export default [
 		language: "json/jsonc",
 		languageOptions: {
 			allowTrailingCommas: true
-		}
+		},
 		...json.configs.recommended,
 	},
 
