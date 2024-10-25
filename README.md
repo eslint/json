@@ -193,7 +193,6 @@ The Microsoft implementation of JSONC optionally allows for trailing commas in o
 import json from "@eslint/json";
 
 export default [
-
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
@@ -207,10 +206,9 @@ export default [
 		language: "json/jsonc",
 		languageOptions: {
 			allowTrailingCommas: true
-		}
+		},
 		...json.configs.recommended,
 	},
-
 ];
 ```
 
