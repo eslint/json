@@ -205,7 +205,7 @@ export default [
 		files: ["**/tsconfig.json", ".vscode/*.json"],
 		language: "json/jsonc",
 		languageOptions: {
-			allowTrailingCommas: true
+			allowTrailingCommas: true,
 		},
 		...json.configs.recommended,
 	},
