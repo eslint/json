@@ -23,6 +23,55 @@ describe("JSONLanguage", () => {
 		});
 	});
 
+	describe("validateLanguageOptions()", () => {
+		it("should throw an error when allowTrailingCommas is not a boolean", () => {
+			const language = new JSONLanguage({
+				mode: "jsonc",
+				allowTrailingCommas: "true",
+			});
+			assert.throws(() => {
+				language.validateLanguageOptions({
+					allowTrailingCommas: "true",
+				});
+			}, /allowTrailingCommas/u);
+		});
+
+		it("should throw an error when allowTrailingCommas is a boolean in JSON mode", () => {
+			const language = new JSONLanguage({ mode: "json" });
+			assert.throws(() => {
+				language.validateLanguageOptions({ allowTrailingCommas: true });
+			}, /allowTrailingCommas/u);
+		});
+
+		it("should throw an error when allowTrailingCommas is a boolean in JSON5 mode", () => {
+			const language = new JSONLanguage({ mode: "json5" });
+			assert.throws(() => {
+				language.validateLanguageOptions({ allowTrailingCommas: true });
+			}, /allowTrailingCommas/u);
+		});
+
+		it("should not throw an error when allowTrailingCommas is a boolean in JSONC mode", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions({ allowTrailingCommas: true });
+			});
+		});
+
+		it("should not throw an error when allowTrailingCommas is not provided", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions({});
+			});
+		});
+
+		it("should not throw an error when allowTrailingCommas is not provided and other keys are present", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions({ foo: "bar" });
+			});
+		});
+	});
+
 	describe("parse()", () => {
 		it("should not parse jsonc by default", () => {
 			const language = new JSONLanguage({ mode: "json" });
@@ -36,6 +85,49 @@ describe("JSONLanguage", () => {
 				result.errors[0].message,
 				"Unexpected character '/' found.",
 			);
+		});
+
+		it("should not parse trailing commas by default in json mode", () => {
+			const language = new JSONLanguage({ mode: "json" });
+			const result = language.parse({
+				body: '{\n"a": 1,\n}',
+				path: "test.json",
+			});
+
+			assert.strictEqual(result.ok, false);
+			assert.strictEqual(
+				result.errors[0].message,
+				"Unexpected token RBrace found.",
+			);
+		});
+
+		it("should not parse trailing commas by default in jsonc mode", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const result = language.parse({
+				body: '{\n"a": 1,\n}',
+				path: "test.jsonc",
+			});
+
+			assert.strictEqual(result.ok, false);
+			assert.strictEqual(
+				result.errors[0].message,
+				"Unexpected token RBrace found.",
+			);
+		});
+
+		it("should parse trailing commas when enabled in jsonc mode", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const result = language.parse(
+				{
+					body: '{\n"a": 1,\n}',
+					path: "test.jsonc",
+				},
+				{ languageOptions: { allowTrailingCommas: true } },
+			);
+
+			assert.strictEqual(result.ok, true);
+			assert.strictEqual(result.ast.type, "Document");
+			assert.strictEqual(result.ast.body.type, "Object");
 		});
 
 		it("should parse json by default", () => {
