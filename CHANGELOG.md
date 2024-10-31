@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/eslint/json/compare/json-v0.5.0...json-v0.6.0) (2024-10-31)
+
+
+### Features
+
+* Add allowTrailingCommas option for JSONC ([#42](https://github.com/eslint/json/issues/42)) ([c94953b](https://github.com/eslint/json/commit/c94953b702a1d9c0c48249f1bda727e2130841c8))
+
 ## [0.5.0](https://github.com/eslint/json/compare/json-v0.4.1...json-v0.5.0) (2024-10-02)
 
 
