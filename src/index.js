@@ -19,7 +19,7 @@ import noEmptyKeys from "./rules/no-empty-keys.js";
 const plugin = {
 	meta: {
 		name: "@eslint/json",
-		version: "0.5.0", // x-release-please-version
+		version: "0.6.0", // x-release-please-version
 	},
 	languages: {
 		json: new JSONLanguage({ mode: "json" }),
