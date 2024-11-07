@@ -78,6 +78,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "loneSurrogate",
+					data: { surrogate: "\\ud83d" },
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -90,6 +91,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "loneSurrogate",
+					data: { surrogate: "\\udd25" },
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -102,6 +104,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "loneSurrogate",
+					data: { surrogate: "\\udd25" },
 					line: 1,
 					column: 1,
 					endLine: 1,
