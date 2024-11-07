@@ -11,6 +11,7 @@ import { JSONLanguage } from "./languages/json-language.js";
 import { JSONSourceCode } from "./languages/json-source-code.js";
 import noDuplicateKeys from "./rules/no-duplicate-keys.js";
 import noEmptyKeys from "./rules/no-empty-keys.js";
+import noUnsafeValues from "./rules/no-unsafe-values.js";
 
 //-----------------------------------------------------------------------------
 // Plugin
@@ -29,6 +30,7 @@ const plugin = {
 	rules: {
 		"no-duplicate-keys": noDuplicateKeys,
 		"no-empty-keys": noEmptyKeys,
+		"no-unsafe-values": noUnsafeValues,
 	},
 	configs: {},
 };
@@ -39,6 +41,7 @@ Object.assign(plugin.configs, {
 		rules: {
 			"json/no-duplicate-keys": "error",
 			"json/no-empty-keys": "error",
+			"json/no-unsafe-values": "error",
 		},
 	},
 });
