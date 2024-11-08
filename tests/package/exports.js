@@ -38,11 +38,12 @@ describe("Package exports", () => {
 	it("has all available rules exported in the ESLint plugin", async () => {
 		const allRules = (await fs.readdir(rulesDir))
 			.filter(name => name.endsWith(".js"))
-			.map(name => name.slice(0, -".js".length));
+			.map(name => name.slice(0, -".js".length))
+			.sort();
 		const exportedRules = exports.default.rules;
 
 		assert.deepStrictEqual(
-			Object.keys(exportedRules),
+			Object.keys(exportedRules).sort(),
 			allRules,
 			"Expected all rules to be exported in the ESLint plugin (`plugin.rules` in `src/index.js`)",
 		);
