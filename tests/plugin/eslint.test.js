@@ -19,6 +19,25 @@ import dedent from "dedent";
 //-----------------------------------------------------------------------------
 
 describe("when the plugin is used with ESLint", () => {
+	describe("plugin configs", () => {
+		Object.keys(json.configs).forEach(configName => {
+			it(`Using "${configName}" config should not throw`, async () => {
+				const config = {
+					files: ["**/*.json"],
+					language: "json/json",
+					...json.configs[configName],
+				};
+
+				const eslint = new ESLint({
+					overrideConfigFile: true,
+					overrideConfig: config,
+				});
+
+				await eslint.lintText("{}", { filePath: "test.json" });
+			});
+		});
+	});
+
 	describe("config comments", () => {
 		["jsonc", "json5"].forEach(language => {
 			describe(`with ${language} language`, () => {
