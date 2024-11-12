@@ -32,19 +32,21 @@ const plugin = {
 		"no-empty-keys": noEmptyKeys,
 		"no-unsafe-values": noUnsafeValues,
 	},
-	configs: {},
-};
-
-Object.assign(plugin.configs, {
-	recommended: {
-		plugins: { json: plugin },
-		rules: {
-			"json/no-duplicate-keys": "error",
-			"json/no-empty-keys": "error",
-			"json/no-unsafe-values": "error",
+	configs: {
+		recommended: {
+			plugins: {
+				get json() {
+					return plugin;
+				},
+			},
+			rules: {
+				"json/no-duplicate-keys": "error",
+				"json/no-empty-keys": "error",
+				"json/no-unsafe-values": "error",
+			},
 		},
 	},
-});
+};
 
 export default plugin;
 export { JSONLanguage, JSONSourceCode };
