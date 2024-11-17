@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/eslint/json/compare/json-v0.6.0...json-v0.7.0) (2024-11-17)
+
+
+### Features
+
+* enable `no-unsafe-values` and add it to recommended configuration ([#51](https://github.com/eslint/json/issues/51)) ([72273f5](https://github.com/eslint/json/commit/72273f5dc0461505989a278a1f16b88d64bc8d7d))
+* rule no-unsafe-values ([#30](https://github.com/eslint/json/issues/30)) ([6988e5c](https://github.com/eslint/json/commit/6988e5c1445bbca10b1988ca2d9949b4bc66378c))
+
+
+### Bug Fixes
+
+* Upgrade Momoa to fix parsing errors ([#50](https://github.com/eslint/json/issues/50)) ([3723a07](https://github.com/eslint/json/commit/3723a071a3bae296d2dbe66684b9d62832f099ad))
+
 ## [0.6.0](https://github.com/eslint/json/compare/json-v0.5.0...json-v0.6.0) (2024-10-31)
 
 
