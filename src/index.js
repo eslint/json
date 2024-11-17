@@ -34,11 +34,7 @@ const plugin = {
 	},
 	configs: {
 		recommended: {
-			plugins: {
-				get json() {
-					return plugin;
-				},
-			},
+			plugins: {},
 			rules: {
 				"json/no-duplicate-keys": "error",
 				"json/no-empty-keys": "error",
@@ -47,6 +43,8 @@ const plugin = {
 		},
 	},
 };
+
+Object.assign(plugin.configs.recommended.plugins, { json: plugin });
 
 export default plugin;
 export { JSONLanguage, JSONSourceCode };
