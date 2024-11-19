@@ -44,7 +44,10 @@ const plugin = {
 	},
 };
 
-Object.assign(plugin.configs.recommended.plugins, { json: plugin });
+// eslint-disable-next-line no-lone-blocks -- The block syntax { ... } ensures that TypeScript does not get confused about the type of `plugin`.
+{
+	plugin.configs.recommended.plugins.json = plugin;
+}
 
 export default plugin;
 export { JSONLanguage, JSONSourceCode };
