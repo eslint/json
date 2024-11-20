@@ -12,7 +12,7 @@ export default {
 		},
 
 		messages: {
-			unnormalizedKey: "Unnormalized key found.",
+			unnormalizedKey: "Unnormalized key '{{key}}' found.",
 		},
 
 		schema: {
@@ -40,6 +40,9 @@ export default {
 					context.report({
 						loc: node.name.loc,
 						messageId: "unnormalizedKey",
+						data: {
+							key,
+						},
 					});
 				}
 			},
