@@ -32,19 +32,22 @@ const plugin = {
 		"no-empty-keys": noEmptyKeys,
 		"no-unsafe-values": noUnsafeValues,
 	},
-	configs: {},
-};
-
-Object.assign(plugin.configs, {
-	recommended: {
-		plugins: { json: plugin },
-		rules: {
-			"json/no-duplicate-keys": "error",
-			"json/no-empty-keys": "error",
-			"json/no-unsafe-values": "error",
+	configs: {
+		recommended: {
+			plugins: {},
+			rules: {
+				"json/no-duplicate-keys": "error",
+				"json/no-empty-keys": "error",
+				"json/no-unsafe-values": "error",
+			},
 		},
 	},
-});
+};
+
+// eslint-disable-next-line no-lone-blocks -- The block syntax { ... } ensures that TypeScript does not get confused about the type of `plugin`.
+{
+	plugin.configs.recommended.plugins.json = plugin;
+}
 
 export default plugin;
 export { JSONLanguage, JSONSourceCode };
