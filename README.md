@@ -155,6 +155,7 @@ export default [
 -   `no-duplicate-keys` - warns when there are two keys in an object with the same text.
 -   `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
 -   `no-unsafe-values` - warns on values that are unsafe for interchange, such as numbers outside safe range or lone surrogates.
+-   `no-unnormalized-keys` - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description).
 
 ## Configuration Comments
 
