@@ -27,8 +27,8 @@ export default {
 
 	create(context) {
 		const normalization = context.options.length
-			? s => s.normalize(context.options[0])
-			: s => s.normalize();
+			? text => text.normalize(context.options[0])
+			: text => text.normalize();
 		return {
 			Member(node) {
 				const key =
