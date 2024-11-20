@@ -12,6 +12,7 @@ import { JSONSourceCode } from "./languages/json-source-code.js";
 import noDuplicateKeys from "./rules/no-duplicate-keys.js";
 import noEmptyKeys from "./rules/no-empty-keys.js";
 import noUnsafeValues from "./rules/no-unsafe-values.js";
+import noUnnormalizedKeys from "./rules/no-unnormalized-keys.js";
 
 //-----------------------------------------------------------------------------
 // Plugin
@@ -31,6 +32,7 @@ const plugin = {
 		"no-duplicate-keys": noDuplicateKeys,
 		"no-empty-keys": noEmptyKeys,
 		"no-unsafe-values": noUnsafeValues,
+		"no-unnormalized-keys": noUnnormalizedKeys,
 	},
 	configs: {
 		recommended: {
@@ -39,6 +41,7 @@ const plugin = {
 				"json/no-duplicate-keys": "error",
 				"json/no-empty-keys": "error",
 				"json/no-unsafe-values": "error",
+				"json/no-unnormalized-keys": "error",
 			}),
 		},
 	},
