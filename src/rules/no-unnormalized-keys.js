@@ -15,19 +15,23 @@ export default {
 			unnormalizedKey: "Unnormalized key '{{key}}' found.",
 		},
 
-		schema: {
-			type: "array",
-			minItems: 0,
-			maxItems: 1,
-			items: {
-				enum: ["NFC", "NFD", "NFKC", "NFKD"],
+		schema: [
+			{
+				type: "object",
+				properties: {
+					form: {
+						type: "string",
+						enum: ["NFC", "NFD", "NFKC", "NFKD"],
+					},
+				},
+				additionalProperties: false,
 			},
-		},
+		],
 	},
 
 	create(context) {
 		const normalization = context.options.length
-			? text => text.normalize(context.options[0])
+			? text => text.normalize(context.options[0].form)
 			: text => text.normalize();
 		return {
 			Member(node) {

@@ -29,19 +29,19 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		`{"${o}":"NFC"}`,
 		{
 			code: `{"${o}":"NFC"}`,
-			options: ["NFC"],
+			options: [{ form: "NFC" }],
 		},
 		{
 			code: `{"${o.normalize("NFD")}":"NFD"}`,
-			options: ["NFD"],
+			options: [{ form: "NFD" }],
 		},
 		{
 			code: `{"${o.normalize("NFKC")}":"NFKC"}`,
-			options: ["NFKC"],
+			options: [{ form: "NFKC" }],
 		},
 		{
 			code: `{"${o.normalize("NFKD")}":"NFKD"}`,
-			options: ["NFKD"],
+			options: [{ form: "NFKD" }],
 		},
 	],
 	invalid: [
@@ -74,7 +74,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		{
 			code: `{"${o.normalize("NFKC")}":"NFKC"}`,
-			options: ["NFKD"],
+			options: [{ form: "NFKD" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
