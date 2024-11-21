@@ -119,26 +119,6 @@ export class JSONSourceCode extends TextSourceCodeBase {
 			: [];
 	}
 
-	/* eslint-disable class-methods-use-this -- Required to complete interface. */
-
-	/**
-	 * Returns the loc information for the given node or token.
-	 * @param {JSONSyntaxElement} nodeOrToken The node or token to get the loc information for.
-	 * @returns {SourceLocation} The loc information for the node or token.
-	 */
-	getLoc(nodeOrToken) {
-		return nodeOrToken.loc;
-	}
-
-	/**
-	 * Returns the range information for the given node or token.
-	 * @param {JSONSyntaxElement} nodeOrToken The node or token to get the range information for.
-	 * @returns {SourceRange} The range information for the node or token.
-	 */
-	getRange(nodeOrToken) {
-		return nodeOrToken.range;
-	}
-
 	/**
 	 * Returns the value of the given comment.
 	 * @param {JSONToken} comment The comment to get the value of.
@@ -169,7 +149,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 			);
 		}
 
-		return this.#inlineConfigComments;
+		return this.#inlineConfigComments ?? [];
 	}
 
 	/**

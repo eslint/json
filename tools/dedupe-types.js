@@ -42,7 +42,7 @@ files.forEach(filePath => {
 	// replace references to ../types.ts with types.ts
 	const text = remainingLines
 		.join("\n")
-		.replace(/\.\.\/types\.ts/gu, "types.ts");
+		.replace(/\.\.\/types\.ts/gu, "./types.ts");
 
 	fs.writeFileSync(filePath, text, "utf8");
 });

@@ -3,15 +3,36 @@
  * @author Bradley Meck Farias
  */
 
-// RFC 8259's `number` production, as a regex.  Capture the integer part
-// and the fractional part.
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoUnsafeValuesMessageIds>} NoUnsafeValuesRuleDefinition */
+
+//-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
+
+/*
+ * This rule is based on the JSON grammar from RFC 8259, section 6.
+ * https://tools.ietf.org/html/rfc8259#section-6
+ * 
+ * We separately capture the integer and fractional parts of a number, so that
+ * we can check for unsafe numbers that will evaluate to Infinity.
+ */
 const NUMBER =
 	/^-?(?<int>0|([1-9][0-9]*))(?:\.(?<frac>[0-9]+))?(?:[eE][+-]?[0-9]+)?$/u;
 const NON_ZERO = /[1-9]/u;
 
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {NoUnsafeValuesRuleDefinition} */
 export default {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow JSON values that are unsafe for interchange",

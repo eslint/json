@@ -7,17 +7,17 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {import("../types.ts").JSONRuleVisitor} JSONRuleVisitor */
-/** @typedef {import("../../../rewrite/packages/core/src/types.ts").RuleDefinition<JSONRuleVisitor>} RuleDefinition */
+/** @typedef {"emptyKey"} NoEmptyKeysMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoEmptyKeysMessageIds>} NoEmptyKeysRuleDefinition */
 
 //-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {RuleDefinition} */
+/** @type {NoEmptyKeysRuleDefinition} */
 export default {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow empty keys in JSON objects",

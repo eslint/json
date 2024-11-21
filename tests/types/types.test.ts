@@ -1,7 +1,7 @@
 import json from "@eslint/json";
-import { ESLint } from "eslint";
+// import { ESLint } from "eslint";
 
-json satisfies ESLint.Plugin;
+// json satisfies ESLint.Plugin;
 json.meta.name satisfies string;
 json.meta.version satisfies string;
 

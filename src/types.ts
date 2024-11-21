@@ -11,7 +11,9 @@ import type {
 	RuleVisitor,
 	TextSourceCode,
 	Language,
-} from "../../rewrite/packages/core/src/types.ts";
+	LanguageOptions,
+	RuleDefinition,
+} from "@eslint/core";
 import {
 	DocumentNode,
 	MemberNode,
@@ -43,7 +45,12 @@ export type JSONSyntaxElement = Token | AnyNode;
 /**
  * Language options provided for JSON files.
  */
-export type JSONLanguageOptions = Record<string, unknown>;
+export interface JSONLanguageOptions extends LanguageOptions {
+	/**
+	 * Whether to allow trailing commas. Only valid in JSONC.
+	 */
+	allowTrailingCommas?: boolean;
+}
 
 /**
  * The visitor format returned from rules in this package.
@@ -82,9 +89,8 @@ export interface JSONRuleVisitor extends RuleVisitor {
 export type IJSONSourceCode = TextSourceCode<{
 	LangOptions: JSONLanguageOptions;
 	RootNode: DocumentNode;
-	Node: JSONSyntaxElement;
 	SyntaxElementWithLoc: JSONSyntaxElement;
-	ConfigNode: null;
+	ConfigNode: Token;
 }>;
 
 export type IJSONLanguage = Language<{
@@ -92,4 +98,17 @@ export type IJSONLanguage = Language<{
 	Code: IJSONSourceCode;
 	RootNode: DocumentNode;
 	Node: AnyNode;
+}>;
+
+export type JSONRuleDefinition<
+	JSONRuleOptions extends unknown[],
+	JSONRuleMessageIds extends string = "",
+> = RuleDefinition<{
+	LangOptions: JSONLanguageOptions;
+	Code: IJSONSourceCode;
+	RuleOptions: JSONRuleOptions;
+	Visitor: JSONRuleVisitor;
+	Node: AnyNode;
+	MessageIds: JSONRuleMessageIds;
+	ExtRuleDocs: {};
 }>;
