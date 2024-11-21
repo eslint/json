@@ -9,7 +9,7 @@
 
 export default {
 	meta: {
-		type: "problem",
+		type: /** @type {const} */ ("problem"),
 
 		docs: {
 			description: "Disallow duplicate keys in JSON objects",
