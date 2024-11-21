@@ -20,7 +20,6 @@ export default {
 				type: "object",
 				properties: {
 					form: {
-						type: "string",
 						enum: ["NFC", "NFD", "NFKC", "NFKD"],
 					},
 				},
