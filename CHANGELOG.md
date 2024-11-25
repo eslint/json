@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.0](https://github.com/eslint/json/compare/json-v0.7.0...json-v0.8.0) (2024-11-23)
+
+
+### Features
+
+* rule no-unnormalized-keys ([#63](https://github.com/eslint/json/issues/63)) ([c57882e](https://github.com/eslint/json/commit/c57882e1c3b51f00b94da4ed9b40d5cf2e4d6847))
+
+
+### Bug Fixes
+
+* add type tests ([#65](https://github.com/eslint/json/issues/65)) ([a6c0bc9](https://github.com/eslint/json/commit/a6c0bc9db1e265484c275860fdb41fcfd8aefaf2))
+* expose `plugin.configs` in types ([#59](https://github.com/eslint/json/issues/59)) ([1fd0452](https://github.com/eslint/json/commit/1fd0452e97554ec4e696d2105f68df36fbe7f260))
+
 ## [0.7.0](https://github.com/eslint/json/compare/json-v0.6.0...json-v0.7.0) (2024-11-17)
 
 
