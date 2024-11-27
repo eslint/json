@@ -30,9 +30,9 @@ deno add @eslint/json
 
 This package exports these languages:
 
--   `"json/json"` is for regular JSON files
--   `"json/jsonc"` is for JSON files that support comments ([JSONC](https://github.com/microsoft/node-jsonc-parser)) such as those used for Visual Studio Code configuration files
--   `"json/json5"` is for [JSON5](https://json5.org) files
+- `"json/json"` is for regular JSON files
+- `"json/jsonc"` is for JSON files that support comments ([JSONC](https://github.com/microsoft/node-jsonc-parser)) such as those used for Visual Studio Code configuration files
+- `"json/json5"` is for [JSON5](https://json5.org) files
 
 Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints JSON, JSONC, and JSON5 files:
 
@@ -152,10 +152,10 @@ export default [
 
 ## Rules
 
--   `no-duplicate-keys` - warns when there are two keys in an object with the same text.
--   `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
--   `no-unsafe-values` - warns on values that are unsafe for interchange, such as numbers outside safe range or lone surrogates.
--   `no-unnormalized-keys` - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
+- `no-duplicate-keys` - warns when there are two keys in an object with the same text.
+- `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
+- `no-unsafe-values` - warns on values that are unsafe for interchange, such as numbers outside safe range or lone surrogates.
+- `no-unnormalized-keys` - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
 
 ## Configuration Comments
 
@@ -222,8 +222,8 @@ export default [
 
 This plugin implements JSON parsing for ESLint using the language plugins API, which is the official way of supporting non-JavaScript languages in ESLint. This differs from the other plugins:
 
--   `eslint-plugin-json` uses a processor to parse the JSON, meaning it doesn't create an AST and you can't write custom rules for it.
--   `eslint-plugin-jsonc` uses a parser that still goes through the JavaScript linting functionality and requires several rules to disallow valid JavaScript syntax that is invalid in JSON.
+- `eslint-plugin-json` uses a processor to parse the JSON, meaning it doesn't create an AST and you can't write custom rules for it.
+- `eslint-plugin-jsonc` uses a parser that still goes through the JavaScript linting functionality and requires several rules to disallow valid JavaScript syntax that is invalid in JSON.
 
 As such, this plugin is more robust and faster than the others. You can write your own custom rules when using the languages in this plugin, too.
 
