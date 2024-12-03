@@ -131,5 +131,113 @@ ruleTester.run("no-unsafe-values", rule, {
 				},
 			],
 		},
+		{
+			code: "1e-400",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 7,
+				},
+			],
+		},
+		{
+			code: "-1e-400",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 8,
+				},
+			],
+		},
+		{
+			code: "0.01e-400",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 10,
+				},
+			],
+		},
+		{
+			code: "-10.2e-402",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 11,
+				},
+			],
+		},
+		{
+			code: `0.${"0".repeat(400)}1`,
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 404,
+				},
+			],
+		},
+		{
+			code: "9007199254740992",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 17,
+				},
+			],
+		},
+		{
+			code: "-9007199254740992",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 18,
+				},
+			],
+		},
+		{
+			code: "2.2250738585072009e-308",
+			errors: [
+				{
+					messageId: "subnormal",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 24,
+				},
+			],
+		},
+		{
+			code: "-2.2250738585072009e-308",
+			errors: [
+				{
+					messageId: "subnormal",
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 25,
+				},
+			],
+		},
 	],
 });
