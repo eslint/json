@@ -9,12 +9,12 @@ export default {
 
 		docs: {
 			description:
-				"Disallow JSON top-level items are not an array or object",
+				"Require the JSON top-level value to be an array or object",
 		},
 
 		messages: {
 			topLevel:
-				'Top level item should be array or object, got "{{type}}".',
+				"Top level item should be array or object, got \"{{type}}\".",
 		},
 	},
 
