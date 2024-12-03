@@ -13,6 +13,7 @@ import noDuplicateKeys from "./rules/no-duplicate-keys.js";
 import noEmptyKeys from "./rules/no-empty-keys.js";
 import noUnsafeValues from "./rules/no-unsafe-values.js";
 import noUnnormalizedKeys from "./rules/no-unnormalized-keys.js";
+import topLevelinterop from "./rules/top-level-interop.js";
 
 //-----------------------------------------------------------------------------
 // Plugin
@@ -33,6 +34,7 @@ const plugin = {
 		"no-empty-keys": noEmptyKeys,
 		"no-unsafe-values": noUnsafeValues,
 		"no-unnormalized-keys": noUnnormalizedKeys,
+		"top-level-interop": topLevelinterop,
 	},
 	configs: {
 		recommended: {
@@ -42,6 +44,7 @@ const plugin = {
 				"json/no-empty-keys": "error",
 				"json/no-unsafe-values": "error",
 				"json/no-unnormalized-keys": "error",
+				"json/top-level-interop": "off",
 			}),
 		},
 	},
