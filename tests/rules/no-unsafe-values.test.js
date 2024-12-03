@@ -35,6 +35,9 @@ ruleTester.run("no-unsafe-values", rule, {
 		},
 		'"🔥"',
 		'"\\ud83d\\udd25"',
+		"0.00000",
+		"0e0000000",
+		"0.00000e0000",
 	],
 	invalid: [
 		{
@@ -135,7 +138,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "1e-400",
 			errors: [
 				{
-					messageId: "unsafeNumber",
+					messageId: "unsafeZero",
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -147,7 +150,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "-1e-400",
 			errors: [
 				{
-					messageId: "unsafeNumber",
+					messageId: "unsafeZero",
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -159,7 +162,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "0.01e-400",
 			errors: [
 				{
-					messageId: "unsafeNumber",
+					messageId: "unsafeZero",
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -171,7 +174,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "-10.2e-402",
 			errors: [
 				{
-					messageId: "unsafeNumber",
+					messageId: "unsafeZero",
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -183,7 +186,7 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: `0.${"0".repeat(400)}1`,
 			errors: [
 				{
-					messageId: "unsafeNumber",
+					messageId: "unsafeZero",
 					line: 1,
 					column: 1,
 					endLine: 1,
