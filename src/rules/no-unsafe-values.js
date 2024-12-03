@@ -14,7 +14,8 @@ export default {
 		type: /** @type {const} */ ("problem"),
 
 		docs: {
-			description: "Disallow JSON values that are unsafe for interchange",
+			description:
+				"Disallow JSON values that are unsafe for interchange.  This includes strings with unmatched surrogates, numbers that evaluate to Infinity, numbers that evaluate to zero unintentionally, numbers that look like integers but they are too large, and subnormal numbers (see: https://en.wikipedia.org/wiki/Subnormal_number)",
 		},
 
 		messages: {
@@ -23,7 +24,7 @@ export default {
 			unsafeZero:
 				"This number will evaluate to zero, which is unintended.",
 			subnormal:
-				"Subnormal numbers (see https://en.wikipedia.org/wiki/Subnormal_number) are outside the safe range: '{{ value }}'.",
+				"Unexpected subnormal number '{{ value }}' found.  Subnormal numbers are outside the safe range.",
 			loneSurrogate: "Lone surrogate '{{ surrogate }}' found.",
 		},
 	},
