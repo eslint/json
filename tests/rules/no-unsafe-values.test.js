@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tests for no-empty-keys rule.
+ * @fileoverview Tests for no-unsafe-values rule.
  * @author Bradley Meck Farias
  */
 
