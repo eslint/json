@@ -174,20 +174,19 @@ ruleTester.run("no-duplicate-keys", rule, {
 				},
 			],
 		},
-		// See: https://github.com/humanwhocodes/momoa/issues/164
-		// {
-		// 	code: '{f\\u006fot: 1, fo\\u006ft: 2}',
-		// 	language: "json/json5",
-		// 	errors: [
-		// 		{
-		// 			messageId: "duplicateKey",
-		// 			data: { key: "foot" },
-		// 			line: 1,
-		// 			column: 18,
-		// 			endLine: 1,
-		// 			endColumn: 29,
-		// 		},
-		// 	],
-		// },
+		{
+			code: '{f\\u006fot: 1, fo\\u006ft: 2}',
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "foot" },
+					line: 1,
+					column: 16,
+					endLine: 1,
+					endColumn: 25,
+				},
+			],
+		},
 	],
 });
