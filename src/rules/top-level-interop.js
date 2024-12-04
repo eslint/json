@@ -14,7 +14,7 @@ export default {
 
 		messages: {
 			topLevel:
-				"Top level item should be array or object, got \"{{type}}\".",
+				"Top level item should be array or object, got '{{type}}'.",
 		},
 	},
 
