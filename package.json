@@ -64,7 +64,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@eslint/plugin-kit": "^0.2.3",
-    "@humanwhocodes/momoa": "^3.3.3"
+    "@humanwhocodes/momoa": "^3.3.4"
   },
   "devDependencies": {
     "@eslint/core": "^0.6.0",
