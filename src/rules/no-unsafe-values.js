@@ -14,8 +14,7 @@ export default {
 		type: /** @type {const} */ ("problem"),
 
 		docs: {
-			description:
-				"Disallow JSON values that are unsafe for interchange",
+			description: "Disallow JSON values that are unsafe for interchange",
 		},
 
 		messages: {
