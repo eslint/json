@@ -3,9 +3,21 @@
  * @author Bradley Meck Farias
  */
 
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"unsafeNumber"|"loneSurrogate"} NoUnsafeValuesMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoUnsafeValuesMessageIds>} NoUnsafeValuesRuleDefinition */
+
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {NoUnsafeValuesRuleDefinition} */
 export default {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow JSON values that are unsafe for interchange",
