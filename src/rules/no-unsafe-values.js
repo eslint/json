@@ -18,12 +18,12 @@ export default {
 		},
 
 		messages: {
-			unsafeNumber: "Number outside safe range found.",
-			unsafeInteger: "Integer outside safe range found.",
-			unsafeZero:
-				"This number will evaluate to zero, which is unintended.",
+			unsafeNumber: "The number '{{ value }}' will evaluate to Infinity.",
+			unsafeInteger:
+				"The integer '{{ value }}' is outside the safe integer range.",
+			unsafeZero: "The number '{{ value }}' will evaluate to zero.",
 			subnormal:
-				"Unexpected subnormal number '{{ value }}' found.  Subnormal numbers are outside the safe range.",
+				"Unexpected subnormal number '{{ value }}' found, which may cause interoperability issues.",
 			loneSurrogate: "Lone surrogate '{{ surrogate }}' found.",
 		},
 	},
@@ -31,20 +31,21 @@ export default {
 	create(context) {
 		return {
 			Number(node) {
+				const value = context.sourceCode.getText(node);
+
 				if (Number.isFinite(node.value) !== true) {
 					context.report({
 						loc: node.loc,
 						messageId: "unsafeNumber",
+						data: { value },
 					});
 				} else {
-					const txt = context.sourceCode.getText(node);
-
 					// Also matches -0, intentionally
 					if (node.value === 0) {
 						// If the value has been rounded down to 0, but there was some
 						// fraction or non-zero part before the e-, this is a very small
 						// number that doesn't fit inside an f64.
-						const match = txt.match(NUMBER);
+						const match = value.match(NUMBER);
 						// assert(match, "If the regex is right, match is always truthy")
 
 						// If any part of the number other than the  has a non-zero digit
@@ -57,9 +58,10 @@ export default {
 							context.report({
 								loc: node.loc,
 								messageId: "unsafeZero",
+								data: { value },
 							});
 						}
-					} else if (!txt.match(/[.e]/iu)) {
+					} else if (!value.match(/[.e]/iu)) {
 						// Intended to be an integer
 						if (
 							node.value > Number.MAX_SAFE_INTEGER ||
@@ -68,6 +70,7 @@ export default {
 							context.report({
 								loc: node.loc,
 								messageId: "unsafeInteger",
+								data: { value },
 							});
 						}
 					} else {

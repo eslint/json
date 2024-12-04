@@ -45,6 +45,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeNumber",
+					data: {
+						value: "2e308",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -57,6 +60,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeNumber",
+					data: {
+						value: "-2e308",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -139,6 +145,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeZero",
+					data: {
+						value: "1e-400",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -151,6 +160,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeZero",
+					data: {
+						value: "-1e-400",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -163,6 +175,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeZero",
+					data: {
+						value: "0.01e-400",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -175,6 +190,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeZero",
+					data: {
+						value: "-10.2e-402",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -187,6 +205,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeZero",
+					data: {
+						value: `0.${"0".repeat(400)}1`,
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -199,6 +220,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeInteger",
+					data: {
+						value: "9007199254740992",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -211,6 +235,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "unsafeInteger",
+					data: {
+						value: "-9007199254740992",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -223,6 +250,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "subnormal",
+					data: {
+						value: "2.225073858507201e-308",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
@@ -235,6 +265,9 @@ ruleTester.run("no-unsafe-values", rule, {
 			errors: [
 				{
 					messageId: "subnormal",
+					data: {
+						value: "-2.225073858507201e-308",
+					},
 					line: 1,
 					column: 1,
 					endLine: 1,
