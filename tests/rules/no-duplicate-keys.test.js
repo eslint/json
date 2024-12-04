@@ -175,7 +175,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			],
 		},
 		{
-			code: '{f\\u006fot: 1, fo\\u006ft: 2}',
+			code: "{f\\u006fot: 1, fo\\u006ft: 2}",
 			language: "json/json5",
 			errors: [
 				{
