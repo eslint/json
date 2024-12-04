@@ -156,6 +156,7 @@ export default [
 - `no-empty-keys` - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
 - `no-unsafe-values` - warns on values that are unsafe for interchange, such as numbers outside safe range or lone surrogates.
 - `no-unnormalized-keys` - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
+- `top-level-interop` - warns when the top-level item in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
 
 ## Configuration Comments
 
