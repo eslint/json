@@ -9,6 +9,7 @@
 
 /** @typedef {"duplicateKey"} NoDuplicateKeysMessageIds */
 /** @typedef {import("../types.ts").JSONRuleDefinition<[], NoDuplicateKeysMessageIds>} NoDuplicateKeysRuleDefinition */
+/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
 
 //-----------------------------------------------------------------------------
 // Rule Definition
@@ -29,7 +30,10 @@ export default {
 	},
 
 	create(context) {
+		/** @type {Array<Map<string, MemberNode>|undefined>} */
 		const objectKeys = [];
+
+		/** @type {Map<string, MemberNode>|undefined} */
 		let keys;
 
 		return {
@@ -44,7 +48,7 @@ export default {
 						? node.name.value
 						: node.name.name;
 
-				if (keys.has(key)) {
+				if (keys?.has(key)) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "duplicateKey",
@@ -53,7 +57,7 @@ export default {
 						},
 					});
 				} else {
-					keys.set(key, node);
+					keys?.set(key, node);
 				}
 			},
 			"Object:exit"() {

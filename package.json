@@ -68,7 +68,6 @@
     "@humanwhocodes/momoa": "^3.3.4"
   },
   "devDependencies": {
-    "@types/eslint": "^8.56.10",
     "c8": "^9.1.0",
     "dedent": "^1.5.3",
     "eslint": "^9.11.1",
