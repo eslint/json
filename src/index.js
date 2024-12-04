@@ -44,7 +44,6 @@ const plugin = {
 				"json/no-empty-keys": "error",
 				"json/no-unsafe-values": "error",
 				"json/no-unnormalized-keys": "error",
-				"json/top-level-interop": "off",
 			}),
 		},
 	},
