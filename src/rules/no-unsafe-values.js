@@ -15,7 +15,7 @@ export default {
 
 		docs: {
 			description:
-				"Disallow JSON values that are unsafe for interchange.  This includes strings with unmatched surrogates, numbers that evaluate to Infinity, numbers that evaluate to zero unintentionally, numbers that look like integers but they are too large, and subnormal numbers (see: https://en.wikipedia.org/wiki/Subnormal_number)",
+				"Disallow JSON values that are unsafe for interchange",
 		},
 
 		messages: {
