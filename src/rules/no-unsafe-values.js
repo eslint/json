@@ -48,9 +48,9 @@ export default {
 						const match = value.match(NUMBER);
 						// assert(match, "If the regex is right, match is always truthy")
 
-						// If any part of the number other than the  has a non-zero digit
-						// in it, this number was not intended to be evaluated down to a
-						// zero.
+						// If any part of the number other than the exponent has a
+						// non-zero digit in it, this number was not intended to be
+						// evaluated down to a zero.
 						if (
 							NON_ZERO.test(match.groups.int) ||
 							NON_ZERO.test(match.groups.frac)
@@ -61,7 +61,7 @@ export default {
 								data: { value },
 							});
 						}
-					} else if (!value.match(/[.e]/iu)) {
+					} else if (!/[.e]/iu.test(value)) {
 						// Intended to be an integer
 						if (
 							node.value > Number.MAX_SAFE_INTEGER ||
