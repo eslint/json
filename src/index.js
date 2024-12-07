@@ -22,7 +22,7 @@ import topLevelInterop from "./rules/top-level-interop.js";
 const plugin = {
 	meta: {
 		name: "@eslint/json",
-		version: "0.8.0", // x-release-please-version
+		version: "0.9.0", // x-release-please-version
 	},
 	languages: {
 		json: new JSONLanguage({ mode: "json" }),
