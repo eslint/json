@@ -17,7 +17,7 @@
 /*
  * This rule is based on the JSON grammar from RFC 8259, section 6.
  * https://tools.ietf.org/html/rfc8259#section-6
- * 
+ *
  * We separately capture the integer and fractional parts of a number, so that
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
@@ -106,7 +106,9 @@ export default {
 								loc: node.loc,
 								messageId: "subnormal",
 								// Value included so that it's seen in scientific notation
-								data: node,
+								data: {
+									value,
+								},
 							});
 						}
 					}

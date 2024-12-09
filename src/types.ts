@@ -86,12 +86,26 @@ export interface JSONRuleVisitor extends RuleVisitor {
 /**
  * The `SourceCode` implementation for JSON files.
  */
-export type IJSONSourceCode = TextSourceCode<{
-	LangOptions: JSONLanguageOptions;
-	RootNode: DocumentNode;
-	SyntaxElementWithLoc: JSONSyntaxElement;
-	ConfigNode: Token;
-}>;
+export interface IJSONSourceCode
+	extends TextSourceCode<{
+		LangOptions: JSONLanguageOptions;
+		RootNode: DocumentNode;
+		SyntaxElementWithLoc: JSONSyntaxElement;
+		ConfigNode: Token;
+	}> {
+	/**
+	 * Get the text of a syntax element.
+	 * @param syntaxElement The syntax element to get the text of.
+	 * @param beforeCount The number of characters to include before the syntax element.
+	 * @param afterCount The number of characters to include after the syntax element.
+	 * @returns The text of the syntax element.
+	 */
+	getText(
+		syntaxElement: JSONSyntaxElement,
+		beforeCount?: number,
+		afterCount?: number,
+	): string;
+}
 
 export type IJSONLanguage = Language<{
 	LangOptions: JSONLanguageOptions;
