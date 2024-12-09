@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/eslint/json/compare/json-v0.8.0...json-v0.9.0) (2024-12-09)
+
+
+### Features
+
+* Add top-level-interop rule ([#69](https://github.com/eslint/json/issues/69)) ([af56d6c](https://github.com/eslint/json/commit/af56d6ce6bff9d073aedd7f07c3ec0248ec3b4e9))
+* Catch more unsafe numbers ([#71](https://github.com/eslint/json/issues/71)) ([5ffc7c0](https://github.com/eslint/json/commit/5ffc7c0ead359c60a0cb5b2b4fdb522846933853))
+
 ## [0.8.0](https://github.com/eslint/json/compare/json-v0.7.0...json-v0.8.0) (2024-11-23)
 
 
