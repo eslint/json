@@ -251,7 +251,7 @@ ruleTester.run("no-unsafe-values", rule, {
 				{
 					messageId: "subnormal",
 					data: {
-						value: "2.225073858507201e-308",
+						value: "2.2250738585072009e-308",
 					},
 					line: 1,
 					column: 1,
@@ -266,7 +266,7 @@ ruleTester.run("no-unsafe-values", rule, {
 				{
 					messageId: "subnormal",
 					data: {
-						value: "-2.225073858507201e-308",
+						value: "-2.2250738585072009e-308",
 					},
 					line: 1,
 					column: 1,
