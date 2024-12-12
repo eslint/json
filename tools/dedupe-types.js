@@ -39,7 +39,7 @@ files.forEach(filePath => {
 		return true;
 	});
 
-	// replace references to ../types.ts with types.ts
+	// replace references to ../types.ts with ./types.ts
 	const text = remainingLines
 		.join("\n")
 		.replace(/\.\.\/types\.ts/gu, "./types.ts");
