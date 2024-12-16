@@ -48,7 +48,7 @@ export default {
 						? node.name.value
 						: node.name.name;
 
-				if (/** @type {Map<string, MemberNode>} */ (keys).has(key)) {
+				if (keys.has(key)) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "duplicateKey",
@@ -57,7 +57,7 @@ export default {
 						},
 					});
 				} else {
-					keys?.set(key, node);
+					keys.set(key, node);
 				}
 			},
 			"Object:exit"() {
