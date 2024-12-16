@@ -48,7 +48,7 @@ export default {
 						? node.name.value
 						: node.name.name;
 
-				if (keys?.has(key)) {
+				if (/** @type {Map<string, MemberNode>} */ (keys).has(key)) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "duplicateKey",
