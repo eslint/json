@@ -4,12 +4,21 @@
  */
 
 //-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"duplicateKey"} NoDuplicateKeysMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoDuplicateKeysMessageIds>} NoDuplicateKeysRuleDefinition */
+/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
+
+//-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
+/** @type {NoDuplicateKeysRuleDefinition} */
 export default {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow duplicate keys in JSON objects",
@@ -21,7 +30,10 @@ export default {
 	},
 
 	create(context) {
+		/** @type {Array<Map<string, MemberNode>|undefined>} */
 		const objectKeys = [];
+
+		/** @type {Map<string, MemberNode>|undefined} */
 		let keys;
 
 		return {
