@@ -5,37 +5,30 @@
 
 import naturalCompare from "natural-compare";
 
-/**
- * Functions which check that the given 2 names are in specific order.
- *
- * Postfix `I` is meant insensitive.
- * Postfix `N` is meant natural.
- * @private
- */
-const isValidOrders = {
-	asc(a, b) {
-		return a <= b;
+const comparators = {
+	ascending: {
+		alphanumeric: {
+			sensitive: (a, b) => a <= b,
+			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
+		},
+		natural: {
+			sensitive: (a, b) => naturalCompare(a, b) <= 0,
+			insensitive: (a, b) =>
+				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
+		},
 	},
-	ascI(a, b) {
-		return a.toLowerCase() <= b.toLowerCase();
-	},
-	ascN(a, b) {
-		return naturalCompare(a, b) <= 0;
-	},
-	ascIN(a, b) {
-		return naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0;
-	},
-	desc(a, b) {
-		return isValidOrders.asc(b, a);
-	},
-	descI(a, b) {
-		return isValidOrders.ascI(b, a);
-	},
-	descN(a, b) {
-		return isValidOrders.ascN(b, a);
-	},
-	descIN(a, b) {
-		return isValidOrders.ascIN(b, a);
+	descending: {
+		alphanumeric: {
+			sensitive: (a, b) =>
+				comparators.ascending.alphanumeric.sensitive(b, a),
+			insensitive: (a, b) =>
+				comparators.ascending.alphanumeric.insensitive(b, a),
+		},
+		natural: {
+			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
+			insensitive: (a, b) =>
+				comparators.ascending.natural.insensitive(b, a),
+		},
 	},
 };
 
@@ -57,7 +50,7 @@ export default {
 
 		messages: {
 			sortKeys:
-				"Expected object keys to be in {{natural}}{{insensitive}}{{order}}ending order. '{{thisName}}' should be before '{{prevName}}'.",
+				"Expected object keys to be in {{sortName}} case-{{sensitivity}} {{direction}} order. '{{thisName}}' should be before '{{prevName}}'.",
 		},
 
 		schema: [
@@ -89,12 +82,13 @@ export default {
 	},
 
 	create(context) {
-		const [order, { caseSensitive, natural, minKeys }] = context.options;
-		const insensitive = !caseSensitive;
-		const isValidOrder =
-			isValidOrders[
-				order + (insensitive ? "I" : "") + (natural ? "N" : "")
-			];
+		const [directionShort, { caseSensitive, natural, minKeys }] =
+			context.options;
+
+		const direction = directionShort === "asc" ? "ascending" : "descending";
+		const sortName = natural ? "natural" : "alphanumeric";
+		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
+		const isValidOrder = comparators[direction][sortName][sensitivity];
 
 		return {
 			Object(node) {
@@ -112,7 +106,7 @@ export default {
 						prevMember &&
 						member.loc.start.line - prevMember.loc.end.line < 2
 					) {
-						if (!isValidOrder(prevName, thisName)) {
+						if (isValidOrder(prevName, thisName) === false) {
 							context.report({
 								node,
 								loc: member.name.loc,
@@ -120,11 +114,9 @@ export default {
 								data: {
 									thisName,
 									prevName,
-									order,
-									insensitive: insensitive
-										? "insensitive "
-										: "",
-									natural: natural ? "natural " : "",
+									direction,
+									sensitivity,
+									sortName,
 								},
 							});
 						}
