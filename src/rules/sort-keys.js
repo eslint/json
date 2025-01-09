@@ -90,9 +90,9 @@ export default {
 		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
 		const isValidOrder = comparators[direction][sortName][sensitivity];
 
-		const commentLineRanges = new Set();
+		const commentLines = new Set();
 		for (const comment of context.sourceCode.comments) {
-			commentLineRanges.add(
+			commentLines.add(
 				`${comment.loc.start.line}:${comment.loc.end.line}`,
 			);
 		}
@@ -113,21 +113,15 @@ export default {
 						const prevLine = prevMember?.loc.end.line;
 						const thisLine = member.loc.start.line;
 
-						const membersAreJoinedByComment =
-							commentLineRanges.has(`${prevLine}:${thisLine}`) ||
-							commentLineRanges.has(
-								`${prevLine + 1}:${thisLine}`,
-							) ||
-							commentLineRanges.has(
-								`${prevLine}:${thisLine - 1}`,
-							) ||
-							commentLineRanges.has(
-								`${prevLine + 1}:${thisLine - 1}`,
-							);
+						const membersAreAdjacent =
+							thisLine - prevLine < 2 ||
+							commentLines.has(`${prevLine}:${thisLine}`) ||
+							commentLines.has(`${prevLine + 1}:${thisLine}`) ||
+							commentLines.has(`${prevLine}:${thisLine - 1}`) ||
+							commentLines.has(`${prevLine + 1}:${thisLine - 1}`);
 
 						if (
-							(thisLine - prevLine < 2 ||
-								membersAreJoinedByComment) &&
+							membersAreAdjacent &&
 							isValidOrder(prevName, thisName) === false
 						) {
 							context.report({
