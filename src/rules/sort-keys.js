@@ -97,58 +97,90 @@ export default {
 			];
 
 		// The stack to save the previous property's name for each object literals.
-		let stack = null;
+		// let stack = null;
 
 		return {
 			Object(node) {
-				stack = {
-					upper: stack,
-					prevNode: null,
-					prevBlankLine: false,
-					prevName: null,
-					numKeys: node.members.length,
-				};
-			},
+				let prevMember;
+				let prevName;
 
-			Member(node) {
-				const prevName = stack.prevName;
-				const numKeys = stack.numKeys;
-				const thisName = node.name.value;
-
-				stack.prevNode = node;
-
-				if (thisName !== null) {
-					stack.prevName = thisName;
-				}
-
-				// if (allowLineSeparatedGroups && isBlankLineBetweenNodes) {
-				// 	stack.prevBlankLine = thisName === null;
-				// 	return;
-				// }
-
-				if (
-					prevName === null ||
-					thisName === null ||
-					numKeys < minKeys
-				) {
+				if (node.members.length < minKeys) {
 					return;
 				}
 
-				if (!isValidOrder(prevName, thisName)) {
-					context.report({
-						node,
-						loc: node.name.loc,
-						messageId: "sortKeys",
-						data: {
-							thisName,
-							prevName,
-							order,
-							insensitive: insensitive ? "insensitive " : "",
-							natural: natural ? "natural " : "",
-						},
-					});
+				for (const member of node.members) {
+					const thisName = member.name.value;
+
+					if (prevMember) {
+						if (!isValidOrder(prevName, thisName)) {
+							context.report({
+								node,
+								loc: member.name.loc,
+								messageId: "sortKeys",
+								data: {
+									thisName,
+									prevName,
+									order,
+									insensitive: insensitive
+										? "insensitive "
+										: "",
+									natural: natural ? "natural " : "",
+								},
+							});
+						}
+					}
+
+					prevMember = member;
+					prevName = thisName;
 				}
+				// stack = {
+				// 	upper: stack,
+				// 	prevNode: null,
+				// 	prevBlankLine: false,
+				// 	prevName: null,
+				// 	numKeys: node.members.length,
+				// };
 			},
+
+			// Member(node) {
+			// 	const prevName = stack.prevName;
+			// 	const numKeys = stack.numKeys;
+			// 	const thisName = node.name.value;
+
+			// 	stack.prevNode = node;
+
+			// 	if (thisName !== null) {
+			// 		stack.prevName = thisName;
+			// 	}
+
+			// 	// if (allowLineSeparatedGroups && isBlankLineBetweenNodes) {
+			// 	// 	stack.prevBlankLine = thisName === null;
+			// 	// 	return;
+			// 	// }
+
+			// 	if (
+			// 		prevName === null ||
+			// 		thisName === null ||
+			// 		numKeys < minKeys
+			// 	) {
+			// 		return;
+			// 	}
+
+			// 	if (!isValidOrder(prevName, thisName)) {
+			// 		context.report({
+			// 			node,
+			// 			loc: node.name.loc,
+			// 			messageId: "sortKeys",
+			// 			data: {
+			// 				thisName,
+			// 				prevName,
+			// 				order,
+			// 				insensitive: insensitive ? "insensitive " : "",
+			// 				natural: natural ? "natural " : "",
+			// 			},
+			// 		});
+			// 	}
+			// },
 		};
 	},
 };
