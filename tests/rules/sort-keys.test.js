@@ -396,9 +396,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "",
 						prevName: "a",
 					},
@@ -412,9 +412,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -427,9 +427,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "b",
 						prevName: "c",
 					},
@@ -442,9 +442,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b_",
 					},
@@ -457,9 +457,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "C",
 						prevName: "c",
 					},
@@ -472,9 +472,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "A",
 						prevName: "_",
 					},
@@ -487,9 +487,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "11",
 						prevName: "A",
 					},
@@ -502,9 +502,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "Z",
 						prevName: "À",
 					},
@@ -521,9 +521,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -537,9 +537,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "b",
 						prevName: "c",
 					},
@@ -553,9 +553,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b_",
 					},
@@ -569,9 +569,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "C",
 						prevName: "c",
 					},
@@ -585,9 +585,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "A",
 						prevName: "_",
 					},
@@ -601,9 +601,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "11",
 						prevName: "A",
 					},
@@ -617,9 +617,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "Z",
 						prevName: "À",
 					},
@@ -635,9 +635,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -654,9 +654,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -670,9 +670,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "b",
 						prevName: "c",
 					},
@@ -686,9 +686,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b_",
 					},
@@ -702,9 +702,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "A",
 					},
@@ -718,9 +718,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "11",
 						prevName: "A",
 					},
@@ -734,9 +734,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "Z",
 						prevName: "À",
 					},
@@ -752,9 +752,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -771,9 +771,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -787,9 +787,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "b",
 						prevName: "c",
 					},
@@ -803,9 +803,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b_",
 					},
@@ -819,9 +819,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "C",
 						prevName: "c",
 					},
@@ -835,9 +835,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "A",
 					},
@@ -851,9 +851,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "11",
 						prevName: "A",
 					},
@@ -867,9 +867,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "Z",
 						prevName: "À",
 					},
@@ -885,9 +885,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -904,9 +904,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -920,9 +920,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "b",
 						prevName: "c",
 					},
@@ -936,9 +936,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b_",
 					},
@@ -952,9 +952,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "A",
 					},
@@ -968,9 +968,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "2",
 						prevName: "11",
 					},
@@ -984,9 +984,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "Z",
 						prevName: "À",
 					},
@@ -1005,9 +1005,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "asc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "ascending",
 						thisName: "_",
 						prevName: "a",
 					},
@@ -1024,9 +1024,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "a",
 						prevName: "",
 					},
@@ -1041,9 +1041,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1057,9 +1057,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "a",
 					},
@@ -1073,9 +1073,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "a",
 					},
@@ -1089,9 +1089,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "b_",
 					},
@@ -1105,9 +1105,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "_",
 						prevName: "$",
 					},
@@ -1115,9 +1115,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "a",
 						prevName: "A",
 					},
@@ -1131,9 +1131,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "2",
 						prevName: "1",
 					},
@@ -1141,9 +1141,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "2",
 					},
@@ -1157,9 +1157,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "À",
 						prevName: "#",
 					},
@@ -1167,9 +1167,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "è",
 						prevName: "Z",
 					},
@@ -1185,9 +1185,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1204,9 +1204,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1220,9 +1220,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "a",
 					},
@@ -1236,9 +1236,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "a",
 					},
@@ -1252,9 +1252,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "b_",
 					},
@@ -1268,9 +1268,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "_",
 						prevName: "$",
 					},
@@ -1278,9 +1278,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "_",
 					},
@@ -1294,9 +1294,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "2",
 						prevName: "1",
 					},
@@ -1304,9 +1304,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "2",
 					},
@@ -1320,9 +1320,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "À",
 						prevName: "#",
 					},
@@ -1330,9 +1330,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "è",
 						prevName: "Z",
 					},
@@ -1348,9 +1348,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "alphanumeric",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1367,9 +1367,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1383,9 +1383,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "a",
 					},
@@ -1399,9 +1399,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "a",
 					},
@@ -1415,9 +1415,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "b_",
 					},
@@ -1431,9 +1431,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "_",
 						prevName: "$",
 					},
@@ -1441,9 +1441,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "_",
 					},
@@ -1451,9 +1451,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "a",
 						prevName: "A",
 					},
@@ -1467,9 +1467,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "2",
 						prevName: "1",
 					},
@@ -1477,9 +1477,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "2",
 					},
@@ -1493,9 +1493,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "À",
 						prevName: "#",
 					},
@@ -1503,9 +1503,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "è",
 						prevName: "Z",
 					},
@@ -1521,9 +1521,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "sensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1540,9 +1540,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1556,9 +1556,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "a",
 					},
@@ -1572,9 +1572,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "a",
 					},
@@ -1588,9 +1588,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "c",
 						prevName: "b_",
 					},
@@ -1604,9 +1604,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "_",
 						prevName: "$",
 					},
@@ -1614,9 +1614,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "_",
 					},
@@ -1630,9 +1630,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "2",
 						prevName: "1",
 					},
@@ -1640,9 +1640,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "11",
 						prevName: "2",
 					},
@@ -1650,9 +1650,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "A",
 						prevName: "11",
 					},
@@ -1666,9 +1666,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "À",
 						prevName: "#",
 					},
@@ -1676,9 +1676,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "è",
 						prevName: "Z",
 					},
@@ -1697,9 +1697,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "natural ",
-						insensitive: "insensitive ",
-						order: "desc",
+						sortName: "natural",
+						sensitivity: "insensitive",
+						direction: "descending",
 						thisName: "b",
 						prevName: "_",
 					},
@@ -1721,9 +1721,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "c",
 					},
@@ -1744,9 +1744,9 @@ ruleTester.run("sort-keys", rule, {
 				{
 					messageId: "sortKeys",
 					data: {
-						natural: "",
-						insensitive: "",
-						order: "asc",
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
 						thisName: "a",
 						prevName: "b",
 					},
@@ -1769,9 +1769,9 @@ ruleTester.run("sort-keys", rule, {
 		// 		{
 		// 			messageId: "sortKeys",
 		// 			data: {
-		// 				natural: "",
-		// 				insensitive: "",
-		// 				order: "asc",
+		// 				sortName: "alphanumeric",
+		// 				sensitivity: "sensitive",
+		// 				direction: "ascending",
 		// 				thisName: "a",
 		// 				prevName: "b",
 		// 			},
