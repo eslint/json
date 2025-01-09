@@ -96,9 +96,6 @@ export default {
 				order + (insensitive ? "I" : "") + (natural ? "N" : "")
 			];
 
-		// The stack to save the previous property's name for each object literals.
-		// let stack = null;
-
 		return {
 			Object(node) {
 				let prevMember;
@@ -111,7 +108,10 @@ export default {
 				for (const member of node.members) {
 					const thisName = member.name.value;
 
-					if (prevMember) {
+					if (
+						prevMember &&
+						member.loc.start.line - prevMember.loc.end.line < 2
+					) {
 						if (!isValidOrder(prevName, thisName)) {
 							context.report({
 								node,
@@ -133,54 +133,7 @@ export default {
 					prevMember = member;
 					prevName = thisName;
 				}
-				// stack = {
-				// 	upper: stack,
-				// 	prevNode: null,
-				// 	prevBlankLine: false,
-				// 	prevName: null,
-				// 	numKeys: node.members.length,
-				// };
 			},
-
-			// Member(node) {
-			// 	const prevName = stack.prevName;
-			// 	const numKeys = stack.numKeys;
-			// 	const thisName = node.name.value;
-
-			// 	stack.prevNode = node;
-
-			// 	if (thisName !== null) {
-			// 		stack.prevName = thisName;
-			// 	}
-
-			// 	// if (allowLineSeparatedGroups && isBlankLineBetweenNodes) {
-			// 	// 	stack.prevBlankLine = thisName === null;
-			// 	// 	return;
-			// 	// }
-
-			// 	if (
-			// 		prevName === null ||
-			// 		thisName === null ||
-			// 		numKeys < minKeys
-			// 	) {
-			// 		return;
-			// 	}
-
-			// 	if (!isValidOrder(prevName, thisName)) {
-			// 		context.report({
-			// 			node,
-			// 			loc: node.name.loc,
-			// 			messageId: "sortKeys",
-			// 			data: {
-			// 				thisName,
-			// 				prevName,
-			// 				order,
-			// 				insensitive: insensitive ? "insensitive " : "",
-			// 				natural: natural ? "natural " : "",
-			// 			},
-			// 		});
-			// 	}
-			// },
 		};
 	},
 };
