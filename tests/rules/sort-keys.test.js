@@ -1753,30 +1753,29 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
-		// TODO: This reports in eslint/sort-keys but does not here. Would need to check whether each member is preceded by a comment, which would require mapping members to specific tokens in the AST tree, and there isn't much support for that in the JSON language service right now
-		// {
-		// 	code: `
-		// 				{
-		// 						"b": 1
-		// 						// comment before comma
-		// 						, "a": 2
-		// 				}
-		// 		`,
-		// 	language: "json/jsonc",
-		// 	options: ["asc", { allowLineSeparatedGroups: true }],
-		// 	languageOptions: { ecmaVersion: 6 },
-		// 	errors: [
-		// 		{
-		// 			messageId: "sortKeys",
-		// 			data: {
-		// 				sortName: "alphanumeric",
-		// 				sensitivity: "sensitive",
-		// 				direction: "ascending",
-		// 				thisName: "a",
-		// 				prevName: "b",
-		// 			},
-		// 		},
-		// 	],
-		// },
+		{
+			code: `
+						{
+								"b": 1
+								// comment before comma
+								, "a": 2
+						}
+				`,
+			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			languageOptions: { ecmaVersion: 6 },
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+				},
+			],
+		},
 	],
 });
