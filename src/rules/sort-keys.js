@@ -90,10 +90,16 @@ export default {
 		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
 		const isValidOrder = comparators[direction][sortName][sensitivity];
 
+		const commentLineRanges = new Set();
+		for (const comment of context.sourceCode.comments) {
+			commentLineRanges.add(
+				`${comment.loc.start.line}:${comment.loc.end.line}`,
+			);
+		}
+
 		return {
 			Object(node) {
 				let prevMember;
-				let prevName;
 
 				if (node.members.length < minKeys) {
 					return;
@@ -102,11 +108,28 @@ export default {
 				for (const member of node.members) {
 					const thisName = member.name.value;
 
-					if (
-						prevMember &&
-						member.loc.start.line - prevMember.loc.end.line < 2
-					) {
-						if (isValidOrder(prevName, thisName) === false) {
+					if (prevMember) {
+						const prevName = prevMember?.name.value;
+						const prevLine = prevMember?.loc.end.line;
+						const thisLine = member.loc.start.line;
+
+						const membersAreJoinedByComment =
+							commentLineRanges.has(`${prevLine}:${thisLine}`) ||
+							commentLineRanges.has(
+								`${prevLine + 1}:${thisLine}`,
+							) ||
+							commentLineRanges.has(
+								`${prevLine}:${thisLine - 1}`,
+							) ||
+							commentLineRanges.has(
+								`${prevLine + 1}:${thisLine - 1}`,
+							);
+
+						if (
+							(thisLine - prevLine < 2 ||
+								membersAreJoinedByComment) &&
+							isValidOrder(prevName, thisName) === false
+						) {
 							context.report({
 								node,
 								loc: member.name.loc,
@@ -123,7 +146,6 @@ export default {
 					}
 
 					prevMember = member;
-					prevName = thisName;
 				}
 			},
 		};
