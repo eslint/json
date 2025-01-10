@@ -1,5 +1,5 @@
 /**
- * @fileoverview Rule to require JSON object keys to be sorted. Cribbed largely from https://github.com/eslint/eslint/blob/main/lib/rules/sort-keys.js
+ * @fileoverview Rule to require JSON object keys to be sorted. Copied largely from https://github.com/eslint/eslint/blob/main/lib/rules/sort-keys.js
  * @author Robin Thomas
  */
 
