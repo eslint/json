@@ -312,6 +312,19 @@ ruleTester.run("sort-keys", rule, {
 		{
 			code: `
 						{
+								"a": 1,
+								"b": 2,
+								"c": 3,
+								"e": 4,
+								"f": 5,
+								"g": 6
+						}
+				`,
+			options: ["asc", { allowLineSeparatedGroups: false }],
+		},
+		{
+			code: `
+						{
 								"e": 1,
 								"f": 2,
 								"g": 3,
@@ -1713,6 +1726,30 @@ ruleTester.run("sort-keys", rule, {
 						{
 								"b": 1,
 								"c": 2,
+								"a": 3
+						}
+				`,
+			options: ["asc", { allowLineSeparatedGroups: false }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "c",
+					},
+				},
+			],
+		},
+		{
+			code: `
+						{
+								"b": 1,
+
+								"c": 2,
+
 								"a": 3
 						}
 				`,
