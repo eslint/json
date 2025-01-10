@@ -34,6 +34,8 @@ const comparators = {
 
 export default {
 	meta: {
+		type: /** @type {const} */ ("suggestion"),
+
 		defaultOptions: [
 			"asc",
 			{
@@ -77,8 +79,6 @@ export default {
 				additionalProperties: false,
 			},
 		],
-
-		type: "suggestion",
 	},
 
 	create(context) {
