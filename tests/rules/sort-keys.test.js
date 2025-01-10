@@ -28,6 +28,37 @@ ruleTester.run("sort-keys", rule, {
 
 		// nested
 		{ code: '{"a":1, "b":{"x":1, "y":1}, "c":1}', options: [] },
+		{
+			code: `
+						{
+							"a":1,
+							"b": {
+								"x":1,
+								"y":1
+							},
+							"c":1
+						}
+				`,
+			options: [],
+		},
+		{
+			code: `
+						[
+							{
+								"a":1,
+								"b": {
+									"x":1,
+									"y":1
+								}
+							},
+							{
+								"c":1,
+								"d":1
+							}
+						]
+				`,
+			options: [],
+		},
 
 		// asc
 		{
@@ -398,6 +429,39 @@ ruleTester.run("sort-keys", rule, {
 			language: "json/jsonc",
 			options: ["asc", { allowLineSeparatedGroups: true }],
 			languageOptions: { ecmaVersion: 6 },
+		},
+		{
+			code: `
+						{
+							"b":1,
+							"c": {
+								"y":1,
+								"z":1,
+
+								"x":1
+							},
+
+							"a":1
+						}
+				`,
+			options: ["asc", { allowLineSeparatedGroups: true }],
+		},
+
+		{
+			code: `
+						{
+							"b":1,
+							"a": {
+								"y":1,
+								"x":1,
+
+								"z":1
+							},
+
+							"c":1
+						}
+				`,
+			options: ["desc", { allowLineSeparatedGroups: true }],
 		},
 	],
 	invalid: [
@@ -1810,6 +1874,35 @@ ruleTester.run("sort-keys", rule, {
 						direction: "ascending",
 						thisName: "a",
 						prevName: "b",
+					},
+				},
+			],
+		},
+		{
+			code: `
+						[
+							{
+								"b":1,
+								"a": {
+									"x":1,
+									"y":1
+								},
+
+								"d":1,
+								"c":1
+							}
+						]
+				`,
+			options: ["desc", { allowLineSeparatedGroups: true }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "descending",
+						thisName: "y",
+						prevName: "x",
 					},
 				},
 			],
