@@ -82,8 +82,10 @@ export default {
 	},
 
 	create(context) {
-		const [directionShort, { caseSensitive, natural, minKeys }] =
-			context.options;
+		const [
+			directionShort,
+			{ allowLineSeparatedGroups, caseSensitive, natural, minKeys },
+		] = context.options;
 
 		const direction = directionShort === "asc" ? "ascending" : "descending";
 		const sortName = natural ? "natural" : "alphanumeric";
@@ -121,7 +123,8 @@ export default {
 							commentLines.has(`${prevLine + 1}:${thisLine - 1}`);
 
 						if (
-							membersAreAdjacent &&
+							(membersAreAdjacent ||
+								allowLineSeparatedGroups === false) &&
 							isValidOrder(prevName, thisName) === false
 						) {
 							context.report({
