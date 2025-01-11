@@ -3,47 +3,35 @@
  * @author Robin Thomas
  */
 
-/**
- * @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode
- * @typedef {import("@humanwhocodes/momoa").ObjectNode} ObjectNode
- * @typedef {(a: string, b:string) => boolean} Comparator
- */
-
 import naturalCompare from "natural-compare";
 
 const comparators = {
 	ascending: {
 		alphanumeric: {
-			sensitive: /** @type {Comparator} **/ (a, b) => a <= b,
-			insensitive: /** @type {Comparator} **/ (a, b) =>
-				a.toLowerCase() <= b.toLowerCase(),
+			sensitive: (a, b) => a <= b,
+			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
 		},
 		natural: {
-			sensitive: /** @type {Comparator} **/ (a, b) =>
-				naturalCompare(a, b) <= 0,
-			insensitive: /** @type {Comparator} **/ (a, b) =>
+			sensitive: (a, b) => naturalCompare(a, b) <= 0,
+			insensitive: (a, b) =>
 				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
 		},
 	},
 	descending: {
 		alphanumeric: {
-			sensitive: /** @type {Comparator} **/ (a, b) =>
+			sensitive: (a, b) =>
 				comparators.ascending.alphanumeric.sensitive(b, a),
-			insensitive: /** @type {Comparator} **/ (a, b) =>
+			insensitive: (a, b) =>
 				comparators.ascending.alphanumeric.insensitive(b, a),
 		},
 		natural: {
-			sensitive: /** @type {Comparator} **/ (a, b) =>
-				comparators.ascending.natural.sensitive(b, a),
-			insensitive: /** @type {Comparator} **/ (a, b) =>
+			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
+			insensitive: (a, b) =>
 				comparators.ascending.natural.insensitive(b, a),
 		},
 	},
 };
 
-/**
- * @param {MemberNode} member
- */
 function getKey(member) {
 	return member.name.type === `Identifier`
 		? member.name.name
@@ -118,9 +106,6 @@ export default {
 		}
 
 		return {
-			/**
-			 * @param {ObjectNode} node
-			 */
 			Object(node) {
 				let prevMember;
 				let prevName;
