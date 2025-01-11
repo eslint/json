@@ -23,8 +23,14 @@ ruleTester.run("sort-keys", rule, {
 		{ code: '{"a":2, "b":3, "b_":1}', options: [] },
 		{ code: '{"C":3, "b_":1, "c":2}', options: [] },
 		{ code: '{"$":1, "A":3, "_":2, "a":4}', options: [] },
+		{
+			code: `{$:1, 'A':3, "_":2, a:4}`,
+			language: `json/json5`,
+			options: [],
+		},
 		{ code: '{"1":1, "11":2, "2":4, "A":3}', options: [] },
 		{ code: '{"#":1, "Z":2, "À":3, "è":4}', options: [] },
+		{ code: '{"#":1, Z:2, À:3, è:4}', language: `json/json5`, options: [] },
 
 		// nested
 		{ code: '{"a":1, "b":{"x":1, "y":1}, "c":1}', options: [] },
@@ -58,6 +64,30 @@ ruleTester.run("sort-keys", rule, {
 						]
 				`,
 			options: [],
+		},
+		{
+			code: `
+						[
+							{
+								"a":1,
+								b: {
+									"x":1,
+									y:1
+								}
+							},
+							{
+								"c":1,
+								d:1
+							}
+						]
+				`,
+			language: "json/json5",
+			options: [],
+			errors: [
+				{
+					messageId: "sortKeys",
+				},
+			],
 		},
 
 		// asc
@@ -202,6 +232,11 @@ ruleTester.run("sort-keys", rule, {
 		{
 			code: '{"b":3, "a":1, "_":2} // desc',
 			language: "json/jsonc",
+			options: ["desc"],
+		},
+		{
+			code: `{b:3, "a":1, '_':2} // desc`,
+			language: "json/json5",
 			options: ["desc"],
 		},
 		{ code: '{"c":2, "b":3, "a":1}', options: ["desc"] },
@@ -451,16 +486,17 @@ ruleTester.run("sort-keys", rule, {
 			code: `
 						{
 							"b":1,
-							"a": {
+							a: {
 								"y":1,
-								"x":1,
+								x:1,
 
 								"z":1
 							},
 
-							"c":1
+							c:1
 						}
 				`,
+			language: `json/json5`,
 			options: ["desc", { allowLineSeparatedGroups: true }],
 		},
 	],
