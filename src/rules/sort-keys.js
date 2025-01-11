@@ -3,34 +3,52 @@
  * @author Robin Thomas
  */
 
+/**
+ * @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode
+ * @typedef {import("@humanwhocodes/momoa").ObjectNode} ObjectNode
+ * @typedef {(a: string, b:string) => boolean} Comparator
+ */
+
 import naturalCompare from "natural-compare";
 
 const comparators = {
 	ascending: {
 		alphanumeric: {
-			sensitive: (a, b) => a <= b,
-			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
+			sensitive: /** @type {Comparator} **/ (a, b) => a <= b,
+			insensitive: /** @type {Comparator} **/ (a, b) =>
+				a.toLowerCase() <= b.toLowerCase(),
 		},
 		natural: {
-			sensitive: (a, b) => naturalCompare(a, b) <= 0,
-			insensitive: (a, b) =>
+			sensitive: /** @type {Comparator} **/ (a, b) =>
+				naturalCompare(a, b) <= 0,
+			insensitive: /** @type {Comparator} **/ (a, b) =>
 				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
 		},
 	},
 	descending: {
 		alphanumeric: {
-			sensitive: (a, b) =>
+			sensitive: /** @type {Comparator} **/ (a, b) =>
 				comparators.ascending.alphanumeric.sensitive(b, a),
-			insensitive: (a, b) =>
+			insensitive: /** @type {Comparator} **/ (a, b) =>
 				comparators.ascending.alphanumeric.insensitive(b, a),
 		},
 		natural: {
-			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
-			insensitive: (a, b) =>
+			sensitive: /** @type {Comparator} **/ (a, b) =>
+				comparators.ascending.natural.sensitive(b, a),
+			insensitive: /** @type {Comparator} **/ (a, b) =>
 				comparators.ascending.natural.insensitive(b, a),
 		},
 	},
 };
+
+/**
+ * @param {MemberNode} member
+ */
+function getKey(member) {
+	return member.name.type === `Identifier`
+		? member.name.name
+		: member.name.value;
+}
 
 export default {
 	meta: {
@@ -100,18 +118,21 @@ export default {
 		}
 
 		return {
+			/**
+			 * @param {ObjectNode} node
+			 */
 			Object(node) {
 				let prevMember;
+				let prevName;
 
 				if (node.members.length < minKeys) {
 					return;
 				}
 
 				for (const member of node.members) {
-					const thisName = member.name.value;
+					const thisName = getKey(member);
 
 					if (prevMember) {
-						const prevName = prevMember?.name.value;
 						const prevLine = prevMember?.loc.end.line;
 						const thisLine = member.loc.start.line;
 
@@ -143,6 +164,7 @@ export default {
 					}
 
 					prevMember = member;
+					prevName = thisName;
 				}
 			},
 		};
