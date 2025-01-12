@@ -118,7 +118,7 @@ export default {
 					const thisName = getKey(member);
 
 					if (prevMember) {
-						const prevLine = prevMember?.loc.end.line;
+						const prevLine = prevMember.loc.end.line;
 						const thisLine = member.loc.start.line;
 
 						const membersAreAdjacent =
