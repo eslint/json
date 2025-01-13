@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/eslint/json/compare/json-v0.9.0...json-v0.9.1) (2025-01-13)
+
+
+### Bug Fixes
+
+* make types usable in CommonJS ([#77](https://github.com/eslint/json/issues/77)) ([41ef891](https://github.com/eslint/json/commit/41ef89142ae40c6b5a4ee1c69d4db406ca5ef529))
+
 ## [0.9.0](https://github.com/eslint/json/compare/json-v0.8.0...json-v0.9.0) (2024-12-09)
 
 
