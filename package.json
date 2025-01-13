@@ -63,11 +63,11 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@eslint/plugin-kit": "^0.2.3",
+    "@eslint/core": "^0.10.0",
+    "@eslint/plugin-kit": "^0.2.5",
     "@humanwhocodes/momoa": "^3.3.4"
   },
   "devDependencies": {
-    "@eslint/core": "^0.6.0",
     "@types/eslint": "^8.56.10",
     "c8": "^9.1.0",
     "dedent": "^1.5.3",
