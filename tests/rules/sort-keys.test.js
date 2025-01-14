@@ -1943,5 +1943,54 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+		{
+			code: `
+				{
+					"b": /*foo */ 1,
+					// some multiline comment
+					// using line comment style
+					"a": 2 // "a" and "b" are not line separated
+				}
+			`,
+			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+				},
+			],
+		},
+		{
+			code: `
+				{
+					"b": 1,
+					/* some multiline comment
+					using block comment style */
+					/* here's another for good measure */
+					"a": 2 // "a" and "b" are not line separated
+				}
+			`,
+			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+				},
+			],
+		},
 	],
 });
