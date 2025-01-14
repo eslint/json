@@ -87,6 +87,9 @@ export default {
 		],
 	},
 
+	/**
+	 * Note that the comma after a member is *not* included in `member.loc`, therefore the comma position is irrelevant
+	 */
 	create(context) {
 		const [
 			directionShort,
@@ -98,11 +101,38 @@ export default {
 		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
 		const isValidOrder = comparators[direction][sortName][sensitivity];
 
-		const commentLines = new Set();
+		// Note that @humanwhocodes/momoa doesn't include comments in the object.members tree, so we can't just see if a member is preceded by a comment
+		const commentLineNums = new Set();
+		// TODO: Only invoke this if the language supports comments
 		for (const comment of context.sourceCode.comments) {
-			commentLines.add(
-				`${comment.loc.start.line}:${comment.loc.end.line}`,
-			);
+			for (
+				let lineNum = comment.loc.start.line;
+				lineNum <= comment.loc.end.line;
+				lineNum += 1
+			) {
+				commentLineNums.add(lineNum);
+			}
+		}
+
+		// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups
+		function isLineSeparated(prevMember, member) {
+			const prevLine = prevMember.loc.end.line;
+			const thisLine = member.loc.start.line;
+
+			if (thisLine - prevLine < 2) {
+				return false;
+			}
+
+			let lineNum = prevLine + 1;
+			while (lineNum < thisLine) {
+				if (commentLineNums.has(lineNum) === false) {
+					return true;
+				}
+
+				lineNum += 1;
+			}
+
+			return false;
 		}
 
 		return {
@@ -117,35 +147,24 @@ export default {
 				for (const member of node.members) {
 					const thisName = getKey(member);
 
-					if (prevMember) {
-						const prevLine = prevMember.loc.end.line;
-						const thisLine = member.loc.start.line;
-
-						const membersAreAdjacent =
-							thisLine - prevLine < 2 ||
-							commentLines.has(`${prevLine}:${thisLine}`) ||
-							commentLines.has(`${prevLine + 1}:${thisLine}`) ||
-							commentLines.has(`${prevLine}:${thisLine - 1}`) ||
-							commentLines.has(`${prevLine + 1}:${thisLine - 1}`);
-
-						if (
-							(membersAreAdjacent ||
-								allowLineSeparatedGroups === false) &&
-							isValidOrder(prevName, thisName) === false
-						) {
-							context.report({
-								node,
-								loc: member.name.loc,
-								messageId: "sortKeys",
-								data: {
-									thisName,
-									prevName,
-									direction,
-									sensitivity,
-									sortName,
-								},
-							});
-						}
+					if (
+						prevMember &&
+						isValidOrder(prevName, thisName) === false &&
+						(allowLineSeparatedGroups === false ||
+							isLineSeparated(prevMember, member) === false)
+					) {
+						context.report({
+							node,
+							loc: member.name.loc,
+							messageId: "sortKeys",
+							data: {
+								thisName,
+								prevName,
+								direction,
+								sensitivity,
+								sortName,
+							},
+						});
 					}
 
 					prevMember = member;
