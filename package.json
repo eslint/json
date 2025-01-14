@@ -66,7 +66,7 @@
     "@eslint/core": "^0.10.0",
     "@eslint/plugin-kit": "^0.2.5",
     "@humanwhocodes/momoa": "^3.3.4",
-		"natural-compare": "^1.4.0"
+    "natural-compare": "^1.4.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.10",
