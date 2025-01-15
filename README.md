@@ -161,7 +161,7 @@ export default [
   like integers but are too large, and
   [subnormal numbers](https://en.wikipedia.org/wiki/Subnormal_number).
 - `no-unnormalized-keys` - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
-- `sort-keys` - warns when keys are not in the specified order. Based on [eslint/sort-keys](https://eslint.org/docs/latest/rules/sort-keys).
+- `sort-keys` - warns when keys are not in the specified order. Based on the ESLint [`sort-keys`](https://eslint.org/docs/latest/rules/sort-keys) rule.
 - `top-level-interop` - warns when the top-level item in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
 
 ## Configuration Comments
