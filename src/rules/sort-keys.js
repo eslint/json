@@ -103,7 +103,6 @@ export default {
 
 		// Note that @humanwhocodes/momoa doesn't include comments in the object.members tree, so we can't just see if a member is preceded by a comment
 		const commentLineNums = new Set();
-		// TODO: Only invoke this if the language supports comments
 		for (const comment of context.sourceCode.comments) {
 			for (
 				let lineNum = comment.loc.start.line;
@@ -125,7 +124,7 @@ export default {
 
 			let lineNum = prevLine + 1;
 			while (lineNum < thisLine) {
-				if (commentLineNums.has(lineNum) === false) {
+				if (!commentLineNums.has(lineNum)) {
 					return true;
 				}
 
@@ -149,12 +148,11 @@ export default {
 
 					if (
 						prevMember &&
-						isValidOrder(prevName, thisName) === false &&
-						(allowLineSeparatedGroups === false ||
-							isLineSeparated(prevMember, member) === false)
+						!isValidOrder(prevName, thisName) &&
+						(!allowLineSeparatedGroups ||
+							!isLineSeparated(prevMember, member))
 					) {
 						context.report({
-							node,
 							loc: member.name.loc,
 							messageId: "sortKeys",
 							data: {
