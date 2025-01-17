@@ -5,6 +5,8 @@
 
 import naturalCompare from "natural-compare";
 
+const hasNonWhitespace = /\S/u;
+
 const comparators = {
 	ascending: {
 		alphanumeric: {
@@ -87,9 +89,6 @@ export default {
 		],
 	},
 
-	/**
-	 * Note that the comma after a member is *not* included in `member.loc`, therefore the comma position is irrelevant
-	 */
 	create(context) {
 		const [
 			directionShort,
@@ -113,41 +112,27 @@ export default {
 			}
 		}
 
-		const commaLinesByPosition = {};
-		for (const token of context.sourceCode.ast.tokens) {
-			if (token.type === `Comma`) {
-				commaLinesByPosition[token.range[0]] = token.loc.start.line; // Assume commas are always a single character
-			}
-		}
-
 		// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups
 		function isLineSeparated(prevMember, member) {
-			let prevMemberEndLine = prevMember.loc.end.line;
-
-			const prevMemberEndPosition = prevMember.range[1];
-			const memberStartPosition = member.range[0];
-			let position = prevMemberEndPosition + 1;
-			while (position < memberStartPosition) {
-				if (position in commaLinesByPosition) {
-					prevMemberEndLine = commaLinesByPosition[position];
-					break;
-				}
-
-				position += 1;
-			}
-
+			const prevMemberEndLine = prevMember.loc.end.line;
 			const thisStartLine = member.loc.start.line;
 			if (thisStartLine - prevMemberEndLine < 2) {
 				return false;
 			}
 
-			let lineNum = prevMemberEndLine + 1;
-			while (lineNum < thisStartLine) {
-				if (!commentLineNums.has(lineNum)) {
+			for (
+				let lineNum = prevMemberEndLine + 1;
+				lineNum < thisStartLine;
+				lineNum += 1
+			) {
+				if (
+					!commentLineNums.has(lineNum) &&
+					!hasNonWhitespace.test(
+						context.sourceCode.lines[lineNum - 1],
+					)
+				) {
 					return true;
 				}
-
-				lineNum += 1;
 			}
 
 			return false;

@@ -500,6 +500,20 @@ ruleTester.run("sort-keys", rule, {
 			`,
 			options: ["asc", { allowLineSeparatedGroups: false }],
 		},
+		{
+			code: `
+						{
+								"b": 1
+						// comment before comma
+
+						,
+						"a": 2
+						}
+				`,
+			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			languageOptions: { ecmaVersion: 6 },
+		},
 	],
 	invalid: [
 		// default (asc)
@@ -1917,32 +1931,6 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: `
-						{
-								"b": 1
-						// comment before comma
-
-						,
-						"a": 2
-						}
-				`,
-			language: "json/jsonc",
-			options: ["asc", { allowLineSeparatedGroups: true }],
-			languageOptions: { ecmaVersion: 6 },
-			errors: [
-				{
-					messageId: "sortKeys",
-					data: {
-						sortName: "alphanumeric",
-						sensitivity: "sensitive",
-						direction: "ascending",
-						thisName: "a",
-						prevName: "b",
-					},
-				},
-			],
-		},
-		{
-			code: `
 						[
 							{
 								"b":1,
@@ -2000,7 +1988,9 @@ ruleTester.run("sort-keys", rule, {
 					"b": 1,
 					/* some multiline comment
 					using block comment style */
-					/* here's another for good measure */
+					/* the empty line...
+
+					...in this one doesn't count */
 					"a": 2 // "a" and "b" are not line separated
 				}
 			`,
