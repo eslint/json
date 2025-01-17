@@ -113,17 +113,36 @@ export default {
 			}
 		}
 
+		const commaLinesByPosition = {};
+		for (const token of context.sourceCode.ast.tokens) {
+			if (token.type === `Comma`) {
+				commaLinesByPosition[token.range[0]] = token.loc.start.line; // Assume commas are always a single character
+			}
+		}
+
 		// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups
 		function isLineSeparated(prevMember, member) {
-			const prevLine = prevMember.loc.end.line;
-			const thisLine = member.loc.start.line;
+			let prevMemberEndLine = prevMember.loc.end.line;
 
-			if (thisLine - prevLine < 2) {
+			const prevMemberEndPosition = prevMember.range[1];
+			const memberStartPosition = member.range[0];
+			let position = prevMemberEndPosition + 1;
+			while (position < memberStartPosition) {
+				if (position in commaLinesByPosition) {
+					prevMemberEndLine = commaLinesByPosition[position];
+					break;
+				}
+
+				position += 1;
+			}
+
+			const thisStartLine = member.loc.start.line;
+			if (thisStartLine - prevMemberEndLine < 2) {
 				return false;
 			}
 
-			let lineNum = prevLine + 1;
-			while (lineNum < thisLine) {
+			let lineNum = prevMemberEndLine + 1;
+			while (lineNum < thisStartLine) {
 				if (!commentLineNums.has(lineNum)) {
 					return true;
 				}

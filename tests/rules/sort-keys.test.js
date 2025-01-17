@@ -443,31 +443,6 @@ ruleTester.run("sort-keys", rule, {
 		{
 			code: `
 						{
-								"b": 1
-
-								,"a": 2
-						}
-				`,
-			options: ["asc", { allowLineSeparatedGroups: true }],
-			languageOptions: { ecmaVersion: 6 },
-		},
-		{
-			code: `
-						{
-								"b": 1
-						// comment before comma
-
-						,
-						"a": 2
-						}
-				`,
-			language: "json/jsonc",
-			options: ["asc", { allowLineSeparatedGroups: true }],
-			languageOptions: { ecmaVersion: 6 },
-		},
-		{
-			code: `
-						{
 							"b":1,
 							"c": {
 								"y":1,
@@ -498,6 +473,32 @@ ruleTester.run("sort-keys", rule, {
 				`,
 			language: `json/json5`,
 			options: ["desc", { allowLineSeparatedGroups: true }],
+		},
+
+		// Commas are not considered separating lines
+		{
+			code: `
+			{
+				"b": 1
+
+				,
+
+				"a": 2
+			}
+			`,
+			options: ["asc", { allowLineSeparatedGroups: true }],
+		},
+		{
+			code: `
+			{
+				"a": 1
+
+
+				,
+				"b": 2
+			}
+			`,
+			options: ["asc", { allowLineSeparatedGroups: false }],
 		},
 	],
 	invalid: [
@@ -1916,6 +1917,32 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: `
+						{
+								"b": 1
+						// comment before comma
+
+						,
+						"a": 2
+						}
+				`,
+			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			languageOptions: { ecmaVersion: 6 },
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+				},
+			],
+		},
+		{
+			code: `
 						[
 							{
 								"b":1,
@@ -1978,6 +2005,28 @@ ruleTester.run("sort-keys", rule, {
 				}
 			`,
 			language: "json/jsonc",
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+				},
+			],
+		},
+		{
+			code: `
+			{
+				"b": 1
+				,
+				"a": 2
+			}
+			`,
 			options: ["asc", { allowLineSeparatedGroups: true }],
 			errors: [
 				{
