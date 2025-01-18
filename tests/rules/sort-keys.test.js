@@ -512,7 +512,6 @@ ruleTester.run("sort-keys", rule, {
 				`,
 			language: "json/jsonc",
 			options: ["asc", { allowLineSeparatedGroups: true }],
-			languageOptions: { ecmaVersion: 6 },
 		},
 	],
 	invalid: [
@@ -1915,7 +1914,6 @@ ruleTester.run("sort-keys", rule, {
 				`,
 			language: "json/jsonc",
 			options: ["asc", { allowLineSeparatedGroups: true }],
-			languageOptions: { ecmaVersion: 6 },
 			errors: [
 				{
 					messageId: "sortKeys",
