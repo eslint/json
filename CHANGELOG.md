@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/eslint/json/compare/json-v0.9.1...json-v0.10.0) (2025-01-19)
+
+
+### Features
+
+* Add sort-keys rule ([#76](https://github.com/eslint/json/issues/76)) ([e68c247](https://github.com/eslint/json/commit/e68c247be11e1ea3fad20737f3e3672b855bc3ff))
+
 ## [0.9.1](https://github.com/eslint/json/compare/json-v0.9.0...json-v0.9.1) (2025-01-13)
 
 
