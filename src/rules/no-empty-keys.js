@@ -3,9 +3,21 @@
  * @author Nicholas C. Zakas
  */
 
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"emptyKey"} NoEmptyKeysMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoEmptyKeysMessageIds>} NoEmptyKeysRuleDefinition */
+
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {NoEmptyKeysRuleDefinition} */
 export default {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow empty keys in JSON objects",

@@ -26,11 +26,12 @@ import {
 /** @typedef {import("@eslint/core").SourceLocation} SourceLocation */
 /** @typedef {import("@eslint/core").File} File */
 /** @typedef {import("@eslint/core").TraversalStep} TraversalStep */
-/** @typedef {import("@eslint/core").TextSourceCode} TextSourceCode */
 /** @typedef {import("@eslint/core").VisitTraversalStep} VisitTraversalStep */
 /** @typedef {import("@eslint/core").FileProblem} FileProblem */
 /** @typedef {import("@eslint/core").DirectiveType} DirectiveType */
 /** @typedef {import("@eslint/core").RulesConfig} RulesConfig */
+/** @typedef {import("../types.ts").IJSONSourceCode} IJSONSourceCode */
+/** @typedef {import("../types.ts").JSONSyntaxElement} JSONSyntaxElement */
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -71,6 +72,7 @@ class JSONTraversalStep extends VisitNodeStep {
 
 /**
  * JSON Source Code Object
+ * @implements {IJSONSourceCode}
  */
 export class JSONSourceCode extends TextSourceCodeBase {
 	/**
@@ -147,7 +149,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 			);
 		}
 
-		return this.#inlineConfigComments;
+		return this.#inlineConfigComments ?? [];
 	}
 
 	/**
