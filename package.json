@@ -18,7 +18,12 @@
       }
     },
     "./types": {
-      "types": "./dist/esm/types.d.ts"
+      "require": {
+        "types": "./dist/cjs/types.cts"
+      },
+      "import": {
+        "types": "./dist/esm/types.d.ts"
+      }
     }
   },
   "files": [
