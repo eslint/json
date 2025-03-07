@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/eslint/json/compare/json-v0.10.0...json-v0.10.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* Use updated types from @eslint/core ([#66](https://github.com/eslint/json/issues/66)) ([460e7c7](https://github.com/eslint/json/commit/460e7c707ed30fc41df280e40f300bafd5a3cae2))
+
 ## [0.10.0](https://github.com/eslint/json/compare/json-v0.9.1...json-v0.10.0) (2025-01-19)
 
 
