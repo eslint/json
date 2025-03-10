@@ -16,7 +16,7 @@
 //-----------------------------------------------------------------------------
 
 /** @type {NoDuplicateKeysRuleDefinition} */
-export default {
+const rule = {
 	meta: {
 		type: "problem",
 
@@ -66,3 +66,5 @@ export default {
 		};
 	},
 };
+
+export default rule;

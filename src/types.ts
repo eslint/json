@@ -105,6 +105,16 @@ export interface IJSONSourceCode
 		beforeCount?: number,
 		afterCount?: number,
 	): string;
+
+	/**
+	 * Any comments found in a JSONC or JSON5 file.
+	 */
+	comments: Array<Token> | undefined;
+
+	/**
+	 * The lines of text found in the file.
+	 */
+	lines: Array<string>;
 }
 
 export type IJSONLanguage = Language<{

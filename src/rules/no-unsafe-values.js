@@ -30,7 +30,7 @@ const NON_ZERO = /[1-9]/u;
 //-----------------------------------------------------------------------------
 
 /** @type {NoUnsafeValuesRuleDefinition} */
-export default {
+const rule = {
 	meta: {
 		type: "problem",
 
@@ -145,3 +145,5 @@ export default {
 		};
 	},
 };
+
+export default rule;
