@@ -76,7 +76,6 @@
     "@eslint/core": "^0.12.0",
     "@eslint/plugin-kit": "^0.2.7",
     "@humanwhocodes/momoa": "^3.3.4",
-    "momoa": "^1.2.0",
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
