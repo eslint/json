@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 
 /** @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoUnnormalizedKeysMessageIds>} NoUnnormalizedKeysRuleDefinition */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[{form:string}], NoUnnormalizedKeysMessageIds>} NoUnnormalizedKeysRuleDefinition */
 
 //-----------------------------------------------------------------------------
 // Rule Definition
@@ -17,7 +17,7 @@
 /** @type {NoUnnormalizedKeysRuleDefinition} */
 const rule = {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow JSON keys that are not normalized",
@@ -41,8 +41,9 @@ const rule = {
 	},
 
 	create(context) {
-		const options = /** @type {{form:string}[]} */ (context.options);
-		const form = options.length ? options[0].form : undefined;
+		const form = context.options.length
+			? context.options[0].form
+			: undefined;
 
 		return {
 			Member(node) {

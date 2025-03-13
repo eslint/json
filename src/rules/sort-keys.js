@@ -15,9 +15,7 @@ import naturalCompare from "natural-compare";
 //-----------------------------------------------------------------------------
 
 /** @typedef {"sortKeys"} SortKeysMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], SortKeysMessageIds>} SortKeysRuleDefinition */
-/** @typedef {(a:string,b:string) => boolean} Comparator */
-/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
+
 /**
  * @typedef {Object} SortOptions
  * @property {boolean} caseSensitive
@@ -25,8 +23,12 @@ import naturalCompare from "natural-compare";
  * @property {number} minKeys
  * @property {boolean} allowLineSeparatedGroups
  */
+
 /** @typedef {"asc"|"desc"} SortDirection */
 /** @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions */
+/** @typedef {import("../types.ts").JSONRuleDefinition<SortKeysRuleOptions, SortKeysMessageIds>} SortKeysRuleDefinition */
+/** @typedef {(a:string,b:string) => boolean} Comparator */
+/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -139,11 +141,10 @@ const rule = {
 	},
 
 	create(context) {
-		const options = /** @type {Array<string|Object>} */ (context.options);
 		const [
 			directionShort,
 			{ allowLineSeparatedGroups, caseSensitive, natural, minKeys },
-		] = /** @type { SortKeysRuleOptions} */ (options);
+		] = context.options;
 
 		const direction = directionShort === "asc" ? "ascending" : "descending";
 		const sortName = natural ? "natural" : "alphanumeric";
