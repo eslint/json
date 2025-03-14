@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.0](https://github.com/eslint/json/compare/json-v0.10.0...json-v0.11.0) (2025-03-14)
+
+
+### Features
+
+* Add `types` to exports ([#84](https://github.com/eslint/json/issues/84)) ([d9eab9e](https://github.com/eslint/json/commit/d9eab9ec3a733b561f55235eb71a611c7d84ebbb))
+
+
+### Bug Fixes
+
+* Update types and apply to all rules ([#86](https://github.com/eslint/json/issues/86)) ([10882ff](https://github.com/eslint/json/commit/10882ffe9c39cdd866be51801f9950f4a010cd87))
+* Use updated types from @eslint/core ([#66](https://github.com/eslint/json/issues/66)) ([460e7c7](https://github.com/eslint/json/commit/460e7c707ed30fc41df280e40f300bafd5a3cae2))
+
 ## [0.10.0](https://github.com/eslint/json/compare/json-v0.9.1...json-v0.10.0) (2025-01-19)
 
 
