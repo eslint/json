@@ -3,9 +3,21 @@
  * @author Joe Hildebrand
  */
 
-export default {
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"topLevel"} TopLevelInteropMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[], TopLevelInteropMessageIds>} TopLevelInteropRuleDefinition */
+
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {TopLevelInteropRuleDefinition} */
+const rule = {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description:
@@ -33,3 +45,5 @@ export default {
 		};
 	},
 };
+
+export default rule;

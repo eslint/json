@@ -3,9 +3,21 @@
  * @author Bradley Meck Farias
  */
 
-export default {
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds */
+/** @typedef {import("../types.ts").JSONRuleDefinition<[{form:string}], NoUnnormalizedKeysMessageIds>} NoUnnormalizedKeysRuleDefinition */
+
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {NoUnnormalizedKeysRuleDefinition} */
+const rule = {
 	meta: {
-		type: /** @type {const} */ ("problem"),
+		type: "problem",
 
 		docs: {
 			description: "Disallow JSON keys that are not normalized",
@@ -29,9 +41,10 @@ export default {
 	},
 
 	create(context) {
-		const normalization = context.options.length
-			? text => text.normalize(context.options[0].form)
-			: text => text.normalize();
+		const form = context.options.length
+			? context.options[0].form
+			: undefined;
+
 		return {
 			Member(node) {
 				const key =
@@ -39,7 +52,7 @@ export default {
 						? node.name.value
 						: node.name.name;
 
-				if (normalization(key) !== key) {
+				if (key.normalize(form) !== key) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "unnormalizedKey",
@@ -52,3 +65,5 @@ export default {
 		};
 	},
 };
+
+export default rule;

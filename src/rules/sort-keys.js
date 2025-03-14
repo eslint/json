@@ -1,48 +1,99 @@
 /**
- * @fileoverview Rule to require JSON object keys to be sorted. Copied largely from https://github.com/eslint/eslint/blob/main/lib/rules/sort-keys.js
+ * @fileoverview Rule to require JSON object keys to be sorted.
+ * Copied largely from https://github.com/eslint/eslint/blob/main/lib/rules/sort-keys.js
  * @author Robin Thomas
  */
 
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
 import naturalCompare from "natural-compare";
+
+//-----------------------------------------------------------------------------
+// Type Definitions
+//-----------------------------------------------------------------------------
+
+/** @typedef {"sortKeys"} SortKeysMessageIds */
+
+/**
+ * @typedef {Object} SortOptions
+ * @property {boolean} caseSensitive
+ * @property {boolean} natural
+ * @property {number} minKeys
+ * @property {boolean} allowLineSeparatedGroups
+ */
+
+/** @typedef {"asc"|"desc"} SortDirection */
+/** @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions */
+/** @typedef {import("../types.ts").JSONRuleDefinition<SortKeysRuleOptions, SortKeysMessageIds>} SortKeysRuleDefinition */
+/** @typedef {(a:string,b:string) => boolean} Comparator */
+/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
+
+//-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
 
 const hasNonWhitespace = /\S/u;
 
 const comparators = {
 	ascending: {
 		alphanumeric: {
+			/** @type {Comparator} */
 			sensitive: (a, b) => a <= b,
+
+			/** @type {Comparator} */
 			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
 		},
 		natural: {
+			/** @type {Comparator} */
 			sensitive: (a, b) => naturalCompare(a, b) <= 0,
+
+			/** @type {Comparator} */
 			insensitive: (a, b) =>
 				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
 		},
 	},
 	descending: {
 		alphanumeric: {
+			/** @type {Comparator} */
 			sensitive: (a, b) =>
 				comparators.ascending.alphanumeric.sensitive(b, a),
+
+			/** @type {Comparator} */
 			insensitive: (a, b) =>
 				comparators.ascending.alphanumeric.insensitive(b, a),
 		},
 		natural: {
+			/** @type {Comparator} */
 			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
+
+			/** @type {Comparator} */
 			insensitive: (a, b) =>
 				comparators.ascending.natural.insensitive(b, a),
 		},
 	},
 };
 
+/**
+ * Gets the MemberNode's string key value.
+ * @param {MemberNode} member
+ * @return {string}
+ */
 function getKey(member) {
-	return member.name.type === `Identifier`
+	return member.name.type === "Identifier"
 		? member.name.name
 		: member.name.value;
 }
 
-export default {
+//-----------------------------------------------------------------------------
+// Rule Definition
+//-----------------------------------------------------------------------------
+
+/** @type {SortKeysRuleDefinition} */
+const rule = {
 	meta: {
-		type: /** @type {const} */ ("suggestion"),
+		type: "suggestion",
 
 		defaultOptions: [
 			"asc",
@@ -112,8 +163,14 @@ export default {
 			}
 		}
 
-		// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups
+		/**
+		 * Checks if two members are line-separated.
+		 * @param {MemberNode} prevMember The previous member.
+		 * @param {MemberNode} member The current member.
+		 * @return {boolean}
+		 */
 		function isLineSeparated(prevMember, member) {
+			// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups
 			const prevMemberEndLine = prevMember.loc.end.line;
 			const thisStartLine = member.loc.start.line;
 			if (thisStartLine - prevMemberEndLine < 2) {
@@ -176,3 +233,5 @@ export default {
 		};
 	},
 };
+
+export default rule;
