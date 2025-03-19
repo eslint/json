@@ -14,7 +14,7 @@ import type {
 	LanguageOptions,
 	RuleDefinition,
 } from "@eslint/core";
-import {
+import type {
 	DocumentNode,
 	MemberNode,
 	ElementNode,
