@@ -3,7 +3,9 @@
   "compilerOptions": {
     "noEmit": true,
     "rootDir": "../..",
-    "strict": true
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true
   },
   "files": [],
   "include": [".", "../../dist"]
