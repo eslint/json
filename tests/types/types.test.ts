@@ -1,5 +1,6 @@
 import json from "@eslint/json";
 import { ESLint } from "eslint";
+import type { JSONSyntaxElement } from "@eslint/json/types";
 
 json satisfies ESLint.Plugin;
 json.meta.name satisfies string;
@@ -21,3 +22,14 @@ json.configs.recommended.plugins satisfies object;
 	// Check that all recommended rule names match the names of existing rules in this plugin.
 	null as AssertAllNamesIn<RecommendedRuleName, RuleName>;
 }
+
+// Check that types are imported correctly from `@humanwhocodes/momoa`.
+({
+	start: { line: 1, column: 1, offset: 1 },
+	end: { line: 1, column: 1, offset: 1 },
+}) satisfies JSONSyntaxElement["loc"];
+({
+	// @ts-expect-error -- This is not a valid Location.
+	start: 100,
+	end: { line: 1, column: 1, offset: 1 },
+}) satisfies JSONSyntaxElement["loc"];
