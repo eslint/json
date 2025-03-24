@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/eslint/json/compare/json-v0.11.0...json-v0.11.1) (2025-03-24)
+
+
+### Bug Fixes
+
+* Update `types.ts` for compatibility with `verbatimModuleSyntax` ([#88](https://github.com/eslint/json/issues/88)) ([d099c78](https://github.com/eslint/json/commit/d099c78318f8ca9a426d233717728304418425a1))
+
 ## [0.11.0](https://github.com/eslint/json/compare/json-v0.10.0...json-v0.11.0) (2025-03-14)
 
 
