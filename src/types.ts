@@ -7,13 +7,7 @@
 // Imports
 //------------------------------------------------------------------------------
 
-import type {
-	RuleVisitor,
-	TextSourceCode,
-	Language,
-	LanguageOptions,
-	RuleDefinition,
-} from "@eslint/core";
+import type { RuleVisitor, RuleDefinition } from "@eslint/core";
 import type {
 	DocumentNode,
 	MemberNode,
@@ -30,6 +24,8 @@ import type {
 	AnyNode,
 	Token,
 } from "@humanwhocodes/momoa";
+import { JSONLanguageOptions } from "./languages/json-language.js";
+import { JSONSourceCode } from "./languages/json-source-code.js";
 
 //------------------------------------------------------------------------------
 // Types
@@ -41,16 +37,6 @@ type ValueNodeParent = DocumentNode | MemberNode | ElementNode;
  * A JSON syntax element, including nodes and tokens.
  */
 export type JSONSyntaxElement = Token | AnyNode;
-
-/**
- * Language options provided for JSON files.
- */
-export interface JSONLanguageOptions extends LanguageOptions {
-	/**
-	 * Whether to allow trailing commas. Only valid in JSONC.
-	 */
-	allowTrailingCommas?: boolean;
-}
 
 /**
  * The visitor format returned from rules in this package.
@@ -83,56 +69,25 @@ export interface JSONRuleVisitor extends RuleVisitor {
 	"Identifier:exit"?(node: IdentifierNode, parent?: ValueNodeParent): void;
 }
 
-/**
- * The `SourceCode` implementation for JSON files.
- */
-export interface IJSONSourceCode
-	extends TextSourceCode<{
-		LangOptions: JSONLanguageOptions;
-		RootNode: DocumentNode;
-		SyntaxElementWithLoc: JSONSyntaxElement;
-		ConfigNode: Token;
-	}> {
-	/**
-	 * Get the text of a syntax element.
-	 * @param syntaxElement The syntax element to get the text of.
-	 * @param beforeCount The number of characters to include before the syntax element.
-	 * @param afterCount The number of characters to include after the syntax element.
-	 * @returns The text of the syntax element.
-	 */
-	getText(
-		syntaxElement: JSONSyntaxElement,
-		beforeCount?: number,
-		afterCount?: number,
-	): string;
-
-	/**
-	 * Any comments found in a JSONC or JSON5 file.
-	 */
-	comments: Array<Token> | undefined;
-
-	/**
-	 * The lines of text found in the file.
-	 */
-	lines: Array<string>;
-}
-
-export type IJSONLanguage = Language<{
-	LangOptions: JSONLanguageOptions;
-	Code: IJSONSourceCode;
-	RootNode: DocumentNode;
-	Node: AnyNode;
-}>;
+export type JSONRuleDefinitionTypeOptions = {
+	RuleOptions: unknown[];
+	MessageIds: string;
+	ExtRuleDocs: Record<string, unknown>;
+};
 
 export type JSONRuleDefinition<
-	JSONRuleOptions extends unknown[],
-	JSONRuleMessageIds extends string = "",
-> = RuleDefinition<{
-	LangOptions: JSONLanguageOptions;
-	Code: IJSONSourceCode;
-	RuleOptions: JSONRuleOptions;
-	Visitor: JSONRuleVisitor;
-	Node: AnyNode;
-	MessageIds: JSONRuleMessageIds;
-	ExtRuleDocs: {};
-}>;
+	Options extends Partial<JSONRuleDefinitionTypeOptions> = {},
+> = RuleDefinition<
+	// Language specific type options (non-configurable)
+	{
+		LangOptions: JSONLanguageOptions;
+		Code: JSONSourceCode;
+		Visitor: JSONRuleVisitor;
+		Node: AnyNode;
+	} & Required<
+		// Rule specific type options (custom)
+		Options &
+			// Rule specific type options (defaults)
+			Omit<JSONRuleDefinitionTypeOptions, keyof Options>
+	>
+>;

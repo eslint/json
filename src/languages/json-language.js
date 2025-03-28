@@ -15,14 +15,16 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 // Types
 //-----------------------------------------------------------------------------
 
-/** @typedef {import("@humanwhocodes/momoa").DocumentNode} DocumentNode */
-/** @typedef {import("@humanwhocodes/momoa").Node} JSONNode */
-/** @typedef {import("@eslint/core").Language} Language */
-/** @typedef {import("@eslint/core").OkParseResult<DocumentNode>} OkParseResult */
-/** @typedef {import("@eslint/core").ParseResult<DocumentNode>} ParseResult */
-/** @typedef {import("@eslint/core").File} File */
-/** @typedef {import("../types.ts").IJSONLanguage} IJSONLanguage */
-/** @typedef {import("../types.ts").JSONLanguageOptions} JSONLanguageOptions */
+/**
+ * @import { DocumentNode, AnyNode } from "@humanwhocodes/momoa";
+ * @import { Language, OkParseResult, ParseResult, File } from "@eslint/core";
+ *
+ * @typedef {OkParseResult<DocumentNode>} JSONOkParseResult
+ * @typedef {ParseResult<DocumentNode>} JSONParseResult
+ *
+ * @typedef {Object} JSONLanguageOptions
+ * @property {boolean} [allowTrailingCommas] Whether to allow trailing commas in JSONC mode.
+ */
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -30,7 +32,7 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 
 /**
  * JSON Language Object
- * @implements {IJSONLanguage}
+ * @implements {Language<{ LangOptions: JSONLanguageOptions; Code: JSONSourceCode; RootNode: DocumentNode; Node: AnyNode }>}
  */
 export class JSONLanguage {
 	/**
@@ -107,7 +109,7 @@ export class JSONLanguage {
 	 * Parses the given file into an AST.
 	 * @param {File} file The virtual file to parse.
 	 * @param {{languageOptions: JSONLanguageOptions}} context The options to use for parsing.
-	 * @returns {ParseResult} The result of parsing.
+	 * @returns {JSONParseResult} The result of parsing.
 	 */
 	parse(file, context) {
 		// Note: BOM already removed
@@ -155,7 +157,7 @@ export class JSONLanguage {
 	/**
 	 * Creates a new `JSONSourceCode` object from the given information.
 	 * @param {File} file The virtual file to create a `JSONSourceCode` object from.
-	 * @param {OkParseResult} parseResult The result returned from `parse()`.
+	 * @param {JSONOkParseResult} parseResult The result returned from `parse()`.
 	 * @returns {JSONSourceCode} The new `JSONSourceCode` object.
 	 */
 	createSourceCode(file, parseResult) {

@@ -7,8 +7,13 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[{form:string}], NoUnnormalizedKeysMessageIds>} NoUnnormalizedKeysRuleDefinition */
+/**
+ * @import { JSONRuleDefinition } from "../types.ts";
+ *
+ * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
+ * @typedef {{ form: string }} NoUnnormalizedKeysOptions
+ * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
+ */
 
 //-----------------------------------------------------------------------------
 // Rule Definition

@@ -14,21 +14,22 @@ import naturalCompare from "natural-compare";
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"sortKeys"} SortKeysMessageIds */
-
 /**
+ * @import { JSONRuleDefinition } from "../types.ts";
+ * @import { MemberNode } from "@humanwhocodes/momoa";
+ *
  * @typedef {Object} SortOptions
  * @property {boolean} caseSensitive
  * @property {boolean} natural
  * @property {number} minKeys
  * @property {boolean} allowLineSeparatedGroups
+ *
+ * @typedef {"sortKeys"} SortKeysMessageIds
+ * @typedef {"asc"|"desc"} SortDirection
+ * @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions
+ * @typedef {JSONRuleDefinition<{ RuleOptions: SortKeysRuleOptions, MessageIds: SortKeysMessageIds }>} SortKeysRuleDefinition
+ * @typedef {(a:string,b:string) => boolean} Comparator
  */
-
-/** @typedef {"asc"|"desc"} SortDirection */
-/** @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions */
-/** @typedef {import("../types.ts").JSONRuleDefinition<SortKeysRuleOptions, SortKeysMessageIds>} SortKeysRuleDefinition */
-/** @typedef {(a:string,b:string) => boolean} Comparator */
-/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
 
 //-----------------------------------------------------------------------------
 // Helpers

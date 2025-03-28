@@ -7,8 +7,12 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"topLevel"} TopLevelInteropMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], TopLevelInteropMessageIds>} TopLevelInteropRuleDefinition */
+/**
+ * @import { JSONRuleDefinition } from "../types.ts";
+ *
+ * @typedef {"topLevel"} TopLevelInteropMessageIds
+ * @typedef {JSONRuleDefinition<{ MessageIds: TopLevelInteropMessageIds }>} TopLevelInteropRuleDefinition
+ */
 
 //-----------------------------------------------------------------------------
 // Rule Definition
