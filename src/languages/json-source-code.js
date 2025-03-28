@@ -20,13 +20,9 @@ import {
 //-----------------------------------------------------------------------------
 
 /**
- * @import { DocumentNode, AnyNode, Node, Token } from "@humanwhocodes/momoa";
- * @import {
- *     SourceRange, SourceLocation, File, FileProblem,
- *     DirectiveType, RulesConfig, TextSourceCode, TraversalStep,
- *     VisitTraversalStep
- *  } from "@eslint/core";
- * @import { JSONSyntaxElement } from "../types.js";
+ * @import { DocumentNode, Node, Token } from "@humanwhocodes/momoa";
+ * @import { SourceLocation, FileProblem, DirectiveType, RulesConfig, TextSourceCode} from "@eslint/core";
+ * @import { JSONSyntaxElement } from "../types.ts";
  * @import { JSONLanguageOptions } from "./json-language.js";
  */
 
