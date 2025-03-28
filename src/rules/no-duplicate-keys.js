@@ -7,9 +7,13 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"duplicateKey"} NoDuplicateKeysMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoDuplicateKeysMessageIds>} NoDuplicateKeysRuleDefinition */
-/** @typedef {import("@humanwhocodes/momoa").MemberNode} MemberNode */
+/**
+ * @import { MemberNode } from "@humanwhocodes/momoa";
+ * @import { JSONRuleDefinition } from "../types.ts";
+ *
+ * @typedef {"duplicateKey"} NoDuplicateKeysMessageIds
+ * @typedef {JSONRuleDefinition<{ MessageIds: NoDuplicateKeysMessageIds }>} NoDuplicateKeysRuleDefinition
+ */
 
 //-----------------------------------------------------------------------------
 // Rule Definition

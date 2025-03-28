@@ -19,19 +19,12 @@ import {
 // Types
 //-----------------------------------------------------------------------------
 
-/** @typedef {import("@humanwhocodes/momoa").DocumentNode} DocumentNode */
-/** @typedef {import("@humanwhocodes/momoa").Node} JSONNode */
-/** @typedef {import("@humanwhocodes/momoa").Token} JSONToken */
-/** @typedef {import("@eslint/core").SourceRange} SourceRange */
-/** @typedef {import("@eslint/core").SourceLocation} SourceLocation */
-/** @typedef {import("@eslint/core").File} File */
-/** @typedef {import("@eslint/core").TraversalStep} TraversalStep */
-/** @typedef {import("@eslint/core").VisitTraversalStep} VisitTraversalStep */
-/** @typedef {import("@eslint/core").FileProblem} FileProblem */
-/** @typedef {import("@eslint/core").DirectiveType} DirectiveType */
-/** @typedef {import("@eslint/core").RulesConfig} RulesConfig */
-/** @typedef {import("../types.ts").IJSONSourceCode} IJSONSourceCode */
-/** @typedef {import("../types.ts").JSONSyntaxElement} JSONSyntaxElement */
+/**
+ * @import { DocumentNode, Node, Token } from "@humanwhocodes/momoa";
+ * @import { SourceLocation, FileProblem, DirectiveType, RulesConfig, TextSourceCode} from "@eslint/core";
+ * @import { JSONSyntaxElement } from "../types.ts";
+ * @import { JSONLanguageOptions } from "./json-language.js";
+ */
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -48,14 +41,14 @@ const INLINE_CONFIG =
 class JSONTraversalStep extends VisitNodeStep {
 	/**
 	 * The target of the step.
-	 * @type {JSONNode}
+	 * @type {Node}
 	 */
 	target = undefined;
 
 	/**
 	 * Creates a new instance.
 	 * @param {Object} options The options for the step.
-	 * @param {JSONNode} options.target The target of the step.
+	 * @param {Node} options.target The target of the step.
 	 * @param {1|2} options.phase The phase of the step.
 	 * @param {Array<any>} options.args The arguments of the step.
 	 */
@@ -72,7 +65,7 @@ class JSONTraversalStep extends VisitNodeStep {
 
 /**
  * JSON Source Code Object
- * @implements {IJSONSourceCode}
+ * @implements {TextSourceCode<{LangOptions: JSONLanguageOptions, RootNode: DocumentNode, SyntaxElementWithLoc: JSONSyntaxElement, ConfigNode: Token}>}
  */
 export class JSONSourceCode extends TextSourceCodeBase {
 	/**
@@ -83,13 +76,13 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * Cache of parent nodes.
-	 * @type {WeakMap<JSONNode, JSONNode>}
+	 * @type {WeakMap<Node, Node>}
 	 */
 	#parents = new WeakMap();
 
 	/**
 	 * Collection of inline configuration comments.
-	 * @type {Array<JSONToken>}
+	 * @type {Array<Token>}
 	 */
 	#inlineConfigComments;
 
@@ -101,7 +94,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * The comment node in the source code.
-	 * @type {Array<JSONToken>|undefined}
+	 * @type {Array<Token>|undefined}
 	 */
 	comments;
 
@@ -121,7 +114,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * Returns the value of the given comment.
-	 * @param {JSONToken} comment The comment to get the value of.
+	 * @param {Token} comment The comment to get the value of.
 	 * @returns {string} The value of the comment.
 	 * @throws {Error} When an unexpected comment type is passed.
 	 */
@@ -140,7 +133,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	/**
 	 * Returns an array of all inline configuration nodes found in the
 	 * source code.
-	 * @returns {Array<JSONToken>} An array of all inline configuration nodes.
+	 * @returns {Array<Token>} An array of all inline configuration nodes.
 	 */
 	getInlineConfigNodes() {
 		if (!this.#inlineConfigComments) {
@@ -251,8 +244,8 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * Returns the parent of the given node.
-	 * @param {JSONNode} node The node to get the parent of.
-	 * @returns {JSONNode|undefined} The parent of the node.
+	 * @param {Node} node The node to get the parent of.
+	 * @returns {Node|undefined} The parent of the node.
 	 */
 	getParent(node) {
 		return this.#parents.get(node);

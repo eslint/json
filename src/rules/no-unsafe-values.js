@@ -7,8 +7,12 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoUnsafeValuesMessageIds>} NoUnsafeValuesRuleDefinition */
+/**
+ * @import { JSONRuleDefinition } from "../types.ts";
+ *
+ * @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds
+ * @typedef {JSONRuleDefinition<{ MessageIds: NoUnsafeValuesMessageIds }>} NoUnsafeValuesRuleDefinition
+ */
 
 //-----------------------------------------------------------------------------
 // Helpers
