@@ -24,7 +24,7 @@ import type {
 	AnyNode,
 	Token,
 } from "@humanwhocodes/momoa";
-import { JSONLanguageOptions, JSONSourceCode } from "./index.js";
+import type { JSONLanguageOptions, JSONSourceCode } from "./index.js";
 
 //------------------------------------------------------------------------------
 // Types
