@@ -4,7 +4,7 @@
  * it encounters a duplicate typedef.
  *
  * Usage:
- *  node scripts/dedupe-types.js filename1.js filename2.js ...
+ *  node tools/dedupe-types.js filename1.js filename2.js ...
  *
  * @author Nicholas C. Zakas
  */
