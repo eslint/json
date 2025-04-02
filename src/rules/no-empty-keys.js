@@ -7,8 +7,12 @@
 // Type Definitions
 //-----------------------------------------------------------------------------
 
-/** @typedef {"emptyKey"} NoEmptyKeysMessageIds */
-/** @typedef {import("../types.ts").JSONRuleDefinition<[], NoEmptyKeysMessageIds>} NoEmptyKeysRuleDefinition */
+/**
+ * @import { JSONRuleDefinition } from "../types.ts";
+ *
+ * @typedef {"emptyKey"} NoEmptyKeysMessageIds
+ * @typedef {JSONRuleDefinition<{ MessageIds: NoEmptyKeysMessageIds }>} NoEmptyKeysRuleDefinition
+ */
 
 //-----------------------------------------------------------------------------
 // Rule Definition
