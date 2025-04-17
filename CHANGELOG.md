@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.12.0](https://github.com/eslint/json/compare/json-v0.11.0...json-v0.12.0) (2025-04-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update package types for better reuse ([#91](https://github.com/eslint/json/issues/91))
+
+### Features
+
+* Update package types for better reuse ([#91](https://github.com/eslint/json/issues/91)) ([dce4601](https://github.com/eslint/json/commit/dce4601b1a40ceaeb4b61fbcbef0170a67b73e37))
+
+
+### Bug Fixes
+
+* Update `types.ts` for compatibility with `verbatimModuleSyntax` ([#88](https://github.com/eslint/json/issues/88)) ([d099c78](https://github.com/eslint/json/commit/d099c78318f8ca9a426d233717728304418425a1))
+
 ## [0.11.0](https://github.com/eslint/json/compare/json-v0.10.0...json-v0.11.0) (2025-03-14)
 
 
