@@ -40,7 +40,7 @@ export default defineConfig([
 		files: ["**/*.json"],
 		ignores: ["**/package-lock.json"],
 		language: "json/json",
-		...json.configs.recommended,
+		extends: [json.configs.recommended],
 	},
 	{
 		files: ["**/*.js"],
@@ -74,7 +74,7 @@ export default defineConfig([
 	},
 	{
 		files: ["src/rules/*.js"],
-		...eslintPluginRulesRecommendedConfig,
+		extends: [eslintPluginRulesRecommendedConfig],
 		rules: {
 			...eslintPluginRulesRecommendedConfig.rules,
 			"eslint-plugin/require-meta-schema": "off", // `schema` defaults to []
@@ -89,7 +89,7 @@ export default defineConfig([
 	},
 	{
 		files: ["tests/rules/*.test.js"],
-		...eslintPluginTestsRecommendedConfig,
+		extends: [eslintPluginTestsRecommendedConfig],
 		rules: {
 			...eslintPluginTestsRecommendedConfig.rules,
 			"eslint-plugin/test-case-property-ordering": [
