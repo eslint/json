@@ -132,7 +132,7 @@ export default defineConfig([
 		files: ["**/*.json"],
 		ignores: ["package-lock.json"],
 		language: "json/json",
-		extends: ["json/recommended"]
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files
