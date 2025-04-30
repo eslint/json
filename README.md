@@ -148,7 +148,7 @@ export default defineConfig([
 		language: "json/json5",
 		extends: ["json/recommended"],
 	},
-];
+]);
 ```
 
 **Note:** You generally want to ignore `package-lock.json` because it is auto-generated and you typically will not want to manually make changes to it.
