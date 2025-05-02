@@ -132,13 +132,15 @@ export default defineConfig([
 		files: ["**/*.json"],
 		ignores: ["package-lock.json"],
 		language: "json/json",
-		extends: ["json/recommended"],
+		plugins: { json },
+		extends: ["json/recommended"]
 	},
 
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
 		language: "json/jsonc",
+		plugins: { json },
 		extends: ["json/recommended"],
 	},
 
@@ -146,6 +148,7 @@ export default defineConfig([
 	{
 		files: ["**/*.json5"],
 		language: "json/json5",
+		plugins: { json },
 		extends: ["json/recommended"],
 	},
 ]);
@@ -210,6 +213,7 @@ export default defineConfig([
 	{
 		files: ["**/*.jsonc"],
 		language: "json/jsonc",
+		plugins: { json },
 		extends: ["json/recommended"],
 	},
 
@@ -220,6 +224,7 @@ export default defineConfig([
 		languageOptions: {
 			allowTrailingCommas: true,
 		},
+		plugins: { json },
 		extends: ["json/recommended"],
 	},
 ]);
