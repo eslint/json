@@ -37,9 +37,10 @@ This package exports these languages:
 Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints JSON, JSONC, and JSON5 files:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	{
 		plugins: {
 			json,
@@ -72,15 +73,16 @@ export default [
 			"json/no-duplicate-keys": "error",
 		},
 	},
-];
+]);
 ```
 
 In CommonJS format:
 
 ```js
+const { defineConfig } = require("eslint/config");
 const json = require("@eslint/json").default;
 
-module.exports = [
+module.exports = defineConfig([
 	{
 		plugins: {
 			json,
@@ -113,7 +115,7 @@ module.exports = [
 			"json/no-duplicate-keys": "error",
 		},
 	},
-];
+]);
 ```
 
 ## Recommended Configuration
@@ -121,31 +123,35 @@ module.exports = [
 To use the recommended configuration for this plugin, specify your matching `files` and then use the `json.configs.recommended` object, like this:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	// lint JSON files
 	{
 		files: ["**/*.json"],
 		ignores: ["package-lock.json"],
+		plugins: { json },
 		language: "json/json",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
+		plugins: { json },
 		language: "json/jsonc",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSON5 files
 	{
 		files: ["**/*.json5"],
+		plugins: { json },
 		language: "json/json5",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
-];
+]);
 ```
 
 **Note:** You generally want to ignore `package-lock.json` because it is auto-generated and you typically will not want to manually make changes to it.
@@ -199,26 +205,29 @@ Both line and block comments can be used for all kinds of configuration comments
 The Microsoft implementation of JSONC optionally allows for trailing commas in objects and arrays (files like `tsconfig.json` have this option enabled by default in Visual Studio Code). To enable trailing commas in JSONC files, use the `allowTrailingCommas` language option, as in this example:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
+		plugins: { json },
 		language: "json/jsonc",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files and allow trailing commas
 	{
 		files: ["**/tsconfig.json", ".vscode/*.json"],
+		plugins: { json },
 		language: "json/jsonc",
 		languageOptions: {
 			allowTrailingCommas: true,
 		},
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
-];
+]);
 ```
 
 **Note:** The `allowTrailingCommas` option is only valid for the `json/jsonc` language.
