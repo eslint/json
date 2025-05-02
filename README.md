@@ -131,24 +131,24 @@ export default defineConfig([
 	{
 		files: ["**/*.json"],
 		ignores: ["package-lock.json"],
-		language: "json/json",
 		plugins: { json },
-		extends: ["json/recommended"]
+		language: "json/json",
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
-		language: "json/jsonc",
 		plugins: { json },
+		language: "json/jsonc",
 		extends: ["json/recommended"],
 	},
 
 	// lint JSON5 files
 	{
 		files: ["**/*.json5"],
-		language: "json/json5",
 		plugins: { json },
+		language: "json/json5",
 		extends: ["json/recommended"],
 	},
 ]);
@@ -212,19 +212,19 @@ export default defineConfig([
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
-		language: "json/jsonc",
 		plugins: { json },
+		language: "json/jsonc",
 		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files and allow trailing commas
 	{
 		files: ["**/tsconfig.json", ".vscode/*.json"],
+		plugins: { json },
 		language: "json/jsonc",
 		languageOptions: {
 			allowTrailingCommas: true,
 		},
-		plugins: { json },
 		extends: ["json/recommended"],
 	},
 ]);
