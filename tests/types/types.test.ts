@@ -1,6 +1,26 @@
-import json from "@eslint/json";
+import json, { JSONSourceCode } from "@eslint/json";
 import { ESLint } from "eslint";
-import type { JSONSyntaxElement, JSONRuleDefinition } from "@eslint/json/types";
+import type {
+	JSONSyntaxElement,
+	JSONRuleDefinition,
+	JSONRuleVisitor,
+} from "@eslint/json/types";
+import type {
+	AnyNode,
+	ArrayNode,
+	BooleanNode,
+	DocumentNode,
+	ElementNode,
+	IdentifierNode,
+	InfinityNode,
+	MemberNode,
+	NaNNode,
+	NullNode,
+	NumberNode,
+	ObjectNode,
+	StringNode,
+} from "@humanwhocodes/momoa";
+import type { SourceLocation, SourceRange } from "@eslint/core";
 
 json satisfies ESLint.Plugin;
 json.meta.name satisfies string;
@@ -33,6 +53,59 @@ json.configs.recommended.plugins satisfies object;
 	start: 100,
 	end: { line: 1, column: 1, offset: 1 },
 }) satisfies JSONSyntaxElement["loc"];
+
+(): JSONRuleDefinition => ({
+	create({ sourceCode }): JSONRuleVisitor {
+		sourceCode satisfies JSONSourceCode;
+		sourceCode.ast satisfies DocumentNode;
+		sourceCode.lines satisfies string[];
+		sourceCode.text satisfies string;
+
+		function testVisitor<NodeType extends AnyNode>(
+			node: NodeType,
+			parent?:
+				| DocumentNode
+				| MemberNode
+				| ElementNode
+				| ArrayNode
+				| ObjectNode,
+		) {
+			sourceCode.getLoc(node) satisfies SourceLocation;
+			sourceCode.getRange(node) satisfies SourceRange;
+			sourceCode.getParent(node) satisfies AnyNode | undefined;
+			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
+			sourceCode.getText(node) satisfies string;
+		}
+
+		return {
+			Array: (...args) => testVisitor<ArrayNode>(...args),
+			"Array:exit": (...args) => testVisitor<ArrayNode>(...args),
+			Boolean: (...args) => testVisitor<BooleanNode>(...args),
+			"Boolean:exit": (...args) => testVisitor<BooleanNode>(...args),
+			Document: (...args) => testVisitor<DocumentNode>(...args),
+			"Document:exit": (...args) => testVisitor<DocumentNode>(...args),
+			Element: (...args) => testVisitor<ElementNode>(...args),
+			"Element:exit": (...args) => testVisitor<ElementNode>(...args),
+			Identifier: (...args) => testVisitor<IdentifierNode>(...args),
+			"Identifier:exit": (...args) =>
+				testVisitor<IdentifierNode>(...args),
+			Infinity: (...args) => testVisitor<InfinityNode>(...args),
+			"Infinity:exit": (...args) => testVisitor<InfinityNode>(...args),
+			Member: (...args) => testVisitor<MemberNode>(...args),
+			"Member:exit": (...args) => testVisitor<MemberNode>(...args),
+			NaN: (...args) => testVisitor<NaNNode>(...args),
+			"NaN:exit": (...args) => testVisitor<NaNNode>(...args),
+			Null: (...args) => testVisitor<NullNode>(...args),
+			"Null:exit": (...args) => testVisitor<NullNode>(...args),
+			Number: (...args) => testVisitor<NumberNode>(...args),
+			"Number:exit": (...args) => testVisitor<NumberNode>(...args),
+			Object: (...args) => testVisitor<ObjectNode>(...args),
+			"Object:exit": (...args) => testVisitor<ObjectNode>(...args),
+			String: (...args) => testVisitor<StringNode>(...args),
+			"String:exit": (...args) => testVisitor<StringNode>(...args),
+		};
+	},
+});
 
 // All options optional - JSONRuleDefinition and JSONRuleDefinition<{}>
 // should be the same type.
