@@ -37,9 +37,10 @@ This package exports these languages:
 Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints JSON, JSONC, and JSON5 files:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	{
 		plugins: {
 			json,
@@ -72,15 +73,16 @@ export default [
 			"json/no-duplicate-keys": "error",
 		},
 	},
-];
+]);
 ```
 
 In CommonJS format:
 
 ```js
+const { defineConfig } = require("eslint/config");
 const json = require("@eslint/json").default;
 
-module.exports = [
+module.exports = defineConfig([
 	{
 		plugins: {
 			json,
@@ -113,7 +115,7 @@ module.exports = [
 			"json/no-duplicate-keys": "error",
 		},
 	},
-];
+]);
 ```
 
 ## Recommended Configuration
@@ -121,31 +123,35 @@ module.exports = [
 To use the recommended configuration for this plugin, specify your matching `files` and then use the `json.configs.recommended` object, like this:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	// lint JSON files
 	{
 		files: ["**/*.json"],
 		ignores: ["package-lock.json"],
+		plugins: { json },
 		language: "json/json",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
+		plugins: { json },
 		language: "json/jsonc",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSON5 files
 	{
 		files: ["**/*.json5"],
+		plugins: { json },
 		language: "json/json5",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
-];
+]);
 ```
 
 **Note:** You generally want to ignore `package-lock.json` because it is auto-generated and you typically will not want to manually make changes to it.
@@ -199,26 +205,29 @@ Both line and block comments can be used for all kinds of configuration comments
 The Microsoft implementation of JSONC optionally allows for trailing commas in objects and arrays (files like `tsconfig.json` have this option enabled by default in Visual Studio Code). To enable trailing commas in JSONC files, use the `allowTrailingCommas` language option, as in this example:
 
 ```js
+import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
-export default [
+export default defineConfig([
 	// lint JSONC files
 	{
 		files: ["**/*.jsonc"],
+		plugins: { json },
 		language: "json/jsonc",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 
 	// lint JSONC files and allow trailing commas
 	{
 		files: ["**/tsconfig.json", ".vscode/*.json"],
+		plugins: { json },
 		language: "json/jsonc",
 		languageOptions: {
 			allowTrailingCommas: true,
 		},
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
-];
+]);
 ```
 
 **Note:** The `allowTrailingCommas` option is only valid for the `json/jsonc` language.
@@ -258,7 +267,7 @@ to get your logo on our READMEs and [website](https://eslint.org/sponsors).
 <p><a href="https://www.ag-grid.com/"><img src="https://images.opencollective.com/ag-grid/2c8d545/logo.png" alt="AG Grid" height="128"></a></p><h3>Platinum Sponsors</h3>
 <p><a href="https://automattic.com"><img src="https://images.opencollective.com/automattic/d0ef3e1/logo.png" alt="Automattic" height="128"></a> <a href="https://www.airbnb.com/"><img src="https://images.opencollective.com/airbnb/d327d66/logo.png" alt="Airbnb" height="128"></a></p><h3>Gold Sponsors</h3>
 <p><a href="https://qlty.sh/"><img src="https://images.opencollective.com/qltysh/33d157d/logo.png" alt="Qlty Software" height="96"></a> <a href="https://trunk.io/"><img src="https://images.opencollective.com/trunkio/fb92d60/avatar.png" alt="trunk.io" height="96"></a> <a href="https://shopify.engineering/"><img src="https://avatars.githubusercontent.com/u/8085" alt="Shopify" height="96"></a></p><h3>Silver Sponsors</h3>
-<p><a href="https://vite.dev/"><img src="https://images.opencollective.com/vite/e6d15e1/logo.png" alt="Vite" height="64"></a> <a href="https://liftoff.io/"><img src="https://images.opencollective.com/liftoff/5c4fa84/logo.png" alt="Liftoff" height="64"></a> <a href="https://americanexpress.io"><img src="https://avatars.githubusercontent.com/u/3853301" alt="American Express" height="64"></a></p><h3>Bronze Sponsors</h3>
+<p><a href="https://vite.dev/"><img src="https://images.opencollective.com/vite/e6d15e1/logo.png" alt="Vite" height="64"></a> <a href="https://liftoff.io/"><img src="https://images.opencollective.com/liftoff/5c4fa84/logo.png" alt="Liftoff" height="64"></a> <a href="https://americanexpress.io"><img src="https://avatars.githubusercontent.com/u/3853301" alt="American Express" height="64"></a> <a href="https://stackblitz.com"><img src="https://avatars.githubusercontent.com/u/28635252" alt="StackBlitz" height="64"></a></p><h3>Bronze Sponsors</h3>
 <p><a href="https://cybozu.co.jp/"><img src="https://images.opencollective.com/cybozu/933e46d/logo.png" alt="Cybozu" height="32"></a> <a href="https://www.crosswordsolver.org/anagram-solver/"><img src="https://images.opencollective.com/anagram-solver/2666271/logo.png" alt="Anagram Solver" height="32"></a> <a href="https://icons8.com/"><img src="https://images.opencollective.com/icons8/7fa1641/logo.png" alt="Icons8" height="32"></a> <a href="https://discord.com"><img src="https://images.opencollective.com/discordapp/f9645d9/logo.png" alt="Discord" height="32"></a> <a href="https://www.gitbook.com"><img src="https://avatars.githubusercontent.com/u/7111340" alt="GitBook" height="32"></a> <a href="https://nolebase.ayaka.io"><img src="https://avatars.githubusercontent.com/u/11081491" alt="Neko" height="32"></a> <a href="https://nx.dev"><img src="https://avatars.githubusercontent.com/u/23692104" alt="Nx" height="32"></a> <a href="https://opensource.mercedes-benz.com/"><img src="https://avatars.githubusercontent.com/u/34240465" alt="Mercedes-Benz Group" height="32"></a> <a href="https://herocoders.com"><img src="https://avatars.githubusercontent.com/u/37549774" alt="HeroCoders" height="32"></a> <a href="https://www.lambdatest.com"><img src="https://avatars.githubusercontent.com/u/171592363" alt="LambdaTest" height="32"></a></p>
 <h3>Technology Sponsors</h3>
 Technology sponsors allow us to use their products and services for free as part of a contribution to the open source ecosystem and our work.
