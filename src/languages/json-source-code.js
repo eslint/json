@@ -20,8 +20,8 @@ import {
 //-----------------------------------------------------------------------------
 
 /**
- * @import { DocumentNode, Node, Token } from "@humanwhocodes/momoa";
- * @import { SourceLocation, FileProblem, DirectiveType, RulesConfig, TextSourceCode} from "@eslint/core";
+ * @import { DocumentNode, AnyNode, Token } from "@humanwhocodes/momoa";
+ * @import { SourceLocation, FileProblem, DirectiveType, RulesConfig } from "@eslint/core";
  * @import { JSONSyntaxElement } from "../types.ts";
  * @import { JSONLanguageOptions } from "./json-language.js";
  */
@@ -41,14 +41,14 @@ const INLINE_CONFIG =
 class JSONTraversalStep extends VisitNodeStep {
 	/**
 	 * The target of the step.
-	 * @type {Node}
+	 * @type {AnyNode}
 	 */
 	target = undefined;
 
 	/**
 	 * Creates a new instance.
 	 * @param {Object} options The options for the step.
-	 * @param {Node} options.target The target of the step.
+	 * @param {AnyNode} options.target The target of the step.
 	 * @param {1|2} options.phase The phase of the step.
 	 * @param {Array<any>} options.args The arguments of the step.
 	 */
@@ -65,7 +65,7 @@ class JSONTraversalStep extends VisitNodeStep {
 
 /**
  * JSON Source Code Object
- * @implements {TextSourceCode<{LangOptions: JSONLanguageOptions, RootNode: DocumentNode, SyntaxElementWithLoc: JSONSyntaxElement, ConfigNode: Token}>}
+ * @extends {TextSourceCodeBase<{LangOptions: JSONLanguageOptions, RootNode: DocumentNode, SyntaxElementWithLoc: JSONSyntaxElement, ConfigNode: Token}>}
  */
 export class JSONSourceCode extends TextSourceCodeBase {
 	/**
@@ -76,7 +76,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * Cache of parent nodes.
-	 * @type {WeakMap<Node, Node>}
+	 * @type {WeakMap<AnyNode, AnyNode>}
 	 */
 	#parents = new WeakMap();
 
@@ -244,8 +244,8 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 	/**
 	 * Returns the parent of the given node.
-	 * @param {Node} node The node to get the parent of.
-	 * @returns {Node|undefined} The parent of the node.
+	 * @param {AnyNode} node The node to get the parent of.
+	 * @returns {AnyNode|undefined} The parent of the node.
 	 */
 	getParent(node) {
 		return this.#parents.get(node);
@@ -266,12 +266,15 @@ export class JSONSourceCode extends TextSourceCodeBase {
 
 		for (const { node, parent, phase } of iterator(this.ast)) {
 			if (parent) {
-				this.#parents.set(node, parent);
+				this.#parents.set(
+					/** @type {AnyNode} */ (node),
+					/** @type {AnyNode} */ (parent),
+				);
 			}
 
 			steps.push(
 				new JSONTraversalStep({
-					target: node,
+					target: /** @type {AnyNode} */ (node),
 					phase: phase === "enter" ? 1 : 2,
 					args: [node, parent],
 				}),
