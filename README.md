@@ -120,7 +120,7 @@ module.exports = defineConfig([
 
 ## Recommended Configuration
 
-To use the recommended configuration for this plugin, specify your matching `files` and then use the `json.configs.recommended` object, like this:
+To use the recommended configuration for this plugin, specify your matching `files` and then use the `extends: ["json/recommended"]` object, like this:
 
 ```js
 import { defineConfig } from "eslint/config";
@@ -238,8 +238,8 @@ export default defineConfig([
 
 This plugin implements JSON parsing for ESLint using the language plugins API, which is the official way of supporting non-JavaScript languages in ESLint. This differs from the other plugins:
 
-- `eslint-plugin-json` uses a processor to parse the JSON, meaning it doesn't create an AST and you can't write custom rules for it.
-- `eslint-plugin-jsonc` uses a parser that still goes through the JavaScript linting functionality and requires several rules to disallow valid JavaScript syntax that is invalid in JSON.
+- [`eslint-plugin-json`](https://github.com/azeemba/eslint-plugin-json) uses a processor to parse the JSON, meaning it doesn't create an AST and you can't write custom rules for it.
+- [`eslint-plugin-jsonc`](https://github.com/ota-meshi/eslint-plugin-jsonc) uses a parser that still goes through the JavaScript linting functionality and requires several rules to disallow valid JavaScript syntax that is invalid in JSON.
 
 As such, this plugin is more robust and faster than the others. You can write your own custom rules when using the languages in this plugin, too.
 
