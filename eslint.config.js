@@ -77,7 +77,6 @@ export default defineConfig([
 		files: ["src/rules/*.js"],
 		extends: [eslintPluginRulesRecommendedConfig],
 		rules: {
-			...eslintPluginRulesRecommendedConfig.rules,
 			"eslint-plugin/require-meta-schema": "off", // `schema` defaults to []
 			"eslint-plugin/prefer-placeholders": "error",
 			"eslint-plugin/prefer-replace-text": "error",
@@ -92,7 +91,6 @@ export default defineConfig([
 		files: ["tests/rules/*.test.js"],
 		extends: [eslintPluginTestsRecommendedConfig],
 		rules: {
-			...eslintPluginTestsRecommendedConfig.rules,
 			"eslint-plugin/test-case-property-ordering": [
 				"error",
 				[
