@@ -1,5 +1,5 @@
 /**
- * @fileoverview Rule to ensure top-level items are either an array or ojbect.
+ * @fileoverview Rule to ensure top-level items are either an array or object.
  * @author Joe Hildebrand
  */
 
