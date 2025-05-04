@@ -37,10 +37,11 @@ export default defineConfig([
 		...config,
 	})),
 	{
+		plugins: { json },
 		files: ["**/*.json"],
 		ignores: ["**/package-lock.json"],
 		language: "json/json",
-		extends: [json.configs.recommended],
+		extends: ["json/recommended"],
 	},
 	{
 		files: ["**/*.js"],
