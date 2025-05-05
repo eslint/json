@@ -120,7 +120,7 @@ module.exports = defineConfig([
 
 ## Recommended Configuration
 
-To use the recommended configuration for this plugin, specify your matching `files` and then use the `extends: ["json/recommended"]` object, like this:
+To use the recommended configuration for this plugin, specify your matching `files` and then use the `extends: ["json/recommended"]` property, like this:
 
 ```js
 import { defineConfig } from "eslint/config";
