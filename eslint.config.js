@@ -10,6 +10,7 @@
 import eslintConfigESLint from "eslint-config-eslint";
 import eslintPlugin from "eslint-plugin-eslint-plugin";
 import json from "./src/index.js";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 //-----------------------------------------------------------------------------
 // Helpers
@@ -28,20 +29,19 @@ const eslintPluginTestsRecommendedConfig =
 // Configuration
 //-----------------------------------------------------------------------------
 
-export default [
-	{
-		ignores: ["**/tests/fixtures/", "**/dist/"],
-	},
+export default defineConfig([
+	globalIgnores(["**/tests/fixtures/", "**/dist/"]),
 
 	...eslintConfigESLint.map(config => ({
 		files: ["**/*.js"],
 		...config,
 	})),
 	{
+		plugins: { json },
 		files: ["**/*.json"],
 		ignores: ["**/package-lock.json"],
 		language: "json/json",
-		...json.configs.recommended,
+		extends: ["json/recommended"],
 	},
 	{
 		files: ["**/*.js"],
@@ -75,9 +75,8 @@ export default [
 	},
 	{
 		files: ["src/rules/*.js"],
-		...eslintPluginRulesRecommendedConfig,
+		extends: [eslintPluginRulesRecommendedConfig],
 		rules: {
-			...eslintPluginRulesRecommendedConfig.rules,
 			"eslint-plugin/require-meta-schema": "off", // `schema` defaults to []
 			"eslint-plugin/prefer-placeholders": "error",
 			"eslint-plugin/prefer-replace-text": "error",
@@ -90,9 +89,8 @@ export default [
 	},
 	{
 		files: ["tests/rules/*.test.js"],
-		...eslintPluginTestsRecommendedConfig,
+		extends: [eslintPluginTestsRecommendedConfig],
 		rules: {
-			...eslintPluginTestsRecommendedConfig.rules,
 			"eslint-plugin/test-case-property-ordering": [
 				"error",
 				[
@@ -109,4 +107,4 @@ export default [
 			"eslint-plugin/test-case-shorthand-strings": "error",
 		},
 	},
-];
+]);
