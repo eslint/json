@@ -251,6 +251,28 @@ Similarly, many of the rules in `eslint-plugin-jsonc` specifically disallow vali
 
 Any other rules that catch potential problems in JSON are welcome to be implemented. You can [open an issue](https://github.com/eslint/json/issues/new/choose) to propose a new rule.
 
+## Editor and IDE Setup
+
+### Visual Studio Code
+
+First, ensure you have the [ESLint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) installed.
+
+Then, edit `eslint.validate` in your `settings.json` file to include `json`, `jsonc`, and `json5`:
+
+```json
+{
+	"eslint.validate": ["json", "jsonc", "json5"]
+}
+```
+
+### JetBrains WebStorm
+
+For any [JetBrains WebStorm](https://www.jetbrains.com/webstorm/), configure the [ESLint scope](https://www.jetbrains.com/help/webstorm/eslint.html#ws_eslint_configure_scope) to include `json`, `jsonc`, and `json5`, such as:
+
+```text
+**/*.{js,ts,jsx,tsx,cjs,cts,mjs,mts,html,vue,json,jsonc,json5}
+```
+
 ## License
 
 Apache 2.0
