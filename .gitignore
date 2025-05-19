@@ -19,6 +19,9 @@ coverage
 # Dependency directories
 node_modules/
 
+# JSR build directory
+dist
+
 # TypeScript cache
 *.tsbuildinfo
 
