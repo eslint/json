@@ -107,6 +107,7 @@ const rule = {
 		],
 
 		docs: {
+			recommended: true,
 			description: `Require JSON object keys to be sorted`,
 			url: "https://github.com/eslint/json#rules",
 		},

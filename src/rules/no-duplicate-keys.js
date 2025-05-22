@@ -25,6 +25,7 @@ const rule = {
 		type: "problem",
 
 		docs: {
+			recommended: true,
 			description: "Disallow duplicate keys in JSON objects",
 			url: "https://github.com/eslint/json#rules",
 		},
