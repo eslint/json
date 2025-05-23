@@ -24,7 +24,9 @@ const rule = {
 		type: "problem",
 
 		docs: {
+			recommended: true,
 			description: "Disallow empty keys in JSON objects",
+			url: "https://github.com/eslint/json#rules",
 		},
 
 		messages: {
