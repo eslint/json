@@ -39,7 +39,9 @@ const rule = {
 		type: "problem",
 
 		docs: {
+			recommended: true,
 			description: "Disallow JSON values that are unsafe for interchange",
+			url: "https://github.com/eslint/json#rules",
 		},
 
 		messages: {

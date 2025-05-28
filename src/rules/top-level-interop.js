@@ -24,8 +24,10 @@ const rule = {
 		type: "problem",
 
 		docs: {
+			recommended: false,
 			description:
 				"Require the JSON top-level value to be an array or object",
+			url: "https://github.com/eslint/json#rules",
 		},
 
 		messages: {
