@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/eslint/json/compare/json-v0.12.0...json-v0.13.0) (2025-05-28)
+
+
+### Features
+
+* add `url` and `recommended` field to existing rules ([#104](https://github.com/eslint/json/issues/104)) ([14bd26b](https://github.com/eslint/json/commit/14bd26b26b6eecfaf80daf78bab02a440632295e))
+
 ## [0.12.0](https://github.com/eslint/json/compare/json-v0.11.0...json-v0.12.0) (2025-04-16)
 
 
