@@ -2,7 +2,7 @@
 
 ## Overview
 
-This package contains a plugin that allows you to natively lint JSON and JSONC files using ESLint.
+This package contains a plugin that allows you to natively lint JSON, JSONC, and JSON5 files using ESLint.
 
 **Important:** This plugin requires ESLint v9.6.0 or higher and you must be using the [new configuration system](https://eslint.org/docs/latest/use/configure/configuration-files).
 
@@ -31,12 +31,13 @@ deno add @eslint/json
 This package exports these languages:
 
 - `"json/json"` is for regular JSON files
-- `"json/jsonc"` is for JSON files that support comments ([JSONC](https://github.com/microsoft/node-jsonc-parser)) such as those used for Visual Studio Code configuration files
+- `"json/jsonc"` is for JSON files that support comments ([JSONC](https://github.com/microsoft/node-jsonc-parser)) such as those used for [Visual Studio Code](https://code.visualstudio.com/) configuration files
 - `"json/json5"` is for [JSON5](https://json5.org) files
 
 Depending on which types of JSON files you'd like to lint, you can set up your `eslint.config.js` file to include just the files you'd like. Here's an example that lints JSON, JSONC, and JSON5 files:
 
 ```js
+// eslint.config.js
 import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
@@ -79,6 +80,7 @@ export default defineConfig([
 In CommonJS format:
 
 ```js
+// eslint.config.js
 const { defineConfig } = require("eslint/config");
 const json = require("@eslint/json").default;
 
@@ -123,6 +125,7 @@ module.exports = defineConfig([
 To use the recommended configuration for this plugin, specify your matching `files` and then use the `extends: ["json/recommended"]` property, like this:
 
 ```js
+// eslint.config.js
 import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
@@ -205,6 +208,7 @@ Both line and block comments can be used for all kinds of configuration comments
 The Microsoft implementation of JSONC optionally allows for trailing commas in objects and arrays (files like `tsconfig.json` have this option enabled by default in Visual Studio Code). To enable trailing commas in JSONC files, use the `allowTrailingCommas` language option, as in this example:
 
 ```js
+// eslint.config.js
 import { defineConfig } from "eslint/config";
 import json from "@eslint/json";
 
