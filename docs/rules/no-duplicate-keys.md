@@ -4,15 +4,34 @@ Disallow duplicate keys in JSON objects.
 
 ## Background
 
-This rule warns when there are two keys in an object with the same text.
+In JSON, having duplicate keys in the same object can lead to unpredictable behavior. Different JSON parsers may handle duplicate keys differently - some might use the first occurrence, others might use the last occurrence, and some might even reject the JSON entirely. The JSON specification doesn't explicitly forbid duplicate keys, but using them is considered a bad practice as it can lead to confusion and errors. This rule helps ensure your JSON objects have unique keys.
 
 ## Rule Details
+
+This rule warns when there are two keys in an object with the same text, including when Unicode escape sequences resolve to the same character.
 
 Examples of **incorrect** code for this rule:
 
 ```jsonc
 /* eslint json/no-duplicate-keys: "error" */
 
+{
+  "foo": 1,
+  "foo": 2
+}
+
+{
+  "foo": {
+    "bar": 5
+  },
+  "foo": 6
+}
+
+// With Unicode escapes that resolve to the same key
+{
+  "f\u006fot": 1,
+  "fo\u006ft": 2
+}
 ```
 
 Examples of **correct** code for this rule:
@@ -20,8 +39,38 @@ Examples of **correct** code for this rule:
 ```jsonc
 /* eslint json/no-duplicate-keys: "error" */
 
+{
+  "foo": 1,
+  "bar": 2
+}
+
+{
+  "foo": 1,
+  "bar": 2,
+  "baz": 3
+}
+
+// Empty objects are valid
+{}
+
+// Nested objects with the same keys at different levels are valid
+{
+  "foo": 1,
+  "bar": {
+    "bar": 2
+  }
+}
+
+{
+  "foo": {
+    "bar": 5
+  },
+  "bar": 6
+}
 ```
 
-## Options
-
 ## When Not to Use It
+
+You might want to disable this rule in the rare case where you intentionally need to include duplicate keys in a JSON document for interoperability with systems that rely on this pattern. However, this is not recommended and usually indicates a design issue in the consuming application.
+
+If you're working with non-standard JSON processors that have specific semantics for duplicate keys (such as using them for array-like constructs), you might need to disable this rule. However, consider using a more appropriate data structure or format for such cases.
