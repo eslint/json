@@ -1,5 +1,7 @@
 # no-empty-keys
 
+Warns when there is a key in an object that is an empty string or contains only whitespace. (NOTE: `package-lock.json` uses empty keys intentionally.)
+
 ## Background
 
 ## Rule Details

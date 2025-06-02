@@ -1,5 +1,7 @@
 # no-duplicate-keys
 
+Warns when there are two keys in an object with the same text.
+
 ## Background
 
 ## Rule Details

@@ -1,5 +1,7 @@
 # top-level-interop
 
+Warns when the top-level item in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
+
 ## Background
 
 ## Rule Details
