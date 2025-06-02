@@ -161,15 +161,15 @@ export default defineConfig([
 
 ## Rules
 
-- [`no-duplicate-keys`](./docs/rules/no-duplicate-keys.md) - warns when there are two keys in an object with the same text.
-- [`no-empty-keys`](./docs/rules/no-empty-keys.md) - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally)
+- [`no-duplicate-keys`](./docs/rules/no-duplicate-keys.md) - warns when there are two keys in an object with the same text. (:white_check_mark: recommended)
+- [`no-empty-keys`](./docs/rules/no-empty-keys.md) - warns when there is a key in an object that is an empty string or contains only whitespace (note: `package-lock.json` uses empty keys intentionally) (:white_check_mark: recommended)
 - [`no-unsafe-values`](./docs/rules/no-unsafe-values.md) - warns on values that are unsafe for interchange, such
   as strings with unmatched
   [surrogates](https://en.wikipedia.org/wiki/UTF-16), numbers that evaluate to
   Infinity, numbers that evaluate to zero unintentionally, numbers that look
   like integers but are too large, and
-  [subnormal numbers](https://en.wikipedia.org/wiki/Subnormal_number).
-- [`no-unnormalized-keys`](./docs/rules/no-unnormalized-keys.md) - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
+  [subnormal numbers](https://en.wikipedia.org/wiki/Subnormal_number). (:white_check_mark: recommended)
+- [`no-unnormalized-keys`](./docs/rules/no-unnormalized-keys.md) - warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`. (:white_check_mark: recommended)
 - [`sort-keys`](./docs/rules/sort-keys.md) - warns when keys are not in the specified order. Based on the ESLint [`sort-keys`](https://eslint.org/docs/latest/rules/sort-keys) rule.
 - [`top-level-interop`](./docs/rules/top-level-interop.md) - warns when the top-level item in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
 
