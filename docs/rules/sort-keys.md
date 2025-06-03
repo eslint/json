@@ -94,7 +94,7 @@ Example for a list:
 
 Examples of **incorrect** code for the `"desc"` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "desc"] */
 
 {"b": 2, "c": 3, "a": 1}
@@ -108,210 +108,194 @@ Examples of **incorrect** code for the `"desc"` option:
 
 Examples of **correct** code for the `"desc"` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "desc"] */
 
-const obj1 = {c: 3, b: 2, a: 1};
-const obj2 = {c: 3, "b": 2, a: 1};
+{"c": 3, "b": 2, "a": 1}
 
 // Case-sensitive by default.
-const obj3 = {b: 3, a: 2, C: 1};
+{"b": 3, "a": 2, "C": 1}
 
 // Non-natural order by default.
-const obj4 = {2: c, 10: b, 1: a};
+{"2": "c", "10": "b", "1": "a"}
 ```
 
 ### `caseSensitive`
 
-Examples of **incorrect** code for the `{caseSensitive: false}` option:
+Examples of **incorrect** code for the `{ caseSensitive: false }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { caseSensitive: false }] */
 
-const obj1 = {a: 1, c: 3, C: 4, b: 2};
-const obj2 = {a: 1, C: 3, c: 4, b: 2};
+{"a": 1, "c": 3, "C": 4, "b": 2}
+
+{"a": 1, "C": 3, "c": 4, "b": 2}
 ```
 
-Examples of **correct** code for the `{caseSensitive: false}` option:
+Examples of **correct** code for the `{ caseSensitive: false }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { caseSensitive: false }] */
 
-const obj1 = {a: 1, b: 2, c: 3, C: 4};
-const obj2 = {a: 1, b: 2, C: 3, c: 4};
+{"a": 1, "b": 2, "c": 3, "C": 4}
+
+{"a": 1, "b": 2, "C": 3, "c": 4}
 ```
 
 ### `natural`
 
-Examples of **incorrect** code for the `{natural: true}` option:
+Examples of **incorrect** code for the `{ natural: true }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { natural: true }] */
 
-const obj = {1: a, 10: c, 2: b};
+{ "1": "a", "10": "c", "2": "b" }
 ```
 
-Examples of **correct** code for the `{natural: true}` option:
+Examples of **correct** code for the `{ natural: true }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { natural: true }] */
 
-const obj = {1: a, 2: b, 10: c};
+{ "1": "a", "2": "b", "10": "c" }
 ```
 
 ### `minKeys`
 
-Examples of **incorrect** code for the `{minKeys: 4}` option:
+Examples of **incorrect** code for the `{ minKeys: 4 }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { minKeys: 4 }] */
 
 // 4 keys
-const obj1 = {
-    b: 2,
-    a: 1, // not sorted correctly (should be 1st key)
-    c: 3,
-    d: 4,
-};
+{
+    "b": 2,
+    "a": 1, // not sorted correctly (should be 1st key)
+    "c": 3,
+    "d": 4
+}
 
 // 5 keys
-const obj2 = {
-    2: 'a',
-    1: 'b', // not sorted correctly (should be 1st key)
-    3: 'c',
-    4: 'd',
-    5: 'e',
-};
+{
+    "2": "a",
+    "1": "b", // not sorted correctly (should be 1st key)
+    "3": "c",
+    "4": "d",
+    "5": "e"
+}
 ```
 
-Examples of **correct** code for the `{minKeys: 4}` option:
+Examples of **correct** code for the `{ minKeys: 4 }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { minKeys: 4 }] */
 
 // 3 keys
-const obj1 = {
-    b: 2,
-    a: 1,
-    c: 3,
-};
+{
+    "b": 2,
+    "a": 1,
+    "c": 3
+}
 
 // 2 keys
-const obj2 = {
-    2: 'b',
-    1: 'a',
-};
+{
+    "2": "b",
+    "1": "a"
+}
 ```
 
 ### `allowLineSeparatedGroups`
 
-Examples of **incorrect** code for the `{allowLineSeparatedGroups: true}` option:
+Examples of **incorrect** code for the `{ allowLineSeparatedGroups: true }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { allowLineSeparatedGroups: true }] */
 
-const obj1 = {
-    b: 1,
-    c () {
-
-    },
-    a: 3
+{
+    "b": 1,
+    "a": 3
 }
 
-const obj2 = {
-    b: 1,
-    c: 2,
+{
+    "b": 1,
+    "c": 2,
 
-    z () {
-
-    },
-    y: 3
+    "y": 3
 }
 
-const obj3 = {
-    b: 1,
-    c: 2,
+{
+    "b": 1,
+    "c": 2,
 
-    z () {
-
-    },
     // comment
-    y: 3,
+    "y": 3,
 }
 
-const obj4 = {
-    b: 1
+{
+    "b": 1
     // comment before comma
-    , a: 2
-};
+    , "a": 2
+}
 ```
 
-Examples of **correct** code for the `{allowLineSeparatedGroups: true}` option:
+Examples of **correct** code for the `{ allowLineSeparatedGroups: true }` option:
 
-```json
+```jsonc
 /* eslint json/sort-keys: ["error", "asc", { allowLineSeparatedGroups: true }] */
 
-const obj1 = {
-    e: 1,
-    f: 2,
-    g: 3,
+{
+    "e": 1,
+    "f": 2,
+    "g": 3,
 
-    a: 4,
-    b: 5,
-    c: 6
+    "a": 4,
+    "b": 5,
+    "c": 6
 }
 
-const obj2 = {
-    b: 1,
+{
+    "b": 1,
 
     // comment
-    a: 4,
-    c: 5,
+    "a": 4,
+    "c": 5,
 }
 
-const obj3 = {
-    c: 1,
-    d: 2,
+{
+    "c": 1,
+    "d": 2,
 
-    b () {
-
-    },
-    e: 3,
+    "e": 3,
 }
 
-const obj4 = {
-    c: 1,
-    d: 2,
+{
+    "c": 1,
+    "d": 2,
     // comment
 
     // comment
-    b() {
-
-    },
-    e: 4
+    "e": 4
 }
 
-const obj5 = {
-    b,
+{
+    "b",
 
-    [foo + bar]: 1,
-    a
+    "a"
 }
 
-const obj6 = {
-    b: 1
+{
+    "b": 1
     // comment before comma
 
     ,
-    a: 2
-};
+    "a": 2
+}
 
-const obj7 = {
-    b: 1,
+{
+    "b": 1,
 
-    a: 2,
-    ...z,
-    c: 3
+    "a": 2,
+    "c": 3
 }
 ```
 
