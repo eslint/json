@@ -6,7 +6,7 @@ Disallow JSON keys that are not normalized.
 
 Unicode characters can sometimes have multiple representations that look identical but are technically different character sequences. For example, the character "é" can be represented as a single code point (U+00E9) or as an "e" followed by a combining accent (U+0065 + U+0301). This can lead to confusion, comparison issues, and unexpected behavior when working with JSON data.
 
-This rule warns on keys containing [unnormalized characters](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`. Using normalized Unicode ensures consistent representation of text, which is important for key comparison, sorting, and searching operations. When keys are properly normalized, operations like key lookups and equality checks will work as expected across different systems and platforms.
+This rule warns on keys containing [unnormalized characters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize#description). You can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`. Using normalized Unicode ensures consistent representation of text, which is important for key comparison, sorting, and searching operations. When keys are properly normalized, operations like key lookups and equality checks will work as expected across different systems and platforms.
 
 ## Rule Details
 
