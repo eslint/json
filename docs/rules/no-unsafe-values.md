@@ -40,6 +40,8 @@ Examples of **incorrect** code for this rule:
 
 Examples of **correct** code for this rule:
 
+<!-- prettier-ignore-start -->
+
 ```jsonc
 /* eslint json/no-unsafe-values: "error" */
 
@@ -52,11 +54,13 @@ Examples of **correct** code for this rule:
 
 	"\ud83d\udd25", // Same character with proper surrogate pair
 
-	0.0,
-	0,
-	0.0, // Zero represented in different valid ways
+    0.00000,
+    0e0000000,
+    0.00000e0000 // Zero represented in different valid ways
 ]
 ```
+
+<!-- prettier-ignore-end -->
 
 ## When Not to Use It
 
