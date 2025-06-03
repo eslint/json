@@ -91,9 +91,7 @@ The following options are available on this rule:
 You might want to disable this rule if:
 
 1. You're working with JSON data from external systems that you cannot modify, and normalizing the keys would break compatibility with those systems.
-
 1. Your project specifically needs to maintain different Unicode representations for technical reasons.
-
 1. Your JSON processing tools or environment have specific requirements regarding Unicode normalization that differ from the standard forms.
 
 In most cases, however, following a consistent normalization form improves interoperability and prevents subtle bugs.
