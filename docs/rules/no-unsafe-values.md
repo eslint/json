@@ -54,9 +54,9 @@ Examples of **correct** code for this rule:
 
 	"\ud83d\udd25", // Same character with proper surrogate pair
 
-    0.00000,
-    0e0000000,
-    0.00000e0000 // Zero represented in different valid ways
+	0.00000,
+    	0e0000000,
+    	0.00000e0000 // Zero represented in different valid ways
 ]
 ```
 
@@ -67,9 +67,7 @@ Examples of **correct** code for this rule:
 You might want to disable this rule if:
 
 1. **Legacy System Compatibility**: You're working with legacy systems that rely on these potentially problematic values for specific functionality.
-
 2. **Controlled Environment**: Your JSON is only used in a controlled environment where you've thoroughly tested handling of these edge cases.
-
 3. **Intentional Usage**: You specifically need to represent values at the edges of floating-point precision or have legitimate use cases for lone surrogates.
 
 In most cases, however, using this rule helps prevent subtle bugs and interoperability issues when exchanging data between different systems and programming languages.
