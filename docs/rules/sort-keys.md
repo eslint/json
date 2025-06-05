@@ -12,6 +12,8 @@ This rule enforces a consistent ordering of keys within JSON objects based on th
 
 This rule warns when keys are not in the specified order.
 
+Examples of **incorrect** code for this rule:
+
 ```jsonc
 /* eslint json/sort-keys: "error" */
 
@@ -70,10 +72,10 @@ The **1st option** is `"asc"` or `"desc"`.
 
 The **2nd option** is an object which has the following properties.
 
-- `caseSensitive` - if `true`, enforce properties to be in case-sensitive order. Default is `true`.
-- `natural` - if `true`, enforce properties to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number `10` comes after the number `3` in Natural Sorting.
-- `minKeys` - Specifies the minimum number of keys that an object should have in order for the object's unsorted keys to produce an error. Default is `2`, which means by default all objects with unsorted keys will result in lint errors.
-- `allowLineSeparatedGroups` - if `true`, the rule allows to group object keys through line breaks. In other words, a blank line after a property will reset the sorting of keys. Default is `false`.
+- `caseSensitive` - if `true`, enforce properties to be in case-sensitive order. **Default is `true`**.
+- `natural` - if `true`, enforce properties to be in natural order. **Default is `false`**. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number `10` comes after the number `3` in Natural Sorting.
+- `minKeys` - Specifies the minimum number of keys that an object should have in order for the object's unsorted keys to produce an error. **Default is `2`**, which means by default all objects with unsorted keys will result in lint errors.
+- `allowLineSeparatedGroups` - if `true`, the rule allows to group object keys through line breaks. In other words, a blank line after a property will reset the sorting of keys. **Default is `false`**.
 
 Example for a list:
 
@@ -217,18 +219,10 @@ Examples of **incorrect** code for the `{ allowLineSeparatedGroups: true }` opti
 }
 
 {
-    "b": 1,
-    "c": 2,
-
-    "y": 3
-}
-
-{
-    "b": 1,
-    "c": 2,
-
+    "z": 3,
     // comment
-    "y": 3,
+    "b": 1,
+    "c": 2
 }
 
 {
@@ -236,12 +230,43 @@ Examples of **incorrect** code for the `{ allowLineSeparatedGroups: true }` opti
     // comment before comma
     , "a": 2
 }
+
+{
+    "e": 1,
+    "f": 2,
+    "g": 3,
+    "a": 4,
+    "b": 5,
+    "c": 6
+}
 ```
 
 Examples of **correct** code for the `{ allowLineSeparatedGroups: true }` option:
 
 ```jsonc
 /* eslint json/sort-keys: ["error", "asc", { allowLineSeparatedGroups: true }] */
+
+{
+    "b": 1,
+
+    "a": 3
+}
+
+{
+    "z": 3,
+    // comment
+
+    "b": 1,
+    "c": 2
+}
+
+{
+    "z": 3,
+
+    // comment
+    "b": 1,
+    "c": 2
+}
 
 {
     "e": 1,
@@ -254,18 +279,10 @@ Examples of **correct** code for the `{ allowLineSeparatedGroups: true }` option
 }
 
 {
-    "b": 1,
-
-    // comment
-    "a": 4,
-    "c": 5,
-}
-
-{
     "c": 1,
     "d": 2,
 
-    "e": 3,
+    "e": 3
 }
 
 {
@@ -275,12 +292,6 @@ Examples of **correct** code for the `{ allowLineSeparatedGroups: true }` option
 
     // comment
     "e": 4
-}
-
-{
-    "b",
-
-    "a"
 }
 
 {
