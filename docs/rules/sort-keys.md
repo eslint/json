@@ -6,8 +6,6 @@ Require JSON object keys to be sorted.
 
 Maintaining consistent ordering of keys in JSON objects can significantly improve readability, especially in large files. When keys follow a predictable sort order, it becomes easier to locate specific properties, spot differences between objects, and manage changes over time. Sorted keys also help reduce unnecessary differences in version control systems when properties are added or removed, as the surrounding properties maintain their relative positions.
 
-This rule enforces a consistent ordering of keys within JSON objects based on the specified sort order (alphabetical by default). It is based on ESLint's [`sort-keys`](https://eslint.org/docs/latest/rules/sort-keys) rule, adapted specifically for JSON documents.
-
 ## Rule Details
 
 This rule warns when keys are not in the specified order.
