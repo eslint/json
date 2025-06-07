@@ -4,7 +4,7 @@ Disallow JSON values that are unsafe for interchange.
 
 ## Background
 
-JSON is widely used for data interchange between systems, but certain values can cause interoperability issues when transferred between different parsers and environments. This rule warns about potentially problematic values:
+JSON is widely used for data interchange between systems, but certain values can cause interoperability issues when transferred between different parsers and environments. The common unsafe values are:
 
 - **Lone surrogates in strings**: Incomplete Unicode character pairs that can cause encoding/decoding failures
 - **Numbers that evaluate to Infinity**: Values like `1e400` that exceed JavaScript's number range
