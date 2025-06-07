@@ -4,7 +4,7 @@ Disallow empty keys in JSON objects.
 
 ## Background
 
-In JSON, using empty keys (keys that are empty strings or contain only whitespace) can lead to accessibility and maintenance issues. While technically valid in JSON, empty keys make objects harder to read, can cause confusion when debugging, and may create problems with some JSON parsers or processors. Additionally, empty keys often indicate mistakes or oversights in the processes. This rule helps ensure your JSON objects have meaningful, identifiable keys.
+In JSON, using empty keys (keys that are empty strings or contain only whitespace) can lead to accessibility and maintenance issues. While technically valid in JSON, empty keys make objects harder to read, can cause confusion when debugging, and may create problems with some JSON parsers or processors. Additionally, empty keys often indicate mistakes or oversights in the processes.
 
 > [!NOTE]
 >
