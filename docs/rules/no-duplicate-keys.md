@@ -4,7 +4,7 @@ Disallow duplicate keys in JSON objects.
 
 ## Background
 
-In JSON, having duplicate keys in the same object can lead to unpredictable behavior. Different JSON parsers may handle duplicate keys differently - some might use the first occurrence, others might use the last occurrence, and some might even reject the JSON entirely. The JSON specification doesn't explicitly forbid duplicate keys, but using them is considered a bad practice as it can lead to confusion and errors. This rule helps ensure your JSON objects have unique keys.
+The JSON specification doesn't explicitly forbid duplicate keys, but using them is considered a bad practice as it can lead to confusion and errors. Most parsers will only use the last occurrence of a duplicate key while others will throw an error. As such, it's considered a best practice to only have unique keys in JSON objects.
 
 ## Rule Details
 
