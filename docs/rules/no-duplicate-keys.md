@@ -12,7 +12,7 @@ This rule warns when there are two keys in an object with the same text, includi
 
 Examples of **incorrect** code for this rule:
 
-```jsonc
+```json5
 /* eslint json/no-duplicate-keys: "error" */
 
 {
