@@ -4,7 +4,7 @@ Require the JSON top-level value to be an array or object.
 
 ## Background
 
-The JSON specification technically allows any JSON value (object, array, string, number, boolean, or null) to be used as the top-level element of a JSON document. However, some older JSON parsers, especially those created before RFC [7158](https://datatracker.ietf.org/doc/html/rfc7158)/[4627](https://datatracker.ietf.org/doc/html/rfc4627) was fully adopted, only support objects or arrays as the root element.
+The JSON specification technically allows any JSON value (object, array, string, number, boolean, or null) to be used as the top-level element of a JSON document. However, some older JSON parsers, especially those created before [RFC 7158](https://datatracker.ietf.org/doc/html/rfc7158)/[4627](https://datatracker.ietf.org/doc/html/rfc4627) was fully adopted, only support objects or arrays as the root element.
 
 Additionally, some security practices (such as those preventing JSON hijacking attacks) rely on the assumption that the top-level value is an object or array. Using an object or array at the top level also provides better extensibility for your data structures over time.
 
