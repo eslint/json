@@ -27,7 +27,7 @@ const rule = {
 			recommended: false,
 			description:
 				"Require the JSON top-level value to be an array or object",
-			url: "https://github.com/eslint/json#rules",
+			url: "https://github.com/eslint/json/tree/main/docs/rules/top-level-interop.md",
 		},
 
 		messages: {

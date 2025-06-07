@@ -27,7 +27,7 @@ const rule = {
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
-			url: "https://github.com/eslint/json#rules",
+			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unnormalized-keys.md",
 		},
 
 		messages: {
