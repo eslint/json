@@ -8,7 +8,7 @@ The JSON specification doesn't explicitly forbid duplicate keys, but using them 
 
 ## Rule Details
 
-This rule warns when there are two keys in an object with the same text, including when Unicode escape sequences resolve to the same character.
+This rule warns when there are two keys in an object with the same text, including when Unicode escape sequences resolve to the same character. For JSON5, this rule also considers identifier keys with the same text as string keys.
 
 Examples of **incorrect** code for this rule:
 
