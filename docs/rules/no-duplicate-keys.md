@@ -21,6 +21,11 @@ Examples of **incorrect** code for this rule:
 }
 
 {
+  "foo": 1,
+  foo: 2
+}
+
+{
   "foo": {
     "bar": 5
   },
