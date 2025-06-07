@@ -8,7 +8,7 @@ Maintaining consistent ordering of keys in JSON objects can significantly improv
 
 ## Rule Details
 
-This rule warns when keys are not in the specified order.
+This rule enforces a consistent ordering of keys within JSON objects based on the specified sort order (alphabetical by default). It is based on ESLint's [`sort-keys`](https://eslint.org/docs/latest/rules/sort-keys) rule, adapted specifically for JSON documents.
 
 Examples of **incorrect** code for this rule:
 
