@@ -10,7 +10,7 @@ Additionally, some security practices (such as those preventing JSON hijacking a
 
 ## Rule Details
 
-This rule warns when the top-level item in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
+This rule warns when the top-level value in the document is neither an array nor an object. This can be enabled to ensure maximal interoperability with the oldest JSON parsers.
 
 Examples of **incorrect** code for this rule:
 
