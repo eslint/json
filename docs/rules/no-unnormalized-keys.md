@@ -10,7 +10,7 @@ Using normalized Unicode ensures consistent representation of text, which is imp
 
 ## Rule Details
 
-This rule checks that all object keys in your JSON are properly normalized according to Unicode normalization forms. By default, it uses the NFC normalization form, but you can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`. 
+This rule checks that all object keys in your JSON are properly normalized according to Unicode normalization forms. By default, it uses the NFC normalization form, but you can optionally specify the normalization form via `{ form: "form_name" }`, where `form_name` can be any of `"NFC"`, `"NFD"`, `"NFKC"`, or `"NFKD"`.
 
 Examples of **incorrect** code for this rule:
 
