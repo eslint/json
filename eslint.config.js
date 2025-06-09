@@ -88,7 +88,8 @@ export default defineConfig([
 			"eslint-plugin/require-meta-docs-url": [
 				"error",
 				{
-					pattern: "https://github.com/eslint/json#rules",
+					pattern:
+						"https://github.com/eslint/json/tree/main/docs/rules/{{name}}.md",
 				},
 			],
 		},
