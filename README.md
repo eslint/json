@@ -17,7 +17,7 @@ yarn add @eslint/json -D
 # or
 pnpm install @eslint/json -D
 # or
-bun install @eslint/json -D
+bun add @eslint/json -D
 ```
 
 For Deno:
