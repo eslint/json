@@ -40,7 +40,14 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "!(*.js)": "prettier --write --ignore-unknown"
+    "!(*.js)": "prettier --write --ignore-unknown",
+    "README.md": [
+      "npm run build:update-rules-docs"
+    ],
+    "{src/rules/*.js,tools/update-rules-docs.js}": [
+      "npm run build:update-rules-docs",
+      "git add README.md"
+    ]
   },
   "repository": {
     "type": "git",
@@ -55,6 +62,7 @@
     "build:cts": "node tools/build-cts.js",
     "build": "rollup -c && npm run build:dedupe-types && tsc -p tsconfig.esm.json && npm run build:cts",
     "build:readme": "node tools/update-readme.js",
+    "build:update-rules-docs": "node tools/update-rules-docs.js",
     "test:jsr": "npx jsr@latest publish --dry-run",
     "pretest": "npm run build",
     "lint": "eslint",
@@ -86,6 +94,7 @@
     "eslint-plugin-eslint-plugin": "^6.3.2",
     "got": "^14.4.2",
     "lint-staged": "^15.2.7",
+    "mdast-util-from-markdown": "^2.0.2",
     "mocha": "^11.3.0",
     "prettier": "^3.4.1",
     "rollup": "^4.41.0",
