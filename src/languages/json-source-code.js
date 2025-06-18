@@ -59,6 +59,29 @@ class JSONTraversalStep extends VisitNodeStep {
 	}
 }
 
+/**
+ * Processes tokens to extract comments and their starting tokens.
+ * @param {Array<Token>} tokens The tokens to process.
+ * @returns {{ comments: Array<Token>, starts: Map<number, number> }} An object containing
+ *      an array of comments and a map of starting token range to token index.
+ */
+function processTokens(tokens) {
+	const comments = [];
+	const starts = new Map();
+
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+
+		if (token.type.endsWith("Comment")) {
+			comments.push(token);
+		}
+
+		starts.set(token.range[0], i);
+	}
+
+	return { comments, starts };
+}
+
 //-----------------------------------------------------------------------------
 // Exports
 //-----------------------------------------------------------------------------
@@ -93,10 +116,16 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	ast = undefined;
 
 	/**
-	 * The comment node in the source code.
+	 * The comment tokens in the source code.
 	 * @type {Array<Token>|undefined}
 	 */
-	comments;
+	#comments;
+
+	/**
+	 * A map of token start positions to their corresponding index.
+	 * @type {Map<number, number>}
+	 */
+	#tokenStarts;
 
 	/**
 	 * Creates a new instance.
@@ -107,9 +136,27 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	constructor({ text, ast }) {
 		super({ text, ast });
 		this.ast = ast;
-		this.comments = ast.tokens
-			? ast.tokens.filter(token => token.type.endsWith("Comment"))
-			: [];
+	}
+
+	/**
+	 * Ensures that the tokens and comments are processed and cached.
+	 * @returns {void}
+	 */
+	#ensureTokens() {
+		if (!this.#comments) {
+			const { comments, starts } = processTokens(this.ast.tokens ?? []);
+			this.#comments = comments;
+			this.#tokenStarts = starts;
+		}
+	}
+
+	/**
+	 * The comment node in the source code.
+	 * @returns {Array<Token>} An array of comment tokens.
+	 */
+	get comments() {
+		this.#ensureTokens();
+		return this.#comments;
 	}
 
 	/**
@@ -282,5 +329,91 @@ export class JSONSourceCode extends TextSourceCodeBase {
 		}
 
 		return steps;
+	}
+
+	/**
+	 * Gets the token or comment before the given node or token.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token or comment for.
+	 * @returns {Token|null} The previous token or comment, or undefined if there is none.
+	 */
+	getTokenOrCommentBefore(nodeOrToken) {
+		const { range } = nodeOrToken;
+		const start = range[0];
+		const tokens = this.ast.tokens;
+
+		this.#ensureTokens();
+
+		const index = this.#tokenStarts.get(start);
+		if (index === undefined) {
+			return null;
+		}
+
+		const previousIndex = index - 1;
+		if (previousIndex < 0) {
+			return null;
+		}
+
+		return tokens[previousIndex];
+	}
+
+	/**
+	 * Gets the token before the given node or token, skipping any comments.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token for.
+	 * @returns {Token|null} The previous token, or null if there is none.
+	 */
+	getTokenBefore(nodeOrToken) {
+		let tokenOrComment = nodeOrToken;
+
+		do {
+			tokenOrComment = this.getTokenOrCommentBefore(tokenOrComment);
+			if (!tokenOrComment) {
+				return null;
+			}
+		} while (tokenOrComment.type.endsWith("Comment"));
+
+		return tokenOrComment;
+	}
+
+	/**
+	 * Gets the token or comment after the given node or token.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token or comment for.
+	 * @returns {Token|null} The next token or comment, or undefined if there is none.
+	 */
+	getTokenOrCommentAfter(nodeOrToken) {
+		const { range } = nodeOrToken;
+		const start = range[0];
+		const tokens = this.ast.tokens;
+
+		this.#ensureTokens();
+
+		const index = this.#tokenStarts.get(start);
+		if (index === undefined) {
+			return null;
+		}
+
+		const nextIndex = index + 1;
+		if (nextIndex >= tokens.length) {
+			return null;
+		}
+
+		return tokens[nextIndex];
+	}
+
+	/**
+	 * Gets the token after the given node or token, skipping any comments.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token for.
+	 * @returns {Token|null} The next token, or null if there is none.
+	 */
+	getTokenAfter(nodeOrToken) {
+		let tokenOrComment = nodeOrToken;
+
+		do {
+			tokenOrComment = this.getTokenOrCommentAfter(tokenOrComment);
+			if (!tokenOrComment) {
+				return null;
+			}
+		} while (tokenOrComment.type.endsWith("Comment"));
+
+		return tokenOrComment;
 	}
 }

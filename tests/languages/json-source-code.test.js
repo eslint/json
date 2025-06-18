@@ -14,7 +14,7 @@ import dedent from "dedent";
 
 //-----------------------------------------------------------------------------
 // Tests
-//-----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 describe("JSONSourceCode", () => {
 	describe("constructor", () => {
@@ -495,6 +495,304 @@ describe("JSONSourceCode", () => {
 					});
 				});
 			});
+		});
+	});
+
+	describe("getTokenOrCommentBefore()", () => {
+		let sourceCode;
+		let file;
+		let language;
+		let parseResult;
+
+		beforeEach(() => {
+			file = { body: '{ "a": 1 }', path: "test.json" };
+			language = new JSONLanguage({ mode: "json" });
+			parseResult = language.parse(file);
+			sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+		});
+
+		it("should return null for the first token", () => {
+			const firstToken = sourceCode.ast.tokens[0];
+			assert.strictEqual(
+				sourceCode.getTokenOrCommentBefore(firstToken),
+				null,
+			);
+		});
+
+		it("should return the previous token for a middle token", () => {
+			const tokens = sourceCode.ast.tokens;
+			const secondToken = tokens[1];
+			assert.strictEqual(
+				sourceCode.getTokenOrCommentBefore(secondToken),
+				tokens[0],
+			);
+		});
+
+		it("should return the previous token when passing a node as the argument", () => {
+			const propertyNode = sourceCode.ast.body.members[0];
+			const valueNode = propertyNode.value;
+			const valueToken = sourceCode.ast.tokens.find(
+				t => t.range[0] === valueNode.range[0],
+			);
+			const prevToken = sourceCode.getTokenOrCommentBefore(valueNode);
+			assert.strictEqual(
+				prevToken,
+				sourceCode.ast.tokens[
+					sourceCode.ast.tokens.indexOf(valueToken) - 1
+				],
+			);
+		});
+
+		it("should return the previous comment for a token after a comment", () => {
+			const commentFile = {
+				body: '{ // comment\n "a": 1 }',
+				path: "test.jsonc",
+			};
+			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
+			const commentParseResult = commentLanguage.parse(commentFile);
+			const commentSourceCode = new JSONSourceCode({
+				text: commentFile.body,
+				ast: commentParseResult.ast,
+			});
+
+			const tokens = commentSourceCode.ast.tokens;
+			const comment = commentSourceCode.comments[0];
+			const afterCommentToken = tokens.find(
+				t => t.range[0] > comment.range[1],
+			);
+			assert.strictEqual(
+				commentSourceCode.getTokenOrCommentBefore(afterCommentToken),
+				comment,
+			);
+		});
+	});
+
+	describe("getTokenOrCommentAfter()", () => {
+		let sourceCode;
+		let file;
+		let language;
+		let parseResult;
+
+		beforeEach(() => {
+			file = { body: '{"foo": 123}', path: "test.json" };
+			language = new JSONLanguage({ mode: "json" });
+			parseResult = language.parse(file);
+			sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+		});
+
+		it("should return the next token after a node", () => {
+			const stringNode = parseResult.ast.body.members[0].name;
+			const nextToken = sourceCode.getTokenAfter(stringNode);
+
+			assert.strictEqual(nextToken.type, "Colon");
+		});
+
+		it("should return the next token after a token", () => {
+			const openBraceToken = parseResult.ast.tokens.find(
+				token => token.type === "LBrace",
+			);
+			const nextToken = sourceCode.getTokenAfter(openBraceToken);
+
+			assert.strictEqual(nextToken.type, "String");
+		});
+
+		it("should skip comments when getting next token", () => {
+			const commentFile = {
+				body: '{\n// comment\n"foo": true}',
+				path: "test.json",
+			};
+			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
+			const commentParseResult = commentLanguage.parse(commentFile);
+			const commentSourceCode = new JSONSourceCode({
+				text: commentFile.body,
+				ast: commentParseResult.ast,
+			});
+
+			const openBraceToken = commentParseResult.ast.tokens.find(
+				token => token.type === "LBrace",
+			);
+			const nextToken = commentSourceCode.getTokenAfter(openBraceToken);
+
+			assert.strictEqual(nextToken.type, "String");
+		});
+
+		it("should return null when there is no next token", () => {
+			const lastToken = parseResult.ast.tokens.at(-1);
+			const nextToken = sourceCode.getTokenAfter(lastToken);
+
+			assert.strictEqual(nextToken, null);
+		});
+
+		it("should return null for empty documents", () => {
+			const emptyFile = { body: "{}", path: "test.json" };
+			const emptyLanguage = new JSONLanguage({ mode: "json" });
+			const emptyParseResult = emptyLanguage.parse(emptyFile);
+			const emptySourceCode = new JSONSourceCode({
+				text: emptyFile.body,
+				ast: emptyParseResult.ast,
+			});
+
+			const token = emptyParseResult.ast.tokens.at(-1);
+			const nextToken = emptySourceCode.getTokenAfter(token);
+
+			assert.strictEqual(nextToken, null);
+		});
+	});
+	describe("getTokenBefore()", () => {
+		let sourceCode;
+		let file;
+		let language;
+		let parseResult;
+
+		beforeEach(() => {
+			file = { body: '{ "a": 1 }', path: "test.json" };
+			language = new JSONLanguage({ mode: "json" });
+			parseResult = language.parse(file);
+			sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+		});
+
+		it("should return null for the first token", () => {
+			const firstToken = sourceCode.ast.tokens[0];
+			assert.strictEqual(sourceCode.getTokenBefore(firstToken), null);
+		});
+
+		it("should return the previous token for a middle token", () => {
+			const tokens = sourceCode.ast.tokens;
+			const secondToken = tokens[1];
+			assert.strictEqual(
+				sourceCode.getTokenBefore(secondToken),
+				tokens[0],
+			);
+		});
+
+		it("should return null when passing a node that does not exist", () => {
+			assert.strictEqual(
+				sourceCode.getTokenBefore({ type: "String", range: [20, 25] }),
+				null,
+			);
+		});
+
+		it("should return the previous token when passing a node as the argument", () => {
+			const propertyNode = sourceCode.ast.body.members[0];
+			const valueNode = propertyNode.value;
+			const valueToken = sourceCode.ast.tokens.find(
+				token => token.range[0] === valueNode.range[0],
+			);
+			const prevToken = sourceCode.getTokenBefore(valueNode);
+			assert.strictEqual(
+				prevToken,
+				sourceCode.ast.tokens[
+					sourceCode.ast.tokens.indexOf(valueToken) - 1
+				],
+			);
+		});
+
+		it("should return null for a node at the start of the file", () => {
+			assert.strictEqual(sourceCode.getTokenBefore(sourceCode.ast), null);
+		});
+
+		it("should return the previous comment when includeComments is true", () => {
+			const commentFile = {
+				body: '{ "a" // comment\n: 1 }',
+				path: "test.jsonc",
+			};
+			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
+			const commentParseResult = commentLanguage.parse(commentFile);
+			const commentSourceCode = new JSONSourceCode({
+				text: commentFile.body,
+				ast: commentParseResult.ast,
+			});
+
+			const tokens = commentSourceCode.ast.tokens;
+			const colonToken = tokens.find(token => token.type === "Colon");
+			assert.strictEqual(
+				commentSourceCode.getTokenBefore(colonToken),
+				tokens[1],
+			);
+		});
+	});
+
+	describe("getTokenAfter()", () => {
+		let sourceCode;
+		let file;
+		let language;
+		let parseResult;
+
+		beforeEach(() => {
+			file = { body: '{"foo": 123}', path: "test.json" };
+			language = new JSONLanguage({ mode: "json" });
+			parseResult = language.parse(file);
+			sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+		});
+
+		it("should return the next token after a node", () => {
+			const stringNode = parseResult.ast.body.members[0].name;
+			const nextToken = sourceCode.getTokenAfter(stringNode);
+
+			assert.strictEqual(nextToken.type, "Colon");
+		});
+
+		it("should return the next token after a token", () => {
+			const openBraceToken = parseResult.ast.tokens.find(
+				token => token.type === "LBrace",
+			);
+			const nextToken = sourceCode.getTokenAfter(openBraceToken);
+
+			assert.strictEqual(nextToken.type, "String");
+		});
+
+		it("should skip comments when getting next token", () => {
+			const commentFile = {
+				body: '{\n// comment\n"foo": true}',
+				path: "test.json",
+			};
+			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
+			const commentParseResult = commentLanguage.parse(commentFile);
+			const commentSourceCode = new JSONSourceCode({
+				text: commentFile.body,
+				ast: commentParseResult.ast,
+			});
+
+			const openBraceToken = commentParseResult.ast.tokens.find(
+				token => token.type === "LBrace",
+			);
+			const nextToken = commentSourceCode.getTokenAfter(openBraceToken);
+
+			assert.strictEqual(nextToken.type, "String");
+		});
+
+		it("should return null when there is no next token", () => {
+			const lastToken = parseResult.ast.tokens.at(-1);
+			const nextToken = sourceCode.getTokenAfter(lastToken);
+
+			assert.strictEqual(nextToken, null);
+		});
+
+		it("should return null for empty documents", () => {
+			const emptyFile = { body: "{}", path: "test.json" };
+			const emptyLanguage = new JSONLanguage({ mode: "json" });
+			const emptyParseResult = emptyLanguage.parse(emptyFile);
+			const emptySourceCode = new JSONSourceCode({
+				text: emptyFile.body,
+				ast: emptyParseResult.ast,
+			});
+
+			const token = emptyParseResult.ast.tokens.at(-1);
+			const nextToken = emptySourceCode.getTokenAfter(token);
+
+			assert.strictEqual(nextToken, null);
 		});
 	});
 });
