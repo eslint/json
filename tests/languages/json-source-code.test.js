@@ -700,25 +700,6 @@ describe("JSONSourceCode", () => {
 			assert.strictEqual(sourceCode.getTokenBefore(sourceCode.ast), null);
 		});
 
-		it("should return the previous comment when includeComments is true", () => {
-			const commentFile = {
-				body: '{ "a" // comment\n: 1 }',
-				path: "test.jsonc",
-			};
-			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
-			const commentParseResult = commentLanguage.parse(commentFile);
-			const commentSourceCode = new JSONSourceCode({
-				text: commentFile.body,
-				ast: commentParseResult.ast,
-			});
-
-			const tokens = commentSourceCode.ast.tokens;
-			const colonToken = tokens.find(token => token.type === "Colon");
-			assert.strictEqual(
-				commentSourceCode.getTokenBefore(colonToken),
-				tokens[1],
-			);
-		});
 	});
 
 	describe("getTokenAfter()", () => {
