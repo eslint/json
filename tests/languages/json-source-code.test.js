@@ -27,6 +27,7 @@ describe("JSONSourceCode", () => {
 				},
 				tokens: [],
 			};
+			const astCopy = structuredClone(ast);
 			const text = "{}";
 			const sourceCode = new JSONSourceCode({
 				text,
@@ -35,6 +36,7 @@ describe("JSONSourceCode", () => {
 
 			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
 			assert.strictEqual(sourceCode.ast, ast);
+			assert.deepStrictEqual(sourceCode.ast, astCopy);
 			assert.strictEqual(sourceCode.text, text);
 		});
 	});
@@ -67,6 +69,7 @@ describe("JSONSourceCode", () => {
 					offset: 1,
 				},
 			};
+			const locCopy = structuredClone(loc);
 			const ast = {
 				type: "Document",
 				body: {
@@ -83,12 +86,14 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.strictEqual(sourceCode.getLoc(ast), loc);
+			assert.deepStrictEqual(sourceCode.getLoc(ast), locCopy);
 		});
 	});
 
 	describe("getRange()", () => {
 		it("should return the range property of a node", () => {
 			const range = [0, 1];
+			const rangeCopy = structuredClone(range);
 			const ast = {
 				type: "Document",
 				body: {
@@ -105,6 +110,7 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.strictEqual(sourceCode.getRange(ast), range);
+			assert.deepStrictEqual(sourceCode.getRange(ast), rangeCopy);
 		});
 	});
 
@@ -167,6 +173,7 @@ describe("JSONSourceCode", () => {
 				},
 				tokens: [],
 			};
+			const astCopy = structuredClone(ast);
 			const text = "{}";
 			const sourceCode = new JSONSourceCode({
 				text,
@@ -178,6 +185,7 @@ describe("JSONSourceCode", () => {
 			sourceCode.traverse();
 
 			assert.strictEqual(sourceCode.getParent(node), ast);
+			assert.deepStrictEqual(sourceCode.getParent(node), astCopy);
 		});
 
 		it("should return the parent node for a deeply nested node", () => {
@@ -201,6 +209,7 @@ describe("JSONSourceCode", () => {
 				},
 				tokens: [],
 			};
+			const astCopy = structuredClone(ast);
 			const text = '{"foo":{}}';
 			const sourceCode = new JSONSourceCode({
 				text,
@@ -212,6 +221,10 @@ describe("JSONSourceCode", () => {
 			sourceCode.traverse();
 
 			assert.strictEqual(sourceCode.getParent(node), ast.body.members[0]);
+			assert.deepStrictEqual(
+				sourceCode.getParent(node),
+				astCopy.body.members[0],
+			);
 		});
 	});
 
@@ -345,6 +358,7 @@ describe("JSONSourceCode", () => {
 				describe("getInlineConfigNodes()", () => {
 					it("should return inline config comments", () => {
 						const allComments = sourceCode.comments;
+						const allCommentsCopy = structuredClone(allComments);
 						const configComments =
 							sourceCode.getInlineConfigNodes();
 
@@ -363,6 +377,10 @@ describe("JSONSourceCode", () => {
 								configComment,
 								allComments[configCommentsIndexes[i]],
 							);
+							assert.deepStrictEqual(
+								configComment,
+								allCommentsCopy[configCommentsIndexes[i]],
+							);
 						});
 					});
 				});
@@ -370,6 +388,7 @@ describe("JSONSourceCode", () => {
 				describe("applyInlineConfig()", () => {
 					it("should return rule configs and problems", () => {
 						const allComments = sourceCode.comments;
+						const allCommentsCopy = structuredClone(allComments);
 						const { configs, problems } =
 							sourceCode.applyInlineConfig();
 
@@ -416,15 +435,24 @@ describe("JSONSourceCode", () => {
 						assert.strictEqual(problems[0].ruleId, null);
 						assert.match(problems[0].message, /Failed to parse/u);
 						assert.strictEqual(problems[0].loc, allComments[6].loc);
+						assert.deepStrictEqual(
+							problems[0].loc,
+							allCommentsCopy[6].loc,
+						);
 						assert.strictEqual(problems[1].ruleId, null);
 						assert.match(problems[1].message, /Failed to parse/u);
 						assert.strictEqual(problems[1].loc, allComments[7].loc);
+						assert.deepStrictEqual(
+							problems[1].loc,
+							allCommentsCopy[7].loc,
+						);
 					});
 				});
 
 				describe("getDisableDirectives()", () => {
 					it("should return disable directives and problems", () => {
 						const allComments = sourceCode.comments;
+						const allCommentsCopy = structuredClone(allComments);
 						const { directives, problems } =
 							sourceCode.getDisableDirectives();
 
@@ -491,6 +519,10 @@ describe("JSONSourceCode", () => {
 						assert.strictEqual(
 							problems[0].loc,
 							allComments[21].loc,
+						);
+						assert.deepStrictEqual(
+							problems[0].loc,
+							allCommentsCopy[21].loc,
 						);
 					});
 				});
