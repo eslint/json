@@ -66,7 +66,9 @@ class JSONTraversalStep extends VisitNodeStep {
  *      an array of comments and a map of starting token range to token index.
  */
 function processTokens(tokens) {
+        /** @type {Array<Token>} */
 	const comments = [];
+	/** @type {Map<number, number>} */
 	const starts = new Map();
 
 	for (let i = 0; i < tokens.length; i++) {
