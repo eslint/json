@@ -142,7 +142,7 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.ast.body.type, "Object");
 		});
 
-		it("should parse jsonc", () => {
+		it("should parse jsonc when `mode` is 'jsonc'", () => {
 			const language = new JSONLanguage({ mode: "jsonc" });
 			const result = language.parse({
 				body: "{\n//test\n}",
@@ -154,7 +154,7 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.ast.body.type, "Object");
 		});
 
-		it("should parse json5", () => {
+		it("should parse json5 when `mode` is 'json5'", () => {
 			const language = new JSONLanguage({ mode: "json5" });
 			const result = language.parse({
 				body: '{\nfoo: "bar"\n}',
