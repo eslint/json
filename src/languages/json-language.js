@@ -1,5 +1,5 @@
 /**
- * @filedescription Functions to fix up rules to provide missing methods on the `context` object.
+ * @filedescription The JSONLanguage class.
  * @author Nicholas C. Zakas
  */
 
