@@ -379,7 +379,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	/**
 	 * Gets the token or comment after the given node or token.
 	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token or comment for.
-	 * @returns {Token|null} The next token or comment, or undefined if there is none.
+	 * @returns {Token|null} The next token or comment, or null if there is none.
 	 */
 	getTokenOrCommentAfter(nodeOrToken) {
 		const { range } = nodeOrToken;
