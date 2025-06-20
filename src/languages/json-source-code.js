@@ -336,7 +336,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	/**
 	 * Gets the token or comment before the given node or token.
 	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token or comment for.
-	 * @returns {Token|null} The previous token or comment, or undefined if there is none.
+	 * @returns {Token|null} The previous token or comment, or null if there is none.
 	 */
 	getTokenOrCommentBefore(nodeOrToken) {
 		const { range } = nodeOrToken;
