@@ -66,7 +66,7 @@ class JSONTraversalStep extends VisitNodeStep {
  *      an array of comments and a map of starting token range to token index.
  */
 function processTokens(tokens) {
-        /** @type {Array<Token>} */
+	/** @type {Array<Token>} */
 	const comments = [];
 	/** @type {Map<number, number>} */
 	const starts = new Map();
@@ -334,87 +334,84 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	}
 
 	/**
-	 * Gets the token or comment before the given node or token.
-	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token or comment for.
+	 * Gets the token before the given node or token, optionally including comments.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token for.
+	 * @param {Object} [options] Options object.
+	 * @param {boolean} [options.includeComments] If true, return comments when they are present.
 	 * @returns {Token|null} The previous token or comment, or null if there is none.
 	 */
-	getTokenOrCommentBefore(nodeOrToken) {
-		const { range } = nodeOrToken;
-		const start = range[0];
-		const tokens = this.ast.tokens;
-
+	getTokenBefore(nodeOrToken, { includeComments = false } = {}) {
 		this.#ensureTokens();
 
-		const index = this.#tokenStarts.get(start);
+		const index = this.#tokenStarts.get(nodeOrToken.range[0]);
+
 		if (index === undefined) {
 			return null;
 		}
 
-		const previousIndex = index - 1;
+		let previousIndex = index - 1;
 		if (previousIndex < 0) {
 			return null;
 		}
 
-		return tokens[previousIndex];
-	}
+		const tokens = this.ast.tokens;
+		let tokenOrComment = tokens[previousIndex];
 
-	/**
-	 * Gets the token before the given node or token, skipping any comments.
-	 * @param {AnyNode|Token} nodeOrToken The node or token to get the previous token for.
-	 * @returns {Token|null} The previous token, or null if there is none.
-	 */
-	getTokenBefore(nodeOrToken) {
-		let tokenOrComment = nodeOrToken;
+		if (includeComments) {
+			return tokenOrComment;
+		}
 
-		do {
-			tokenOrComment = this.getTokenOrCommentBefore(tokenOrComment);
-			if (!tokenOrComment) {
+		// skip comments
+		while (tokenOrComment?.type.endsWith("Comment")) {
+			previousIndex--;
+
+			if (previousIndex < 0) {
 				return null;
 			}
-		} while (tokenOrComment.type.endsWith("Comment"));
 
+			tokenOrComment = tokens[previousIndex];
+		}
 		return tokenOrComment;
 	}
 
 	/**
-	 * Gets the token or comment after the given node or token.
-	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token or comment for.
+	 * Gets the token after the given node or token, skipping any comments unless includeComments is true.
+	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token for.
+	 * @param {Object} [options] Options object.
+	 * @param {boolean} [options.includeComments=false] If true, return comments when they are present.
 	 * @returns {Token|null} The next token or comment, or null if there is none.
 	 */
-	getTokenOrCommentAfter(nodeOrToken) {
-		const { range } = nodeOrToken;
-		const start = range[0];
-		const tokens = this.ast.tokens;
-
+	getTokenAfter(nodeOrToken, { includeComments = false } = {}) {
 		this.#ensureTokens();
 
-		const index = this.#tokenStarts.get(start);
+		const index = this.#tokenStarts.get(nodeOrToken.range[0]);
+
 		if (index === undefined) {
 			return null;
 		}
 
-		const nextIndex = index + 1;
+		let nextIndex = index + 1;
+		const tokens = this.ast.tokens;
 		if (nextIndex >= tokens.length) {
 			return null;
 		}
 
-		return tokens[nextIndex];
-	}
+		let tokenOrComment = tokens[nextIndex];
 
-	/**
-	 * Gets the token after the given node or token, skipping any comments.
-	 * @param {AnyNode|Token} nodeOrToken The node or token to get the next token for.
-	 * @returns {Token|null} The next token, or null if there is none.
-	 */
-	getTokenAfter(nodeOrToken) {
-		let tokenOrComment = nodeOrToken;
+		if (includeComments) {
+			return tokenOrComment;
+		}
 
-		do {
-			tokenOrComment = this.getTokenOrCommentAfter(tokenOrComment);
-			if (!tokenOrComment) {
+		// skip comments
+		while (tokenOrComment?.type.endsWith("Comment")) {
+			nextIndex++;
+
+			if (nextIndex >= tokens.length) {
 				return null;
 			}
-		} while (tokenOrComment.type.endsWith("Comment"));
+
+			tokenOrComment = tokens[nextIndex];
+		}
 
 		return tokenOrComment;
 	}
