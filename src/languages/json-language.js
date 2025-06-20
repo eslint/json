@@ -1,5 +1,5 @@
 /**
- * @filedescription The JSONLanguage class.
+ * @fileoverview The JSONLanguage class.
  * @author Nicholas C. Zakas
  */
 
