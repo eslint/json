@@ -34,7 +34,7 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
-			assert.strictEqual(sourceCode.ast, ast);
+			assert.deepStrictEqual(sourceCode.ast, ast);
 			assert.strictEqual(sourceCode.text, text);
 		});
 	});
@@ -82,7 +82,7 @@ describe("JSONSourceCode", () => {
 				ast,
 			});
 
-			assert.strictEqual(sourceCode.getLoc(ast), loc);
+			assert.deepStrictEqual(sourceCode.getLoc(ast), loc);
 		});
 	});
 
@@ -104,7 +104,7 @@ describe("JSONSourceCode", () => {
 				ast,
 			});
 
-			assert.strictEqual(sourceCode.getRange(ast), range);
+			assert.deepStrictEqual(sourceCode.getRange(ast), range);
 		});
 	});
 
@@ -177,7 +177,7 @@ describe("JSONSourceCode", () => {
 			// call traverse to initialize the parent map
 			sourceCode.traverse();
 
-			assert.strictEqual(sourceCode.getParent(node), ast);
+			assert.deepStrictEqual(sourceCode.getParent(node), ast);
 		});
 
 		it("should return the parent node for a deeply nested node", () => {
@@ -211,7 +211,10 @@ describe("JSONSourceCode", () => {
 			// call traverse to initialize the parent map
 			sourceCode.traverse();
 
-			assert.strictEqual(sourceCode.getParent(node), ast.body.members[0]);
+			assert.deepStrictEqual(
+				sourceCode.getParent(node),
+				ast.body.members[0],
+			);
 		});
 	});
 
@@ -359,7 +362,7 @@ describe("JSONSourceCode", () => {
 						);
 
 						configComments.forEach((configComment, i) => {
-							assert.strictEqual(
+							assert.deepStrictEqual(
 								configComment,
 								allComments[configCommentsIndexes[i]],
 							);
@@ -415,10 +418,16 @@ describe("JSONSourceCode", () => {
 						assert.strictEqual(problems.length, 2);
 						assert.strictEqual(problems[0].ruleId, null);
 						assert.match(problems[0].message, /Failed to parse/u);
-						assert.strictEqual(problems[0].loc, allComments[6].loc);
+						assert.deepStrictEqual(
+							problems[0].loc,
+							allComments[6].loc,
+						);
 						assert.strictEqual(problems[1].ruleId, null);
 						assert.match(problems[1].message, /Failed to parse/u);
-						assert.strictEqual(problems[1].loc, allComments[7].loc);
+						assert.deepStrictEqual(
+							problems[1].loc,
+							allComments[7].loc,
+						);
 					});
 				});
 
@@ -488,7 +497,7 @@ describe("JSONSourceCode", () => {
 							problems[0].message,
 							"eslint-disable-line comment should not span multiple lines.",
 						);
-						assert.strictEqual(
+						assert.deepStrictEqual(
 							problems[0].loc,
 							allComments[21].loc,
 						);
