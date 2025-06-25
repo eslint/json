@@ -697,7 +697,7 @@ describe("JSONSourceCode", () => {
 		it("should skip comments when getting next token (no options)", () => {
 			const commentFile = {
 				body: '{\n// comment\n"foo": true}',
-				path: "test.json",
+				path: "test.jsonc",
 			};
 			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
 			const commentParseResult = commentLanguage.parse(commentFile);
