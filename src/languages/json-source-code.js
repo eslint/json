@@ -121,7 +121,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	 * The comment tokens in the source code.
 	 * @type {Array<Token>|undefined}
 	 */
-	#comments;
+	comments;
 
 	/**
 	 * A map of token start positions to their corresponding index.
@@ -138,27 +138,10 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	constructor({ text, ast }) {
 		super({ text, ast });
 		this.ast = ast;
-	}
 
-	/**
-	 * Ensures that the tokens and comments are processed and cached.
-	 * @returns {void}
-	 */
-	#ensureTokens() {
-		if (!this.#comments) {
-			const { comments, starts } = processTokens(this.ast.tokens ?? []);
-			this.#comments = comments;
-			this.#tokenStarts = starts;
-		}
-	}
-
-	/**
-	 * The comment node in the source code.
-	 * @returns {Array<Token>} An array of comment tokens.
-	 */
-	get comments() {
-		this.#ensureTokens();
-		return this.#comments;
+		const { comments, starts } = processTokens(this.ast.tokens ?? []);
+		this.comments = comments;
+		this.#tokenStarts = starts;
 	}
 
 	/**
@@ -341,8 +324,6 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	 * @returns {Token|null} The previous token or comment, or null if there is none.
 	 */
 	getTokenBefore(nodeOrToken, { includeComments = false } = {}) {
-		this.#ensureTokens();
-
 		const index = this.#tokenStarts.get(nodeOrToken.range[0]);
 
 		if (index === undefined) {
@@ -382,8 +363,6 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	 * @returns {Token|null} The next token or comment, or null if there is none.
 	 */
 	getTokenAfter(nodeOrToken, { includeComments = false } = {}) {
-		this.#ensureTokens();
-
 		const index = this.#tokenStarts.get(nodeOrToken.range[0]);
 
 		if (index === undefined) {
