@@ -62,14 +62,19 @@ class JSONTraversalStep extends VisitNodeStep {
 /**
  * Processes tokens to extract comments and their starting tokens.
  * @param {Array<Token>} tokens The tokens to process.
- * @returns {{ comments: Array<Token>, starts: Map<number, number> }} An object containing
- *      an array of comments and a map of starting token range to token index.
+ * @returns {{ comments: Array<Token>, starts: Map<number, number>, ends: Map<number, number>}}
+ * An object containing an array of comments, a map of starting token range to token index, and
+ * a map of ending token range to token index.
  */
 function processTokens(tokens) {
 	/** @type {Array<Token>} */
 	const comments = [];
+
 	/** @type {Map<number, number>} */
 	const starts = new Map();
+
+	/** @type {Map<number, number>} */
+	const ends = new Map();
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token = tokens[i];
@@ -79,9 +84,10 @@ function processTokens(tokens) {
 		}
 
 		starts.set(token.range[0], i);
+		ends.set(token.range[1], i);
 	}
 
-	return { comments, starts };
+	return { comments, starts, ends };
 }
 
 //-----------------------------------------------------------------------------
@@ -130,6 +136,12 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	#tokenStarts;
 
 	/**
+	 * A map of token end positions to their corresponding index.
+	 * @type {Map<number, number>}
+	 */
+	#tokenEnds;
+
+	/**
 	 * Creates a new instance.
 	 * @param {Object} options The options for the instance.
 	 * @param {string} options.text The source code text.
@@ -139,9 +151,10 @@ export class JSONSourceCode extends TextSourceCodeBase {
 		super({ text, ast });
 		this.ast = ast;
 
-		const { comments, starts } = processTokens(this.ast.tokens ?? []);
+		const { comments, starts, ends } = processTokens(this.ast.tokens ?? []);
 		this.comments = comments;
 		this.#tokenStarts = starts;
+		this.#tokenEnds = ends;
 	}
 
 	/**
@@ -363,7 +376,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	 * @returns {Token|null} The next token or comment, or null if there is none.
 	 */
 	getTokenAfter(nodeOrToken, { includeComments = false } = {}) {
-		const index = this.#tokenStarts.get(nodeOrToken.range[0]);
+		const index = this.#tokenEnds.get(nodeOrToken.range[1]);
 
 		if (index === undefined) {
 			return null;

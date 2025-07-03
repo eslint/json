@@ -649,7 +649,7 @@ describe("JSONSourceCode", () => {
 		let parseResult;
 
 		beforeEach(() => {
-			file = { body: '{"foo": 123}', path: "test.json" };
+			file = { body: '{"foo": 123, "bar": []}', path: "test.json" };
 			language = new JSONLanguage({ mode: "json" });
 			parseResult = language.parse(file);
 			sourceCode = new JSONSourceCode({
@@ -672,6 +672,22 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.strictEqual(nextToken.type, "Colon");
+		});
+
+		it("should return the next token after a node that is made up of multiple tokens (no options)", () => {
+			const objectNode = parseResult.ast.body.members[1].value;
+			const nextToken = sourceCode.getTokenAfter(objectNode);
+
+			assert.strictEqual(nextToken.type, "RBrace");
+		});
+
+		it("should return the next token after a node that is made up of multiple tokens (includeComments)", () => {
+			const objectNode = parseResult.ast.body.members[1].value;
+			const nextToken = sourceCode.getTokenAfter(objectNode, {
+				includeComments: true,
+			});
+
+			assert.strictEqual(nextToken.type, "RBrace");
 		});
 
 		it("should return the next token after a token (no options)", () => {
@@ -751,6 +767,25 @@ describe("JSONSourceCode", () => {
 				includeComments: true,
 			});
 			assert.strictEqual(nextToken.type, "String");
+		});
+
+		it("should return the next comment after a token when passed a node with multiple tokens (includeComments)", () => {
+			const commentFile = {
+				body: '{"foo": true, "bar": []/* comment */, "baz": 42}',
+				path: "test.jsonc",
+			};
+			const commentLanguage = new JSONLanguage({ mode: "jsonc" });
+			const commentParseResult = commentLanguage.parse(commentFile);
+			const commentSourceCode = new JSONSourceCode({
+				text: commentFile.body,
+				ast: commentParseResult.ast,
+			});
+
+			const objectNode = commentParseResult.ast.body.members[1].value;
+			const nextToken = commentSourceCode.getTokenAfter(objectNode, {
+				includeComments: true,
+			});
+			assert.strictEqual(nextToken.type, "BlockComment");
 		});
 
 		it("should return null when there is no next token (no options)", () => {
