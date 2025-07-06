@@ -60,3 +60,6 @@ dist
 *.code-workspace
 .idea
 .cursor
+
+# Build
+src/build
