@@ -19,6 +19,12 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+
+            - name: Use Node.js (for tooling)
+              uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+
             - name: Use Bun ${{ matrix.bun }} ${{ matrix.os }}
               uses: oven-sh/setup-bun@v1
               with:
