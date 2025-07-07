@@ -60,7 +60,6 @@ The following options are available on this rule:
 - `form: "NFC" | "NFD" | "NFKC" | "NFKD"` - specifies which Unicode normalization form to use when checking keys. Must be one of: `"NFC"` (default), `"NFD"`, `"NFKC"`, or `"NFKD"`.
 
     Each normalization form has specific characteristics:
-
     - **NFC**: Canonical Decomposition followed by Canonical Composition (default)
     - **NFD**: Canonical Decomposition
     - **NFKC**: Compatibility Decomposition followed by Canonical Composition
