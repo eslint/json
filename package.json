@@ -65,6 +65,7 @@
     "build:readme": "node tools/update-readme.js",
     "build:update-rules-docs": "node tools/update-rules-docs.js",
     "prepare": "npm run build",
+    "pretest": "npm run build",
     "lint": "eslint",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
