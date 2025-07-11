@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.13.0](https://github.com/eslint/json/compare/json-v0.12.0...json-v0.13.0) (2025-07-11)
+
+
+### Features
+
+* add `url` and `recommended` field to existing rules ([#104](https://github.com/eslint/json/issues/104)) ([14bd26b](https://github.com/eslint/json/commit/14bd26b26b6eecfaf80daf78bab02a440632295e))
+* Add token methods to JSONSourceCode ([#112](https://github.com/eslint/json/issues/112)) ([de3e150](https://github.com/eslint/json/commit/de3e150e0b5f9528c742af766f676ce3eb0e74e9))
+
 ## [0.12.0](https://github.com/eslint/json/compare/json-v0.11.0...json-v0.12.0) (2025-04-16)
 
 
