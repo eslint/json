@@ -7,7 +7,11 @@
 // Imports
 //------------------------------------------------------------------------------
 
-import type { RuleVisitor, RuleDefinition } from "@eslint/core";
+import type {
+	CustomRuleDefinitionType,
+	CustomRuleTypeDefinitions,
+	RuleVisitor,
+} from "@eslint/core";
 import type {
 	DocumentNode,
 	MemberNode,
@@ -68,25 +72,16 @@ export interface JSONRuleVisitor extends RuleVisitor {
 	"Identifier:exit"?(node: IdentifierNode, parent?: ValueNodeParent): void;
 }
 
-export type JSONRuleDefinitionTypeOptions = {
-	RuleOptions: unknown[];
-	MessageIds: string;
-	ExtRuleDocs: Record<string, unknown>;
-};
+export type JSONRuleDefinitionTypeOptions = CustomRuleTypeDefinitions;
 
 export type JSONRuleDefinition<
 	Options extends Partial<JSONRuleDefinitionTypeOptions> = {},
-> = RuleDefinition<
-	// Language specific type options (non-configurable)
+> = CustomRuleDefinitionType<
 	{
 		LangOptions: JSONLanguageOptions;
 		Code: JSONSourceCode;
 		Visitor: JSONRuleVisitor;
 		Node: AnyNode;
-	} & Required<
-		// Rule specific type options (custom)
-		Options &
-			// Rule specific type options (defaults)
-			Omit<JSONRuleDefinitionTypeOptions, keyof Options>
-	>
+	},
+	Options
 >;
