@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/eslint/json/compare/json-v0.13.0...json-v0.13.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* bump `plugin-kit` to latest to resolve security vulnerabilities ([#125](https://github.com/eslint/json/issues/125)) ([5de1544](https://github.com/eslint/json/commit/5de154459feac158318e05ca871616c43c49b93c))
+
 ## [0.13.0](https://github.com/eslint/json/compare/json-v0.12.0...json-v0.13.0) (2025-07-11)
 
 
