@@ -70,8 +70,8 @@
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "test": "mocha tests/**/*.js",
-    "test:jsr": "npx jsr@latest publish --dry-run",
     "test:coverage": "c8 npm test",
+    "test:jsr": "npx jsr@latest publish --dry-run",
     "test:types": "tsc -p tests/types/tsconfig.json"
   },
   "keywords": [
