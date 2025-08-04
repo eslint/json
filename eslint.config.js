@@ -30,7 +30,12 @@ const eslintPluginTestsRecommendedConfig =
 //-----------------------------------------------------------------------------
 
 export default defineConfig([
-	globalIgnores(["**/tests/fixtures/", "**/dist/"]),
+	globalIgnores([
+		"**/tests/fixtures/",
+		"**/dist/",
+		"coverage/",
+		"src/build/",
+	]),
 
 	...eslintConfigESLint.map(config => ({
 		files: ["**/*.js"],
@@ -38,8 +43,7 @@ export default defineConfig([
 	})),
 	{
 		plugins: { json },
-		files: ["**/*.json"],
-		ignores: ["**/package-lock.json"],
+		files: ["**/*.json", ".c8rc"],
 		language: "json/json",
 		extends: ["json/recommended"],
 	},
