@@ -36,6 +36,14 @@ describe("when the plugin is used with ESLint", () => {
 				await eslint.lintText("{}", { filePath: "test.json" });
 			});
 		});
+
+		it("recommended config should configure recommended rules", () => {
+			const actualRuleIds = Object.keys(json.configs.recommended.rules);
+			const expectedRuleIds = Object.entries(json.rules)
+				.filter(([, rule]) => rule.meta.docs.recommended)
+				.map(([name]) => `json/${name}`);
+			assert.deepStrictEqual(actualRuleIds, expectedRuleIds);
+		});
 	});
 
 	describe("config comments", () => {
