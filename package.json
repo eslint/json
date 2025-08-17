@@ -83,9 +83,9 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@eslint/core": "^0.15.1",
-    "@eslint/plugin-kit": "^0.3.4",
-    "@humanwhocodes/momoa": "^3.3.8",
+    "@eslint/core": "^0.15.2",
+    "@eslint/plugin-kit": "^0.3.5",
+    "@humanwhocodes/momoa": "^3.3.9",
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
@@ -102,7 +102,7 @@
     "rollup": "^4.41.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-delete": "^3.0.1",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "yorkie": "^2.0.0"
   },
   "engines": {
