@@ -25,8 +25,7 @@
  * We separately capture the integer and fractional parts of a number, so that
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
-const NUMBER =
-	/^-?(?<int>0|([1-9][0-9]*))(?:\.(?<frac>[0-9]+))?(?:[eE][+-]?[0-9]+)?$/u;
+const NUMBER = /^-?(?<int>0|([1-9]\d*))(?:\.(?<frac>\d+))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
 
 //-----------------------------------------------------------------------------
