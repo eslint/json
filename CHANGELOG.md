@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/eslint/json/compare/json-v0.13.1...json-v0.13.2) (2025-08-25)
+
+
+### Bug Fixes
+
+* allow any type for `meta.docs.recommended` in custom rules ([#132](https://github.com/eslint/json/issues/132)) ([d2c0d5a](https://github.com/eslint/json/commit/d2c0d5a98c54c61c626c4a3302d63227326d03c4))
+
 ## [0.13.1](https://github.com/eslint/json/compare/json-v0.13.0...json-v0.13.1) (2025-07-22)
 
 
