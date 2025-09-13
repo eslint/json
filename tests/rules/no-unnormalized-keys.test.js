@@ -59,6 +59,20 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
+			code: `{"${o.normalize("NFD")}":"NFD"}`,
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFD") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 7,
+				},
+			],
+		},
+		{
 			code: `{${o.normalize("NFD")}:"NFD"}`,
 			language: "json/json5",
 			errors: [
