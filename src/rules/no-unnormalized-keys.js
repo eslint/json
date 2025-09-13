@@ -45,12 +45,16 @@ const rule = {
 				additionalProperties: false,
 			},
 		],
+
+		defaultOptions: [
+			{
+				form: "NFC",
+			},
+		],
 	},
 
 	create(context) {
-		const form = context.options.length
-			? context.options[0].form
-			: undefined;
+		const [{ form }] = context.options;
 
 		return {
 			Member(node) {
