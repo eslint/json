@@ -4,6 +4,7 @@
     "noEmit": true,
     "rootDir": "../..",
     "strict": true,
+    "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true
   },
