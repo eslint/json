@@ -96,6 +96,8 @@ const rule = {
 	meta: {
 		type: "suggestion",
 
+		fixable: "code",
+
 		defaultOptions: [
 			"asc",
 			{
@@ -198,6 +200,33 @@ const rule = {
 			return false;
 		}
 
+		/**
+		 * Compares two key names according to the rule options and returns a number
+		 * suitable for Array.prototype.sort.
+		 * @param {string} a First key to compare.
+		 * @param {string} b Second key to compare.
+		 * @returns {number} Negative if a < b, positive if a > b, 0 if equal.
+		 */
+		function compareKeys(a, b) {
+			let a1 = a;
+			let b1 = b;
+			if (!caseSensitive) {
+				a1 = a1.toLowerCase();
+				b1 = b1.toLowerCase();
+			}
+			if (natural) {
+				const r = naturalCompare(a1, b1);
+				return directionShort === "asc" ? r : -r;
+			}
+			if (a1 < b1) {
+				return directionShort === "asc" ? -1 : 1;
+			}
+			if (a1 > b1) {
+				return directionShort === "asc" ? 1 : -1;
+			}
+			return 0;
+		}
+
 		return {
 			Object(node) {
 				let prevMember;
@@ -225,6 +254,126 @@ const rule = {
 								direction,
 								sensitivity,
 								sortName,
+							},
+							fix(fixer) {
+								const text = context.sourceCode.text;
+
+								// If there are any comment tokens within this object, do not attempt to autofix
+								const hasComments =
+									context.sourceCode.comments.some(
+										comment =>
+											comment.range[0] >= node.range[0] &&
+											comment.range[1] <= node.range[1],
+									);
+
+								if (hasComments) {
+									return null;
+								}
+
+								const groups = [];
+								let groupStart = 0;
+								for (let i = 1; i < node.members.length; i++) {
+									if (
+										allowLineSeparatedGroups &&
+										isLineSeparated(
+											node.members[i - 1],
+											node.members[i],
+										)
+									) {
+										groups.push({
+											start: groupStart,
+											end: i - 1,
+										});
+										groupStart = i;
+									}
+								}
+								groups.push({
+									start: groupStart,
+									end: node.members.length - 1,
+								});
+
+								const fixes = [];
+								for (const group of groups) {
+									const groupLen =
+										group.end - group.start + 1;
+									if (groupLen <= 1) {
+										continue;
+									}
+
+									let isSorted = true;
+									for (
+										let i = group.start + 1;
+										i <= group.end;
+										i++
+									) {
+										const prevKey = getKey(
+											node.members[i - 1],
+										);
+										const thisKey = getKey(node.members[i]);
+										if (compareKeys(prevKey, thisKey) > 0) {
+											isSorted = false;
+											break;
+										}
+									}
+									if (isSorted) {
+										continue;
+									}
+
+									const items = [];
+									const seps = [];
+									for (
+										let i = group.start;
+										i <= group.end;
+										i++
+									) {
+										const m = node.members[i];
+										items.push({
+											key: getKey(m),
+											start: m.range[0],
+											end: m.range[1],
+											text: text.slice(
+												m.range[0],
+												m.range[1],
+											),
+										});
+
+										if (i < group.end) {
+											seps.push(
+												text.slice(
+													node.members[i].range[1],
+													node.members[i + 1]
+														.range[0],
+												),
+											);
+										}
+									}
+
+									const replaceStart = items[0].start;
+									const replaceEnd = items.at(-1).end;
+
+									const rebuilt = items
+										.slice()
+										.sort((a, b) =>
+											compareKeys(a.key, b.key),
+										)
+										.map(
+											(item, i) =>
+												item.text +
+												(i < seps.length
+													? seps[i]
+													: ""),
+										)
+										.join("");
+
+									fixes.push(
+										fixer.replaceTextRange(
+											[replaceStart, replaceEnd],
+											rebuilt,
+										),
+									);
+								}
+
+								return fixes;
 							},
 						});
 					}
