@@ -24,6 +24,8 @@ const rule = {
 	meta: {
 		type: "problem",
 
+		fixable: "code",
+
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
@@ -55,6 +57,7 @@ const rule = {
 
 	create(context) {
 		const [{ form }] = context.options;
+		const { sourceCode } = context;
 
 		return {
 			Member(node) {
@@ -69,6 +72,12 @@ const rule = {
 						messageId: "unnormalizedKey",
 						data: {
 							key,
+						},
+						fix(fixer) {
+							return fixer.replaceTextRange(
+								node.name.range,
+								sourceCode.getText(node.name).normalize(form), // Quotes cannot be normalized, so it's safe.
+							);
 						},
 					});
 				}
