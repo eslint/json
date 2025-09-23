@@ -153,6 +153,7 @@ export class JSONLanguage {
 		}
 	}
 
+	/* eslint-disable class-methods-use-this -- Required to complete interface. */
 	/**
 	 * Creates a new `JSONSourceCode` object from the given information.
 	 * @param {File} file The virtual file to create a `JSONSourceCode` object from.
@@ -163,8 +164,7 @@ export class JSONLanguage {
 		return new JSONSourceCode({
 			text: /** @type {string} */ (file.body),
 			ast: parseResult.ast,
-			lineStart: this.lineStart,
-			columnStart: this.columnStart,
 		});
 	}
+	/* eslint-enable class-methods-use-this -- Required to complete interface. */
 }
