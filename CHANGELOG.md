@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.13.2](https://github.com/eslint/json/compare/json-v0.13.1...json-v0.13.2) (2025-08-25)
+
+
+### Bug Fixes
+
+* allow any type for `meta.docs.recommended` in custom rules ([#132](https://github.com/eslint/json/issues/132)) ([d2c0d5a](https://github.com/eslint/json/commit/d2c0d5a98c54c61c626c4a3302d63227326d03c4))
+
+## [0.13.1](https://github.com/eslint/json/compare/json-v0.13.0...json-v0.13.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* bump `plugin-kit` to latest to resolve security vulnerabilities ([#125](https://github.com/eslint/json/issues/125)) ([5de1544](https://github.com/eslint/json/commit/5de154459feac158318e05ca871616c43c49b93c))
+
+## [0.13.0](https://github.com/eslint/json/compare/json-v0.12.0...json-v0.13.0) (2025-07-11)
+
+
+### Features
+
+* add `url` and `recommended` field to existing rules ([#104](https://github.com/eslint/json/issues/104)) ([14bd26b](https://github.com/eslint/json/commit/14bd26b26b6eecfaf80daf78bab02a440632295e))
+* Add token methods to JSONSourceCode ([#112](https://github.com/eslint/json/issues/112)) ([de3e150](https://github.com/eslint/json/commit/de3e150e0b5f9528c742af766f676ce3eb0e74e9))
+
 ## [0.12.0](https://github.com/eslint/json/compare/json-v0.11.0...json-v0.12.0) (2025-04-16)
 
 

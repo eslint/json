@@ -60,3 +60,9 @@ dist
 *.code-workspace
 .idea
 .cursor
+
+# Lock files
+package-lock.json
+
+# Build
+src/build

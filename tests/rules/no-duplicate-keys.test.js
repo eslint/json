@@ -31,6 +31,10 @@ ruleTester.run("no-duplicate-keys", rule, {
 		'{"foo": 1, "bar": {"bar": 2}}',
 		'{"foo": { "bar": 5 }, "bar": 6 }',
 		{
+			code: '{"foo": 1, "bar": {"bar": 2}}',
+			language: "json/jsonc",
+		},
+		{
 			code: "{foo: 1, bar: {bar: 2}}",
 			language: "json/json5",
 		},
@@ -64,6 +68,20 @@ ruleTester.run("no-duplicate-keys", rule, {
 					column: 5,
 					endLine: 5,
 					endColumn: 10,
+				},
+			],
+		},
+		{
+			code: '{"foo": 1, "foo": 2}',
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "foo" },
+					line: 1,
+					column: 12,
+					endLine: 1,
+					endColumn: 17,
 				},
 			],
 		},

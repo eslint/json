@@ -27,7 +27,7 @@ const rule = {
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
-			url: "https://github.com/eslint/json#rules",
+			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unnormalized-keys.md",
 		},
 
 		messages: {
@@ -45,12 +45,16 @@ const rule = {
 				additionalProperties: false,
 			},
 		],
+
+		defaultOptions: [
+			{
+				form: "NFC",
+			},
+		],
 	},
 
 	create(context) {
-		const form = context.options.length
-			? context.options[0].form
-			: undefined;
+		const [{ form }] = context.options;
 
 		return {
 			Member(node) {

@@ -178,3 +178,18 @@ json.configs.recommended.plugins satisfies object;
 		return {};
 	},
 });
+
+// `meta.docs.recommended` can be any type
+(): JSONRuleDefinition => ({
+	create() {
+		return {};
+	},
+	meta: {
+		docs: {
+			recommended: {
+				severity: "warn",
+				options: ["never"],
+			},
+		},
+	},
+});

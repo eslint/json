@@ -1,6 +1,6 @@
 {
   "name": "@eslint/json",
-  "version": "0.12.0",
+  "version": "0.13.2",
   "description": "JSON linting plugin for ESLint",
   "author": "Nicholas C. Zakas",
   "type": "module",
@@ -40,7 +40,14 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "!(*.js)": "prettier --write --ignore-unknown"
+    "!(*.js)": "prettier --write --ignore-unknown",
+    "README.md": [
+      "npm run build:update-rules-docs"
+    ],
+    "{src/rules/*.js,tools/update-rules-docs.js}": [
+      "npm run build:update-rules-docs",
+      "git add README.md"
+    ]
   },
   "repository": {
     "type": "git",
@@ -53,15 +60,18 @@
   "scripts": {
     "build:dedupe-types": "node tools/dedupe-types.js dist/cjs/index.cjs dist/esm/index.js",
     "build:cts": "node tools/build-cts.js",
-    "build": "rollup -c && npm run build:dedupe-types && tsc -p tsconfig.esm.json && npm run build:cts",
+    "build:rules": "node tools/build-rules.js",
+    "build": "npm run build:rules && rollup -c && npm run build:dedupe-types && tsc -p tsconfig.esm.json && npm run build:cts",
     "build:readme": "node tools/update-readme.js",
-    "test:jsr": "npx jsr@latest publish --dry-run",
+    "build:update-rules-docs": "node tools/update-rules-docs.js",
+    "prepare": "npm run build",
     "pretest": "npm run build",
     "lint": "eslint",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
-    "test": "mocha tests/**/*.js",
+    "test": "mocha \"tests/**/*.test.js\"",
     "test:coverage": "c8 npm test",
+    "test:jsr": "npx jsr@latest publish --dry-run",
     "test:types": "tsc -p tests/types/tsconfig.json"
   },
   "keywords": [
@@ -73,25 +83,26 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@eslint/core": "^0.14.0",
+    "@eslint/core": "^0.15.2",
     "@eslint/plugin-kit": "^0.4.0",
-    "@humanwhocodes/momoa": "^3.3.4",
+    "@humanwhocodes/momoa": "^3.3.9",
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
     "c8": "^10.1.3",
     "dedent": "^1.5.3",
-    "eslint": "^9.25.1",
-    "eslint-config-eslint": "^11.0.0",
+    "eslint": "^9.35.0",
+    "eslint-config-eslint": "^13.0.0",
     "eslint-plugin-eslint-plugin": "^6.3.2",
     "got": "^14.4.2",
     "lint-staged": "^15.2.7",
+    "mdast-util-from-markdown": "^2.0.2",
     "mocha": "^11.3.0",
     "prettier": "^3.4.1",
-    "rollup": "^4.41.0",
+    "rollup": "4.51.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-delete": "^3.0.1",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "yorkie": "^2.0.0"
   },
   "engines": {

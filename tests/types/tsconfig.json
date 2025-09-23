@@ -4,9 +4,10 @@
     "noEmit": true,
     "rootDir": "../..",
     "strict": true,
+    "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true
   },
   "files": [],
-  "include": [".", "../../dist"]
+  "include": ["**/*.test.ts", "**/*.test.cts", "../../dist"]
 }

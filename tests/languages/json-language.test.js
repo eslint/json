@@ -142,11 +142,23 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.ast.body.type, "Object");
 		});
 
-		it("should set the mode to jsonc", () => {
+		it("should parse jsonc when `mode` is 'jsonc'", () => {
 			const language = new JSONLanguage({ mode: "jsonc" });
 			const result = language.parse({
 				body: "{\n//test\n}",
 				path: "test.jsonc",
+			});
+
+			assert.strictEqual(result.ok, true);
+			assert.strictEqual(result.ast.type, "Document");
+			assert.strictEqual(result.ast.body.type, "Object");
+		});
+
+		it("should parse json5 when `mode` is 'json5'", () => {
+			const language = new JSONLanguage({ mode: "json5" });
+			const result = language.parse({
+				body: '{\nfoo: "bar"\n}',
+				path: "test.json5",
 			});
 
 			assert.strictEqual(result.ok, true);
@@ -161,8 +173,8 @@ describe("JSONLanguage", () => {
 			const file = { body: "{\n\n}", path: "test.json" };
 			const parseResult = language.parse(file);
 			const sourceCode = language.createSourceCode(file, parseResult);
-			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
 
+			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
 			assert.strictEqual(sourceCode.ast.type, "Document");
 			assert.strictEqual(sourceCode.ast.body.type, "Object");
 			assert.strictEqual(sourceCode.text, "{\n\n}");
@@ -180,11 +192,27 @@ describe("JSONLanguage", () => {
 			);
 
 			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
-
 			assert.strictEqual(sourceCode.ast.type, "Document");
 			assert.strictEqual(sourceCode.ast.body.type, "Object");
 			assert.strictEqual(sourceCode.text, "{\n//test\n}");
 			assert.strictEqual(sourceCode.comments.length, 1);
+		});
+
+		it("should create a JSONSourceCode instance for JSON5", () => {
+			const language = new JSONLanguage({ mode: "json5" });
+			const file = { body: '{\nfoo: "bar"\n}', path: "test.json5" };
+			const parseResult = language.parse(file);
+			const sourceCode = language.createSourceCode(
+				file,
+				parseResult,
+				"test.json5",
+			);
+
+			assert.strictEqual(sourceCode.constructor.name, "JSONSourceCode");
+			assert.strictEqual(sourceCode.ast.type, "Document");
+			assert.strictEqual(sourceCode.ast.body.type, "Object");
+			assert.strictEqual(sourceCode.text, '{\nfoo: "bar"\n}');
+			assert.strictEqual(sourceCode.comments.length, 0);
 		});
 	});
 });

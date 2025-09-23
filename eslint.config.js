@@ -30,7 +30,12 @@ const eslintPluginTestsRecommendedConfig =
 //-----------------------------------------------------------------------------
 
 export default defineConfig([
-	globalIgnores(["**/tests/fixtures/", "**/dist/"]),
+	globalIgnores([
+		"**/tests/fixtures/",
+		"**/dist/",
+		"coverage/",
+		"src/build/",
+	]),
 
 	...eslintConfigESLint.map(config => ({
 		files: ["**/*.js"],
@@ -38,8 +43,7 @@ export default defineConfig([
 	})),
 	{
 		plugins: { json },
-		files: ["**/*.json"],
-		ignores: ["**/package-lock.json"],
+		files: ["**/*.json", ".c8rc"],
 		language: "json/json",
 		extends: ["json/recommended"],
 	},
@@ -88,7 +92,8 @@ export default defineConfig([
 			"eslint-plugin/require-meta-docs-url": [
 				"error",
 				{
-					pattern: "https://github.com/eslint/json#rules",
+					pattern:
+						"https://github.com/eslint/json/tree/main/docs/rules/{{name}}.md",
 				},
 			],
 		},
@@ -111,6 +116,12 @@ export default defineConfig([
 				],
 			],
 			"eslint-plugin/test-case-shorthand-strings": "error",
+		},
+	},
+	{
+		files: ["tools/**/*.js"],
+		rules: {
+			"no-console": "off",
 		},
 	},
 ]);

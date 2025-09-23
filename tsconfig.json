@@ -9,6 +9,7 @@
     "target": "ESNext",
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "types": []
   }
 }
