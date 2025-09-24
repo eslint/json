@@ -1,5 +1,5 @@
 import json, { JSONSourceCode } from "@eslint/json";
-import { ESLint } from "eslint";
+import type { ESLint } from "eslint";
 import type {
 	JSONSyntaxElement,
 	JSONRuleDefinition,
@@ -71,6 +71,11 @@ json.configs.recommended.plugins satisfies object;
 				| ObjectNode,
 		) {
 			sourceCode.getLoc(node) satisfies SourceLocation;
+			sourceCode.getLocFromIndex(0) satisfies {
+				line: number;
+				column: number;
+			};
+			sourceCode.getIndexFromLoc({ line: 1, column: 1 }) satisfies number;
 			sourceCode.getRange(node) satisfies SourceRange;
 			sourceCode.getParent(node) satisfies AnyNode | undefined;
 			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
