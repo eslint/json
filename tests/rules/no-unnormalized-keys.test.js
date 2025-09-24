@@ -47,6 +47,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 	invalid: [
 		{
 			code: `{"${o.normalize("NFD")}":"NFD"}`,
+			output: `{"${o.normalize("NFC")}":"NFD"}`,
 			errors: [
 				{
 					messageId: "unnormalizedKey",
@@ -60,6 +61,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		{
 			code: `{"${o.normalize("NFD")}":"NFD"}`,
+			output: `{"${o.normalize("NFC")}":"NFD"}`,
 			language: "json/jsonc",
 			errors: [
 				{
@@ -73,7 +75,38 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
+			code: `{"${o.normalize("NFD")}":"NFD"}`,
+			output: `{"${o.normalize("NFC")}":"NFD"}`,
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFD") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 7,
+				},
+			],
+		},
+		{
+			code: `{'${o.normalize("NFD")}':'NFD'}`,
+			output: `{'${o.normalize("NFC")}':'NFD'}`,
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFD") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 7,
+				},
+			],
+		},
+		{
 			code: `{${o.normalize("NFD")}:"NFD"}`,
+			output: `{${o.normalize("NFC")}:"NFD"}`,
 			language: "json/json5",
 			errors: [
 				{
@@ -88,6 +121,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		{
 			code: `{"${o.normalize("NFKC")}":"NFKC"}`,
+			output: `{"${o.normalize("NFKD")}":"NFKC"}`,
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
@@ -97,6 +131,70 @@ ruleTester.run("no-unnormalized-keys", rule, {
 					column: 2,
 					endLine: 1,
 					endColumn: 5,
+				},
+			],
+		},
+		{
+			code: `{"${o.normalize("NFKC")}":"NFKC"}`,
+			output: `{"${o.normalize("NFKD")}":"NFKC"}`,
+			language: "json/jsonc",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFKC") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 5,
+				},
+			],
+		},
+		{
+			code: `{"${o.normalize("NFKC")}":"NFKC"}`,
+			output: `{"${o.normalize("NFKD")}":"NFKC"}`,
+			language: "json/json5",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFKC") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 5,
+				},
+			],
+		},
+		{
+			code: `{'${o.normalize("NFKC")}':"NFKC"}`,
+			output: `{'${o.normalize("NFKD")}':"NFKC"}`,
+			language: "json/json5",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFKC") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 5,
+				},
+			],
+		},
+		{
+			code: `{${o.normalize("NFKC")}:"NFKC"}`,
+			output: `{${o.normalize("NFKD")}:"NFKC"}`,
+			language: "json/json5",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFKC") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 3,
 				},
 			],
 		},
