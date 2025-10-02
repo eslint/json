@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/eslint/json/compare/json-v0.13.2...json-v0.14.0) (2025-10-02)
+
+
+### Features
+
+* add support for `getLocFromIndex` and `getIndexFromLoc` ([#109](https://github.com/eslint/json/issues/109)) ([3292cc1](https://github.com/eslint/json/commit/3292cc1fce03b3c4fc19fe3f45a85eddb9f46804))
+
 ## [0.13.2](https://github.com/eslint/json/compare/json-v0.13.1...json-v0.13.2) (2025-08-25)
 
 
