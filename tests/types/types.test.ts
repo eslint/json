@@ -6,6 +6,7 @@ import type {
 	JSONRuleVisitor,
 } from "@eslint/json/types";
 import type {
+	Token,
 	AnyNode,
 	ArrayNode,
 	BooleanNode,
@@ -41,6 +42,18 @@ json.configs.recommended.plugins satisfies object;
 
 	// Check that all recommended rule names match the names of existing rules in this plugin.
 	null as AssertAllNamesIn<RecommendedRuleName, RuleName>;
+}
+
+{
+	type ApplyInlineConfigLoc = ReturnType<
+		JSONSourceCode["applyInlineConfig"]
+	>["configs"][0]["loc"];
+
+	// Check that `applyInlineConfig`'s return type includes correct `loc` structure.
+	const loc: ApplyInlineConfigLoc = {
+		start: { line: 1, column: 1, offset: 0 },
+		end: { line: 1, column: 1, offset: 0 },
+	};
 }
 
 // Check that types are imported correctly from `@humanwhocodes/momoa`.
@@ -80,6 +93,10 @@ json.configs.recommended.plugins satisfies object;
 			sourceCode.getParent(node) satisfies AnyNode | undefined;
 			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
 			sourceCode.getText(node) satisfies string;
+			sourceCode.applyInlineConfig().configs[0].loc.start
+				.offset satisfies Token["loc"]["start"]["offset"];
+			sourceCode.applyInlineConfig().configs[0].loc.end
+				.offset satisfies Token["loc"]["end"]["offset"];
 		}
 
 		return {
