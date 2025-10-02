@@ -6,7 +6,6 @@ import type {
 	JSONRuleVisitor,
 } from "@eslint/json/types";
 import type {
-	Token,
 	AnyNode,
 	ArrayNode,
 	BooleanNode,
@@ -94,9 +93,9 @@ json.configs.recommended.plugins satisfies object;
 			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
 			sourceCode.getText(node) satisfies string;
 			sourceCode.applyInlineConfig().configs[0].loc.start
-				.offset satisfies Token["loc"]["start"]["offset"];
+				.offset satisfies JSONSyntaxElement["loc"]["start"]["offset"];
 			sourceCode.applyInlineConfig().configs[0].loc.end
-				.offset satisfies Token["loc"]["end"]["offset"];
+				.offset satisfies JSONSyntaxElement["loc"]["end"]["offset"];
 		}
 
 		return {
