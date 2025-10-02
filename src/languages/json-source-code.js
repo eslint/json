@@ -24,7 +24,6 @@ import {
  * @import { FileProblem, DirectiveType, RulesConfig } from "@eslint/core";
  * @import { JSONSyntaxElement } from "../types.ts";
  * @import { JSONLanguageOptions } from "./json-language.js";
- * @typedef {Token['loc']} LocationRange
  */
 
 //-----------------------------------------------------------------------------
@@ -249,13 +248,13 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	/**
 	 * Returns inline rule configurations along with any problems
 	 * encountered while parsing the configurations.
-	 * @returns {{problems:Array<FileProblem>,configs:Array<{config:{rules:RulesConfig},loc:LocationRange}>}} Information
+	 * @returns {{problems:Array<FileProblem>,configs:Array<{config:{rules:RulesConfig},loc:JSONSyntaxElement['loc']}>}} Information
 	 *      that ESLint needs to further process the rule configurations.
 	 */
 	applyInlineConfig() {
 		/** @type {Array<FileProblem>} */
 		const problems = [];
-		/** @type {Array<{config:{rules:RulesConfig},loc:LocationRange}>} */
+		/** @type {Array<{config:{rules:RulesConfig},loc:JSONSyntaxElement['loc']}>} */
 		const configs = [];
 
 		this.getInlineConfigNodes().forEach(comment => {
