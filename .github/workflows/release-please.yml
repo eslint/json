@@ -26,6 +26,7 @@ jobs:
               # npm 11.5.1 or later is required so update to latest to be sure
             - name: Update npm
               run: npm install -g npm@latest
+              if: ${{ steps.release.outputs.release_created }}
 
             - name: Publish to npm
               run: |
