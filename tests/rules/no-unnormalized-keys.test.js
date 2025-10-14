@@ -23,6 +23,10 @@ const ruleTester = new RuleTester({
 });
 
 const o = "\u1E9B\u0323";
+const escapedNfcO = "\\u1E9B\\u0323";
+const escapedNfdO = "\\u017F\\u0323";
+const escapedNfkcO = "\\u1E69";
+const escapedNfkdO = "\\u0073\\u0323";
 
 ruleTester.run("no-unnormalized-keys", rule, {
 	valid: [
@@ -41,6 +45,24 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		{
 			code: `{"${o.normalize("NFKD")}":"NFKD"}`,
+			options: [{ form: "NFKD" }],
+		},
+		// escaped form
+		`{"${escapedNfcO}":"NFC"}`,
+		{
+			code: `{"${escapedNfcO}":"NFC"}`,
+			options: [{ form: "NFC" }],
+		},
+		{
+			code: `{"${escapedNfdO}":"NFD"}`,
+			options: [{ form: "NFD" }],
+		},
+		{
+			code: `{"${escapedNfkcO}":"NFKC"}`,
+			options: [{ form: "NFKC" }],
+		},
+		{
+			code: `{"${escapedNfkdO}":"NFKD"}`,
 			options: [{ form: "NFKD" }],
 		},
 	],
@@ -198,5 +220,6 @@ ruleTester.run("no-unnormalized-keys", rule, {
 				},
 			],
 		},
+		// escaped form
 	],
 });
