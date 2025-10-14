@@ -24,9 +24,9 @@ const ruleTester = new RuleTester({
 
 const o = "\u1E9B\u0323";
 const escapedNfcO = "\\u1E9B\\u0323";
-const escapedNfdO = "\\u017F\\u0323";
+const escapedNfdO = "\\u017F\\u0323\\u0307";
 const escapedNfkcO = "\\u1E69";
-const escapedNfkdO = "\\u0073\\u0323";
+const escapedNfkdO = "\\u0073\\u0323\\u0307";
 
 ruleTester.run("no-unnormalized-keys", rule, {
 	valid: [
@@ -221,5 +221,19 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		// escaped form
+		{
+			code: `{"${escapedNfdO}":"NFD"}`,
+			output: `{"${o.normalize("NFC")}":"NFD"}`,
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFD") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 22,
+				},
+			],
+		},
 	],
 });

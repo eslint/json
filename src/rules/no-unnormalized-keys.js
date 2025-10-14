@@ -57,7 +57,6 @@ const rule = {
 
 	create(context) {
 		const [{ form }] = context.options;
-		const { sourceCode } = context;
 
 		return {
 			Member(node) {
@@ -75,8 +74,13 @@ const rule = {
 						},
 						fix(fixer) {
 							return fixer.replaceTextRange(
-								node.name.range,
-								sourceCode.getText(node.name).normalize(form), // Quotes cannot be normalized, so it's safe.
+								node.name.type === "String"
+									? [
+											node.name.range[0] + 1,
+											node.name.range[1] - 1,
+										]
+									: node.name.range,
+								key.normalize(form),
 							);
 						},
 					});
