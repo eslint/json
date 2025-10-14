@@ -86,6 +86,208 @@ describe("JSONSourceCode", () => {
 		});
 	});
 
+	describe("getLocFromIndex()", () => {
+		it("should convert index to location correctly", () => {
+			const file = { body: '{\n  "a": "b"\r\n}', path: "test.json" };
+			const language = new JSONLanguage({ mode: "json" });
+			const parseResult = language.parse(file);
+			const sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(0), {
+				line: 1,
+				column: 1,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(1), {
+				line: 1,
+				column: 2,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(2), {
+				line: 2,
+				column: 1,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(3), {
+				line: 2,
+				column: 2,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(4), {
+				line: 2,
+				column: 3,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(5), {
+				line: 2,
+				column: 4,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(6), {
+				line: 2,
+				column: 5,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(7), {
+				line: 2,
+				column: 6,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(8), {
+				line: 2,
+				column: 7,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(9), {
+				line: 2,
+				column: 8,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(10), {
+				line: 2,
+				column: 9,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(11), {
+				line: 2,
+				column: 10,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(12), {
+				line: 2,
+				column: 11,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(13), {
+				line: 2,
+				column: 12,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(14), {
+				line: 3,
+				column: 1,
+			});
+			assert.deepStrictEqual(sourceCode.getLocFromIndex(15), {
+				line: 3,
+				column: 2,
+			});
+		});
+	});
+
+	describe("getIndexFromLoc()", () => {
+		it("should convert location to index correctly", () => {
+			const file = { body: '{\n  "a": "b"\r\n}', path: "test.json" };
+			const language = new JSONLanguage({ mode: "json" });
+			const parseResult = language.parse(file);
+			const sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 1,
+					column: 1,
+				}),
+				0,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 1,
+					column: 2,
+				}),
+				1,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 1,
+				}),
+				2,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 2,
+				}),
+				3,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 3,
+				}),
+				4,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 4,
+				}),
+				5,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 5,
+				}),
+				6,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 6,
+				}),
+				7,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 7,
+				}),
+				8,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 8,
+				}),
+				9,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 9,
+				}),
+				10,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 10,
+				}),
+				11,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 11,
+				}),
+				12,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 2,
+					column: 12,
+				}),
+				13,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 3,
+					column: 1,
+				}),
+				14,
+			);
+			assert.strictEqual(
+				sourceCode.getIndexFromLoc({
+					line: 3,
+					column: 2,
+				}),
+				15,
+			);
+		});
+	});
+
 	describe("getRange()", () => {
 		it("should return the range property of a node", () => {
 			const range = [0, 1];
