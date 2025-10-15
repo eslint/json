@@ -235,5 +235,20 @@ ruleTester.run("no-unnormalized-keys", rule, {
 				},
 			],
 		},
+		{
+			code: `{"${escapedNfkcO}":"NFKC"}`,
+			output: `{"${o.normalize("NFKD")}":"NFKC"}`,
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: o.normalize("NFKC") },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 10,
+				},
+			],
+		},
 	],
 });
