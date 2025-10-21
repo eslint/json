@@ -20,8 +20,8 @@ import {
 //-----------------------------------------------------------------------------
 
 /**
- * @import { DocumentNode, AnyNode, Token } from "@humanwhocodes/momoa";
- * @import { SourceLocation, FileProblem, DirectiveType, RulesConfig } from "@eslint/core";
+ * @import { DocumentNode, AnyNode, Token, LocationRange } from "@humanwhocodes/momoa";
+ * @import { FileProblem, DirectiveType, RulesConfig } from "@eslint/core";
  * @import { JSONSyntaxElement } from "../types.ts";
  * @import { JSONLanguageOptions } from "./json-language.js";
  */
@@ -248,13 +248,13 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	/**
 	 * Returns inline rule configurations along with any problems
 	 * encountered while parsing the configurations.
-	 * @returns {{problems:Array<FileProblem>,configs:Array<{config:{rules:RulesConfig},loc:SourceLocation}>}} Information
+	 * @returns {{problems:Array<FileProblem>,configs:Array<{config:{rules:RulesConfig},loc:LocationRange}>}} Information
 	 *      that ESLint needs to further process the rule configurations.
 	 */
 	applyInlineConfig() {
 		/** @type {Array<FileProblem>} */
 		const problems = [];
-		/** @type {Array<{config:{rules:RulesConfig},loc:SourceLocation}>} */
+		/** @type {Array<{config:{rules:RulesConfig},loc:LocationRange}>} */
 		const configs = [];
 
 		this.getInlineConfigNodes().forEach(comment => {
