@@ -19,6 +19,7 @@ import type {
 	NumberNode,
 	ObjectNode,
 	StringNode,
+	LocationRange,
 } from "@humanwhocodes/momoa";
 import type { SourceLocation, SourceRange } from "@eslint/core";
 
@@ -93,9 +94,9 @@ json.configs.recommended.plugins satisfies object;
 			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
 			sourceCode.getText(node) satisfies string;
 			sourceCode.applyInlineConfig().configs[0].loc.start
-				.offset satisfies JSONSyntaxElement["loc"]["start"]["offset"];
+				.offset satisfies LocationRange["start"]["offset"];
 			sourceCode.applyInlineConfig().configs[0].loc.end
-				.offset satisfies JSONSyntaxElement["loc"]["end"]["offset"];
+				.offset satisfies LocationRange["end"]["offset"];
 		}
 
 		return {
