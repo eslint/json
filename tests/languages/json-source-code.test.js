@@ -346,7 +346,7 @@ describe("JSONSourceCode", () => {
 	});
 
 	describe("lines", () => {
-		it("should return an array of lines", () => {
+		it("should split lines on LF line endings", () => {
 			const file = { body: "{\n//test\n}", path: "test.jsonc" };
 			const language = new JSONLanguage({ mode: "jsonc" });
 			const parseResult = language.parse(file);
@@ -356,6 +356,50 @@ describe("JSONSourceCode", () => {
 			});
 
 			assert.deepStrictEqual(sourceCode.lines, ["{", "//test", "}"]);
+		});
+
+		it("should split lines on CR line endings", () => {
+			const file = { body: "{\r//test\r}", path: "test.jsonc" };
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const parseResult = language.parse(file);
+			const sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+
+			assert.deepStrictEqual(sourceCode.lines, ["{", "//test", "}"]);
+		});
+
+		it("should split lines on CRLF line endings", () => {
+			const file = { body: "{\r\n//test\r\n}", path: "test.jsonc" };
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const parseResult = language.parse(file);
+			const sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+
+			assert.deepStrictEqual(sourceCode.lines, ["{", "//test", "}"]);
+		});
+
+		it("should split lines with mixed line endings (LF, CRLF, CR)", () => {
+			const file = {
+				body: "{\n//one\r\n//two\r}",
+				path: "test.jsonc",
+			};
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const parseResult = language.parse(file);
+			const sourceCode = new JSONSourceCode({
+				text: file.body,
+				ast: parseResult.ast,
+			});
+
+			assert.deepStrictEqual(sourceCode.lines, [
+				"{",
+				"//one",
+				"//two",
+				"}",
+			]);
 		});
 	});
 

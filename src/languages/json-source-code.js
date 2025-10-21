@@ -148,7 +148,7 @@ export class JSONSourceCode extends TextSourceCodeBase {
 	 * @param {DocumentNode} options.ast The root AST node.
 	 */
 	constructor({ text, ast }) {
-		super({ text, ast });
+		super({ text, ast, lineEndingPattern: /\r\n|[\r\n]/u });
 		this.ast = ast;
 
 		const { comments, starts, ends } = processTokens(this.ast.tokens ?? []);
