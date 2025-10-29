@@ -74,7 +74,15 @@ json.configs.recommended.plugins satisfies object;
 		sourceCode.lines satisfies string[];
 		sourceCode.text satisfies string;
 
-		function testVisitor<NodeType extends AnyNode>(node: NodeType) {
+		function testVisitor<NodeType extends AnyNode>(
+			node: NodeType,
+			parent?:
+				| DocumentNode
+				| MemberNode
+				| ElementNode
+				| ArrayNode
+				| ObjectNode,
+		) {
 			sourceCode.getLoc(node) satisfies SourceLocation;
 			sourceCode.getLocFromIndex(0) satisfies {
 				line: number;
@@ -92,33 +100,34 @@ json.configs.recommended.plugins satisfies object;
 		}
 
 		return {
-			Array: node => testVisitor<ArrayNode>(node),
-			"Array:exit": node => testVisitor<ArrayNode>(node),
-			Boolean: node => testVisitor<BooleanNode>(node),
-			"Boolean:exit": node => testVisitor<BooleanNode>(node),
-			Document: node => testVisitor<DocumentNode>(node),
-			"Document:exit": node => testVisitor<DocumentNode>(node),
-			Element: node => testVisitor<ElementNode>(node),
-			"Element:exit": node => testVisitor<ElementNode>(node),
-			Identifier: node => testVisitor<IdentifierNode>(node),
-			"Identifier:exit": node => testVisitor<IdentifierNode>(node),
-			Infinity: node => testVisitor<InfinityNode>(node),
-			"Infinity:exit": node => testVisitor<InfinityNode>(node),
-			Member: node => testVisitor<MemberNode>(node),
-			"Member:exit": node => testVisitor<MemberNode>(node),
-			NaN: node => testVisitor<NaNNode>(node),
-			"NaN:exit": node => testVisitor<NaNNode>(node),
-			Null: node => testVisitor<NullNode>(node),
-			"Null:exit": node => testVisitor<NullNode>(node),
-			Number: node => testVisitor<NumberNode>(node),
-			"Number:exit": node => testVisitor<NumberNode>(node),
-			Object: node => testVisitor<ObjectNode>(node),
-			"Object:exit": node => testVisitor<ObjectNode>(node),
-			String: node => testVisitor<StringNode>(node),
-			"String:exit": node => testVisitor<StringNode>(node),
+			Array: (...args) => testVisitor<ArrayNode>(...args),
+			"Array:exit": (...args) => testVisitor<ArrayNode>(...args),
+			Boolean: (...args) => testVisitor<BooleanNode>(...args),
+			"Boolean:exit": (...args) => testVisitor<BooleanNode>(...args),
+			Document: (...args) => testVisitor<DocumentNode>(...args),
+			"Document:exit": (...args) => testVisitor<DocumentNode>(...args),
+			Element: (...args) => testVisitor<ElementNode>(...args),
+			"Element:exit": (...args) => testVisitor<ElementNode>(...args),
+			Identifier: (...args) => testVisitor<IdentifierNode>(...args),
+			"Identifier:exit": (...args) =>
+				testVisitor<IdentifierNode>(...args),
+			Infinity: (...args) => testVisitor<InfinityNode>(...args),
+			"Infinity:exit": (...args) => testVisitor<InfinityNode>(...args),
+			Member: (...args) => testVisitor<MemberNode>(...args),
+			"Member:exit": (...args) => testVisitor<MemberNode>(...args),
+			NaN: (...args) => testVisitor<NaNNode>(...args),
+			"NaN:exit": (...args) => testVisitor<NaNNode>(...args),
+			Null: (...args) => testVisitor<NullNode>(...args),
+			"Null:exit": (...args) => testVisitor<NullNode>(...args),
+			Number: (...args) => testVisitor<NumberNode>(...args),
+			"Number:exit": (...args) => testVisitor<NumberNode>(...args),
+			Object: (...args) => testVisitor<ObjectNode>(...args),
+			"Object:exit": (...args) => testVisitor<ObjectNode>(...args),
+			String: (...args) => testVisitor<StringNode>(...args),
+			"String:exit": (...args) => testVisitor<StringNode>(...args),
 
 			// Unknown selectors allowed
-			"Identifier[name=foo]"(node) {},
+			"Identifier[name=foo]"(node: IdentifierNode, parent: MemberNode) {},
 		};
 	},
 });
