@@ -125,6 +125,9 @@ json.configs.recommended.plugins satisfies object;
 			"Object:exit": (...args) => testVisitor<ObjectNode>(...args),
 			String: (...args) => testVisitor<StringNode>(...args),
 			"String:exit": (...args) => testVisitor<StringNode>(...args),
+
+			// Unknown selectors allowed
+			"Identifier[name=foo]"(node: IdentifierNode, parent: MemberNode) {},
 		};
 	},
 });

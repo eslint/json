@@ -31,6 +31,17 @@ import type {
 import type { JSONLanguageOptions, JSONSourceCode } from "./index.js";
 
 //------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+/** Adds matching `:exit` selectors for all properties of a `RuleVisitor`. */
+type WithExit<RuleVisitorType extends RuleVisitor> = {
+	[Key in keyof RuleVisitorType as
+		| Key
+		| `${Key & string}:exit`]: RuleVisitorType[Key];
+};
+
+//------------------------------------------------------------------------------
 // Types
 //------------------------------------------------------------------------------
 
@@ -41,36 +52,33 @@ type ValueNodeParent = DocumentNode | MemberNode | ElementNode;
  */
 export type JSONSyntaxElement = Token | AnyNode;
 
+type JSONNodeVisitor = {
+	Array?: ((node: ArrayNode, parent: ValueNodeParent) => void) | undefined;
+	Boolean?:
+		| ((node: BooleanNode, parent: ValueNodeParent) => void)
+		| undefined;
+	Document?: ((node: DocumentNode) => void) | undefined;
+	Element?: ((node: ElementNode, parent: ArrayNode) => void) | undefined;
+	Identifier?:
+		| ((node: IdentifierNode, parent: MemberNode) => void)
+		| undefined;
+	Infinity?:
+		| ((node: InfinityNode, parent: ValueNodeParent) => void)
+		| undefined;
+	Member?: ((node: MemberNode, parent: ObjectNode) => void) | undefined;
+	NaN?: ((node: NaNNode, parent: ValueNodeParent) => void) | undefined;
+	Null?: ((node: NullNode, parent: ValueNodeParent) => void) | undefined;
+	Number?: ((node: NumberNode, parent: ValueNodeParent) => void) | undefined;
+	Object?: ((node: ObjectNode, parent: ValueNodeParent) => void) | undefined;
+	String?: ((node: StringNode, parent: ValueNodeParent) => void) | undefined;
+};
+
 /**
  * The visitor format returned from rules in this package.
  */
-export interface JSONRuleVisitor extends RuleVisitor {
-	Document?(node: DocumentNode): void;
-	Member?(node: MemberNode, parent?: ObjectNode): void;
-	Element?(node: ElementNode, parent?: ArrayNode): void;
-	Object?(node: ObjectNode, parent?: ValueNodeParent): void;
-	Array?(node: ArrayNode, parent?: ValueNodeParent): void;
-	String?(node: StringNode, parent?: ValueNodeParent): void;
-	Null?(node: NullNode, parent?: ValueNodeParent): void;
-	Number?(node: NumberNode, parent?: ValueNodeParent): void;
-	Boolean?(node: BooleanNode, parent?: ValueNodeParent): void;
-	NaN?(node: NaNNode, parent?: ValueNodeParent): void;
-	Infinity?(node: InfinityNode, parent?: ValueNodeParent): void;
-	Identifier?(node: IdentifierNode, parent?: ValueNodeParent): void;
-
-	"Document:exit"?(node: DocumentNode): void;
-	"Member:exit"?(node: MemberNode, parent?: ObjectNode): void;
-	"Element:exit"?(node: ElementNode, parent?: ArrayNode): void;
-	"Object:exit"?(node: ObjectNode, parent?: ValueNodeParent): void;
-	"Array:exit"?(node: ArrayNode, parent?: ValueNodeParent): void;
-	"String:exit"?(node: StringNode, parent?: ValueNodeParent): void;
-	"Null:exit"?(node: NullNode, parent?: ValueNodeParent): void;
-	"Number:exit"?(node: NumberNode, parent?: ValueNodeParent): void;
-	"Boolean:exit"?(node: BooleanNode, parent?: ValueNodeParent): void;
-	"NaN:exit"?(node: NaNNode, parent?: ValueNodeParent): void;
-	"Infinity:exit"?(node: InfinityNode, parent?: ValueNodeParent): void;
-	"Identifier:exit"?(node: IdentifierNode, parent?: ValueNodeParent): void;
-}
+export interface JSONRuleVisitor
+	extends RuleVisitor,
+		WithExit<JSONNodeVisitor> {}
 
 export type JSONRuleDefinitionTypeOptions = CustomRuleTypeDefinitions;
 
@@ -81,7 +89,7 @@ export type JSONRuleDefinition<
 		LangOptions: JSONLanguageOptions;
 		Code: JSONSourceCode;
 		Visitor: JSONRuleVisitor;
-		Node: AnyNode;
+		Node: JSONSyntaxElement;
 	},
 	Options
 >;
