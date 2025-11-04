@@ -53,19 +53,24 @@ const rule = {
 					node.name.type === "String"
 						? node.name.value
 						: node.name.name;
+				const rawKey =
+					node.name.type === "String"
+						? context.sourceCode.getText(node.name, -1, -1)
+						: context.sourceCode.getText(node.name);
 
 				if (keys.has(key)) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "duplicateKey",
 						data: {
-							key,
+							key: rawKey,
 						},
 					});
 				} else {
 					keys.set(key, node);
 				}
 			},
+
 			"Object:exit"() {
 				keys = objectKeys.pop();
 			},
