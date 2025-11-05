@@ -2,6 +2,11 @@
  * @fileoverview Rule to detect unnormalized keys in JSON.
  * @author Bradley Meck Farias
  */
+//-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey } from "../util.js";
 
 //-----------------------------------------------------------------------------
 // Type Definitions
@@ -58,10 +63,7 @@ const rule = {
 
 		return {
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+				const key = getKey(node);
 
 				if (key.normalize(form) !== key) {
 					context.report({

@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------------------
 
 import naturalCompare from "natural-compare";
+import { getKey } from "../util.js";
 
 //-----------------------------------------------------------------------------
 // Type Definitions
@@ -75,17 +76,6 @@ const comparators = {
 		},
 	},
 };
-
-/**
- * Gets the MemberNode's string key value.
- * @param {MemberNode} member
- * @return {string}
- */
-function getKey(member) {
-	return member.name.type === "Identifier"
-		? member.name.name
-		: member.name.value;
-}
 
 //-----------------------------------------------------------------------------
 // Rule Definition
