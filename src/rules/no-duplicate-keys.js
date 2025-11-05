@@ -4,6 +4,12 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey, getRawKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
@@ -49,14 +55,8 @@ const rule = {
 			},
 
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
-				const rawKey =
-					node.name.type === "String"
-						? context.sourceCode.getText(node.name, -1, -1)
-						: context.sourceCode.getText(node.name);
+				const key = getKey(node);
+				const rawKey = getRawKey(node, context.sourceCode);
 
 				if (keys.has(key)) {
 					context.report({
