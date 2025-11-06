@@ -2029,5 +2029,22 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+
+		// Escape sequences in keys
+		{
+			code: '{"\\u0061":1, "\\u0063":2, "\\u0062":3}',
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "\\u0062",
+						prevName: "\\u0063",
+					},
+				},
+			],
+		},
 	],
 });
