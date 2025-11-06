@@ -104,7 +104,7 @@ const rule = {
 
 		messages: {
 			sortKeys:
-				"Expected object keys to be in {{sortName}} case-{{sensitivity}} {{direction}} order. '{{thisName}}' should be before '{{prevName}}'.", // TODO
+				"Expected object keys to be in {{sortName}} case-{{sensitivity}} {{direction}} order. '{{thisName}}' should be before '{{prevName}}'.",
 		},
 
 		schema: [

@@ -2046,5 +2046,20 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+		{
+			code: '{"\\u0061\\n":1, "\\u0063\\n":2, "\\u0062\\n":3}',
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "\\u0062\\n",
+						prevName: "\\u0063\\n",
+					},
+				},
+			],
+		},
 	],
 });
