@@ -24,6 +24,8 @@ const rule = {
 	meta: {
 		type: "problem",
 
+		fixable: "code",
+
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
@@ -57,18 +59,24 @@ const rule = {
 		const [{ form }] = context.options;
 
 		return {
-			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+			Member({ name }) {
+				const key = name.type === "String" ? name.value : name.name;
+				const normalizedKey = key.normalize(form);
 
-				if (key.normalize(form) !== key) {
+				if (normalizedKey !== key) {
 					context.report({
-						loc: node.name.loc,
+						loc: name.loc,
 						messageId: "unnormalizedKey",
 						data: {
 							key,
+						},
+						fix(fixer) {
+							return fixer.replaceTextRange(
+								name.type === "String"
+									? [name.range[0] + 1, name.range[1] - 1]
+									: name.range,
+								normalizedKey,
+							);
 						},
 					});
 				}
