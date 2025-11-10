@@ -4,6 +4,12 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey, getRawKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
@@ -49,23 +55,22 @@ const rule = {
 			},
 
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+				const key = getKey(node);
+				const rawKey = getRawKey(node, context.sourceCode);
 
 				if (keys.has(key)) {
 					context.report({
 						loc: node.name.loc,
 						messageId: "duplicateKey",
 						data: {
-							key,
+							key: rawKey,
 						},
 					});
 				} else {
 					keys.set(key, node);
 				}
 			},
+
 			"Object:exit"() {
 				keys = objectKeys.pop();
 			},

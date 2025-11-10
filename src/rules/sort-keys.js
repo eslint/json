@@ -9,6 +9,7 @@
 //-----------------------------------------------------------------------------
 
 import naturalCompare from "natural-compare";
+import { getKey, getRawKey } from "../util.js";
 
 //-----------------------------------------------------------------------------
 // Type Definitions
@@ -76,17 +77,6 @@ const comparators = {
 	},
 };
 
-/**
- * Gets the MemberNode's string key value.
- * @param {MemberNode} member
- * @return {string}
- */
-function getKey(member) {
-	return member.name.type === "Identifier"
-		? member.name.name
-		: member.name.value;
-}
-
 //-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
@@ -144,6 +134,7 @@ const rule = {
 	},
 
 	create(context) {
+		const { sourceCode } = context;
 		const [
 			directionShort,
 			{ allowLineSeparatedGroups, caseSensitive, natural, minKeys },
@@ -156,7 +147,7 @@ const rule = {
 
 		// Note that @humanwhocodes/momoa doesn't include comments in the object.members tree, so we can't just see if a member is preceded by a comment
 		const commentLineNums = new Set();
-		for (const comment of context.sourceCode.comments) {
+		for (const comment of sourceCode.comments) {
 			for (
 				let lineNum = comment.loc.start.line;
 				lineNum <= comment.loc.end.line;
@@ -187,9 +178,7 @@ const rule = {
 			) {
 				if (
 					!commentLineNums.has(lineNum) &&
-					!hasNonWhitespace.test(
-						context.sourceCode.lines[lineNum - 1],
-					)
+					!hasNonWhitespace.test(sourceCode.lines[lineNum - 1])
 				) {
 					return true;
 				}
@@ -200,8 +189,12 @@ const rule = {
 
 		return {
 			Object(node) {
+				/** @type {MemberNode} */
 				let prevMember;
+				/** @type {string} */
 				let prevName;
+				/** @type {string} */
+				let prevRawName;
 
 				if (node.members.length < minKeys) {
 					return;
@@ -209,6 +202,7 @@ const rule = {
 
 				for (const member of node.members) {
 					const thisName = getKey(member);
+					const thisRawName = getRawKey(member, sourceCode);
 
 					if (
 						prevMember &&
@@ -220,8 +214,8 @@ const rule = {
 							loc: member.name.loc,
 							messageId: "sortKeys",
 							data: {
-								thisName,
-								prevName,
+								thisName: thisRawName,
+								prevName: prevRawName,
 								direction,
 								sensitivity,
 								sortName,
@@ -231,6 +225,7 @@ const rule = {
 
 					prevMember = member;
 					prevName = thisName;
+					prevRawName = thisRawName;
 				}
 			},
 		};
