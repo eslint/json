@@ -9,7 +9,6 @@
 
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
- *
  * @typedef {"topLevel"} TopLevelInteropMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: TopLevelInteropMessageIds }>} TopLevelInteropRuleDefinition
  */

@@ -18,13 +18,11 @@ import { getKey, getRawKey } from "../util.js";
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
  * @import { MemberNode } from "@humanwhocodes/momoa";
- *
  * @typedef {Object} SortOptions
- * @property {boolean} caseSensitive
- * @property {boolean} natural
- * @property {number} minKeys
- * @property {boolean} allowLineSeparatedGroups
- *
+ * @property {boolean} caseSensitive Whether key comparisons are case-sensitive.
+ * @property {boolean} natural Whether to use natural sort order instead of purely alphanumeric.
+ * @property {number} minKeys Minimum number of keys in an object before enforcing sorting.
+ * @property {boolean} allowLineSeparatedGroups Whether a blank line between properties starts a new group that is independently sorted.
  * @typedef {"sortKeys"} SortKeysMessageIds
  * @typedef {"asc"|"desc"} SortDirection
  * @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions
@@ -41,36 +39,60 @@ const hasNonWhitespace = /\S/u;
 const comparators = {
 	ascending: {
 		alphanumeric: {
-			/** @type {Comparator} */
+			/**
+			 * Comparator for ascending alphanumeric order (case-sensitive).
+			 * @type {Comparator}
+			 */
 			sensitive: (a, b) => a <= b,
 
-			/** @type {Comparator} */
+			/**
+			 * Comparator for ascending alphanumeric order (case-insensitive).
+			 * @type {Comparator}
+			 */
 			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
 		},
 		natural: {
-			/** @type {Comparator} */
+			/**
+			 * Comparator for ascending natural order (case-sensitive).
+			 * @type {Comparator}
+			 */
 			sensitive: (a, b) => naturalCompare(a, b) <= 0,
 
-			/** @type {Comparator} */
+			/**
+			 * Comparator for ascending natural order (case-insensitive).
+			 * @type {Comparator}
+			 */
 			insensitive: (a, b) =>
 				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
 		},
 	},
 	descending: {
 		alphanumeric: {
-			/** @type {Comparator} */
+			/**
+			 * Comparator for descending alphanumeric order (case-sensitive).
+			 * @type {Comparator}
+			 */
 			sensitive: (a, b) =>
 				comparators.ascending.alphanumeric.sensitive(b, a),
 
-			/** @type {Comparator} */
+			/**
+			 * Comparator for descending alphanumeric order (case-insensitive).
+			 * @type {Comparator}
+			 */
 			insensitive: (a, b) =>
 				comparators.ascending.alphanumeric.insensitive(b, a),
 		},
 		natural: {
-			/** @type {Comparator} */
+			/**
+			 * Comparator for descending natural order (case-sensitive).
+			 * @type {Comparator}
+			 */
 			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
 
-			/** @type {Comparator} */
+			/**
+			 * Comparator for descending natural order (case-insensitive).
+			 * @type {Comparator}
+			 */
 			insensitive: (a, b) =>
 				comparators.ascending.natural.insensitive(b, a),
 		},
@@ -161,7 +183,7 @@ const rule = {
 		 * Checks if two members are line-separated.
 		 * @param {MemberNode} prevMember The previous member.
 		 * @param {MemberNode} member The current member.
-		 * @return {boolean}
+		 * @returns {boolean} True if the members are separated by at least one blank line (ignoring comment-only lines).
 		 */
 		function isLineSeparated(prevMember, member) {
 			// Note that there can be comments *inside* members, e.g. `{"foo: /* comment *\/ "bar"}`, but these are ignored when calculating line-separated groups

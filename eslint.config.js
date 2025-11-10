@@ -9,16 +9,13 @@
 
 import eslintConfigESLint from "eslint-config-eslint";
 import eslintPlugin from "eslint-plugin-eslint-plugin";
+import globals from "globals";
 import json from "./src/index.js";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 //-----------------------------------------------------------------------------
 // Helpers
 //-----------------------------------------------------------------------------
-
-const eslintPluginJSDoc = eslintConfigESLint.find(
-	config => config.plugins?.jsdoc,
-).plugins.jsdoc;
 
 const eslintPluginRulesRecommendedConfig =
 	eslintPlugin.configs["flat/rules-recommended"];
@@ -30,54 +27,34 @@ const eslintPluginTestsRecommendedConfig =
 //-----------------------------------------------------------------------------
 
 export default defineConfig([
-	globalIgnores([
-		"**/tests/fixtures/",
-		"**/dist/",
-		"coverage/",
-		"src/build/",
-	]),
-
-	...eslintConfigESLint.map(config => ({
-		files: ["**/*.js"],
-		...config,
-	})),
+	globalIgnores(["dist/", "src/build/"], "json/global-ignores"),
 	{
-		plugins: { json },
-		files: ["**/*.json", ".c8rc"],
-		language: "json/json",
-		extends: ["json/recommended"],
-	},
-	{
+		name: "json/js",
 		files: ["**/*.js"],
+		extends: [eslintConfigESLint],
 		rules: {
-			// disable rules we don't want to use from eslint-config-eslint
 			"no-undefined": "off",
-
-			// TODO: re-enable eslint-plugin-jsdoc rules
-			...Object.fromEntries(
-				Object.keys(eslintPluginJSDoc.rules).map(name => [
-					`jsdoc/${name}`,
-					"off",
-				]),
-			),
 		},
 	},
 	{
-		files: ["**/tests/**"],
+		name: "json/tools",
+		files: ["tools/**/*.js"],
+		rules: {
+			"no-console": "off",
+		},
+	},
+	{
+		name: "json/tests",
+		files: ["tests/**/*.js"],
+		ignores: ["tests/rules/*.js"],
 		languageOptions: {
 			globals: {
-				describe: "readonly",
-				xdescribe: "readonly",
-				it: "readonly",
-				xit: "readonly",
-				beforeEach: "readonly",
-				afterEach: "readonly",
-				before: "readonly",
-				after: "readonly",
+				...globals.mocha,
 			},
 		},
 	},
 	{
+		name: "json/rules",
 		files: ["src/rules/*.js"],
 		extends: [eslintPluginRulesRecommendedConfig],
 		rules: {
@@ -99,6 +76,7 @@ export default defineConfig([
 		},
 	},
 	{
+		name: "json/rules-tests",
 		files: ["tests/rules/*.test.js"],
 		extends: [eslintPluginTestsRecommendedConfig],
 		rules: {
@@ -119,9 +97,10 @@ export default defineConfig([
 		},
 	},
 	{
-		files: ["tools/**/*.js"],
-		rules: {
-			"no-console": "off",
-		},
+		name: "json/json",
+		plugins: { json },
+		files: ["**/*.json", ".c8rc"],
+		language: "json/json",
+		extends: ["json/recommended"],
 	},
 ]);

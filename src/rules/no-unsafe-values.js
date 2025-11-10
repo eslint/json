@@ -9,7 +9,6 @@
 
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
- *
  * @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoUnsafeValuesMessageIds }>} NoUnsafeValuesRuleDefinition
  */

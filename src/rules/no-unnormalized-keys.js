@@ -15,7 +15,6 @@ import { getKey } from "../util.js";
 
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
- *
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
