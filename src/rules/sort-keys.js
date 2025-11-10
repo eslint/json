@@ -28,6 +28,10 @@ import { getKey, getRawKey } from "../util.js";
  * @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: SortKeysRuleOptions, MessageIds: SortKeysMessageIds }>} SortKeysRuleDefinition
  * @typedef {(a:string,b:string) => boolean} Comparator
+ * @typedef {"ascending"|"descending"} DirectionName
+ * @typedef {"alphanumeric"|"natural"} SortName
+ * @typedef {"sensitive"|"insensitive"} Sensitivity
+ * @typedef {Record<DirectionName, Record<SortName, Record<Sensitivity, Comparator>>>} ComparatorMap
  */
 
 //-----------------------------------------------------------------------------
@@ -36,63 +40,30 @@ import { getKey, getRawKey } from "../util.js";
 
 const hasNonWhitespace = /\S/u;
 
+/** @type {ComparatorMap} */
 const comparators = {
 	ascending: {
 		alphanumeric: {
-			/**
-			 * Comparator for ascending alphanumeric order (case-sensitive).
-			 * @type {Comparator}
-			 */
 			sensitive: (a, b) => a <= b,
-
-			/**
-			 * Comparator for ascending alphanumeric order (case-insensitive).
-			 * @type {Comparator}
-			 */
 			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
 		},
 		natural: {
-			/**
-			 * Comparator for ascending natural order (case-sensitive).
-			 * @type {Comparator}
-			 */
 			sensitive: (a, b) => naturalCompare(a, b) <= 0,
-
-			/**
-			 * Comparator for ascending natural order (case-insensitive).
-			 * @type {Comparator}
-			 */
 			insensitive: (a, b) =>
 				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
 		},
 	},
 	descending: {
 		alphanumeric: {
-			/**
-			 * Comparator for descending alphanumeric order (case-sensitive).
-			 * @type {Comparator}
-			 */
 			sensitive: (a, b) =>
 				comparators.ascending.alphanumeric.sensitive(b, a),
 
-			/**
-			 * Comparator for descending alphanumeric order (case-insensitive).
-			 * @type {Comparator}
-			 */
 			insensitive: (a, b) =>
 				comparators.ascending.alphanumeric.insensitive(b, a),
 		},
 		natural: {
-			/**
-			 * Comparator for descending natural order (case-sensitive).
-			 * @type {Comparator}
-			 */
 			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
 
-			/**
-			 * Comparator for descending natural order (case-insensitive).
-			 * @type {Comparator}
-			 */
 			insensitive: (a, b) =>
 				comparators.ascending.natural.insensitive(b, a),
 		},
@@ -162,9 +133,13 @@ const rule = {
 			{ allowLineSeparatedGroups, caseSensitive, natural, minKeys },
 		] = context.options;
 
+		/** @type {DirectionName} */
 		const direction = directionShort === "asc" ? "ascending" : "descending";
+		/** @type {SortName} */
 		const sortName = natural ? "natural" : "alphanumeric";
+		/** @type {Sensitivity} */
 		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
+		/** @type {Comparator} */
 		const isValidOrder = comparators[direction][sortName][sensitivity];
 
 		// Note that @humanwhocodes/momoa doesn't include comments in the object.members tree, so we can't just see if a member is preceded by a comment
