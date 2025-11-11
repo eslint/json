@@ -126,8 +126,18 @@ json.configs.recommended.plugins satisfies object;
 			String: (...args) => testVisitor<StringNode>(...args),
 			"String:exit": (...args) => testVisitor<StringNode>(...args),
 
-			// Unknown selectors allowed
+			// Combined selectors allowed
 			"Identifier[name=foo]"(node: IdentifierNode, parent: MemberNode) {},
+			"*"(node: AnyNode) {},
+			"Element:first-child"(node: ElementNode) {},
+			"Element:last-child"(node: ElementNode) {},
+			"Array Number"(node: NumberNode) {},
+			"String, Number"(node: StringNode | NumberNode) {},
+
+			// Unknown selectors allowed
+			ForStatement(node) {},
+			Unknown(node) {},
+			ValueNode(node) {},
 		};
 	},
 });
