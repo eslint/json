@@ -8,6 +8,8 @@ This package contains a plugin that allows you to natively lint JSON, JSONC, and
 
 ## Installation
 
+Prerequisites: Node.js (^18.18.0 || ^20.9.0 || >=21.1.0) built with SSL support. (If you are using an official Node.js distribution, SSL is always built in.)
+
 For Node.js and compatible runtimes:
 
 ```shell
