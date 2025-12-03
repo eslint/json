@@ -79,6 +79,8 @@ const rule = {
 	meta: {
 		type: "suggestion",
 
+		fixable: "code",
+
 		defaultOptions: [
 			"asc",
 			{
@@ -200,6 +202,7 @@ const rule = {
 				for (const member of node.members) {
 					const thisName = getKey(member);
 					const thisRawName = getRawKey(member, sourceCode);
+					const prevMemberSnapshot = prevMember;
 
 					if (
 						prevMember &&
@@ -216,6 +219,18 @@ const rule = {
 								direction,
 								sensitivity,
 								sortName,
+							},
+							fix(fixer) {
+								return [
+									fixer.replaceText(
+										member,
+										sourceCode.getText(prevMemberSnapshot),
+									),
+									fixer.replaceText(
+										prevMemberSnapshot,
+										sourceCode.getText(member),
+									),
+								];
 							},
 						});
 					}

@@ -518,6 +518,7 @@ ruleTester.run("sort-keys", rule, {
 		// default (asc)
 		{
 			code: '{"a":1, "":2} // default',
+			output: '{"":2, "a":1} // default',
 			language: "json/jsonc",
 			errors: [
 				{
@@ -538,6 +539,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "_":2, "b":3} // default',
+			output: '{"_":2, "a":1, "b":3} // default',
 			language: "json/jsonc",
 			errors: [
 				{
@@ -558,6 +560,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"a":1, "b":3, "c":2}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -577,6 +580,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"a":2, "b_":1, "b":3}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -596,6 +600,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"b_":1, "C":3, "c":2}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -615,6 +620,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"$":1, "A":3, "_":2, "a":4}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -634,6 +640,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"1":1, "2":4, "11":2, "A":3}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -653,6 +660,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"#":1, "Z":2, "À":3, "è":4}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -674,6 +682,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc
 		{
 			code: '{"a":1, "_":2, "b":3} // asc',
+			output: '{"_":2, "a":1, "b":3} // asc',
 			language: "json/jsonc",
 			options: ["asc"],
 			errors: [
@@ -695,6 +704,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"a":1, "b":3, "c":2}',
 			options: ["asc"],
 			errors: [
 				{
@@ -715,6 +725,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"a":2, "b_":1, "b":3}',
 			options: ["asc"],
 			errors: [
 				{
@@ -735,6 +746,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"b_":1, "C":3, "c":2}',
 			options: ["asc"],
 			errors: [
 				{
@@ -755,6 +767,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"$":1, "A":3, "_":2, "a":4}',
 			options: ["asc"],
 			errors: [
 				{
@@ -775,6 +788,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"1":1, "2":4, "11":2, "A":3}',
 			options: ["asc"],
 			errors: [
 				{
@@ -795,6 +809,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"#":1, "Z":2, "À":3, "è":4}',
 			options: ["asc"],
 			errors: [
 				{
@@ -817,6 +832,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, minKeys should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"_":2, "a":1, "b":3}',
 			options: ["asc", { minKeys: 3 }],
 			errors: [
 				{
@@ -839,6 +855,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, insensitive
 		{
 			code: '{"a":1, "_":2, "b":3} // asc, insensitive',
+			output: '{"_":2, "a":1, "b":3} // asc, insensitive',
 			language: "json/jsonc",
 			options: ["asc", { caseSensitive: false }],
 			errors: [
@@ -860,6 +877,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"a":1, "b":3, "c":2}',
 			options: ["asc", { caseSensitive: false }],
 			errors: [
 				{
@@ -880,6 +898,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"a":2, "b_":1, "b":3}',
 			options: ["asc", { caseSensitive: false }],
 			errors: [
 				{
@@ -900,6 +919,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "A":3, "_":2, "a":4}',
+			output: '{"$":1, "_":2, "A":3, "a":4}',
 			options: ["asc", { caseSensitive: false }],
 			errors: [
 				{
@@ -920,6 +940,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"1":1, "2":4, "11":2, "A":3}',
 			options: ["asc", { caseSensitive: false }],
 			errors: [
 				{
@@ -940,6 +961,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"#":1, "Z":2, "À":3, "è":4}',
 			options: ["asc", { caseSensitive: false }],
 			errors: [
 				{
@@ -962,6 +984,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, insensitive, minKeys should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"_":2, "a":1, "b":3}',
 			options: ["asc", { caseSensitive: false, minKeys: 3 }],
 			errors: [
 				{
@@ -984,6 +1007,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, natural
 		{
 			code: '{"a":1, "_":2, "b":3} // asc, natural',
+			output: '{"_":2, "a":1, "b":3} // asc, natural',
 			language: "json/jsonc",
 			options: ["asc", { natural: true }],
 			errors: [
@@ -1005,6 +1029,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"a":1, "b":3, "c":2}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1025,6 +1050,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"a":2, "b_":1, "b":3}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1045,6 +1071,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"b_":1, "C":3, "c":2}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1065,6 +1092,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "A":3, "_":2, "a":4}',
+			output: '{"$":1, "_":2, "A":3, "a":4}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1085,6 +1113,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"1":1, "2":4, "11":2, "A":3}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1105,6 +1134,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"#":1, "Z":2, "À":3, "è":4}',
 			options: ["asc", { natural: true }],
 			errors: [
 				{
@@ -1127,6 +1157,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, natural, minKeys should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"_":2, "a":1, "b":3}',
 			options: ["asc", { natural: true, minKeys: 2 }],
 			errors: [
 				{
@@ -1149,6 +1180,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, natural, insensitive
 		{
 			code: '{"a":1, "_":2, "b":3} // asc, natural, insensitive',
+			output: '{"_":2, "a":1, "b":3} // asc, natural, insensitive',
 			language: "json/jsonc",
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
@@ -1170,6 +1202,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"a":1, "b":3, "c":2}',
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1190,6 +1223,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"a":2, "b_":1, "b":3}',
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1210,6 +1244,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "A":3, "_":2, "a":4}',
+			output: '{"$":1, "_":2, "A":3, "a":4}',
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1230,6 +1265,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "11":2, "2":4, "A":3}',
+			output: '{"1":1, "2":4, "11":2, "A":3}',
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1250,6 +1286,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"#":1, "Z":2, "À":3, "è":4}',
 			options: ["asc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1272,6 +1309,7 @@ ruleTester.run("sort-keys", rule, {
 		// asc, natural, insensitive, minKeys should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"_":2, "a":1, "b":3}',
 			options: [
 				"asc",
 				{ natural: true, caseSensitive: false, minKeys: 3 },
@@ -1297,6 +1335,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc
 		{
 			code: '{"":1, "a":2} // desc',
+			output: '{"a":2, "":1} // desc',
 			language: "json/jsonc",
 			options: ["desc"],
 			errors: [
@@ -1318,6 +1357,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "_":2, "b":3} // desc',
+			output: '{"a":1, "b":3, "_":2} // desc',
 			language: "json/jsonc",
 			options: ["desc"],
 			errors: [
@@ -1339,6 +1379,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"c":2, "a":1, "b":3}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1359,6 +1400,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"b_":1, "b":3, "a":2}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1379,6 +1421,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"c":2, "b_":1, "C":3}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1399,6 +1442,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"_":2, "$":1, "a":4, "A":3}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1433,6 +1477,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"2":4, "1":1, "A":3, "11":2}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1467,6 +1512,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"À":3, "#":1, "è":4, "Z":2}',
 			options: ["desc"],
 			errors: [
 				{
@@ -1503,6 +1549,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, minKeys should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"a":1, "b":3, "_":2}',
 			options: ["desc", { minKeys: 3 }],
 			errors: [
 				{
@@ -1525,6 +1572,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, insensitive
 		{
 			code: '{"a":1, "_":2, "b":3} // desc, insensitive',
+			output: '{"a":1, "b":3, "_":2} // desc, insensitive',
 			language: "json/jsonc",
 			options: ["desc", { caseSensitive: false }],
 			errors: [
@@ -1546,6 +1594,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"c":2, "a":1, "b":3}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1566,6 +1615,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"b_":1, "b":3, "a":2}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1586,6 +1636,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"c":2, "b_":1, "C":3}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1606,6 +1657,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"_":2, "$":1, "A":3, "a":4}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1640,6 +1692,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"2":4, "1":1, "A":3, "11":2}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1674,6 +1727,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"À":3, "#":1, "è":4, "Z":2}',
 			options: ["desc", { caseSensitive: false }],
 			errors: [
 				{
@@ -1710,6 +1764,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, insensitive should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"a":1, "b":3, "_":2}',
 			options: ["desc", { caseSensitive: false, minKeys: 2 }],
 			errors: [
 				{
@@ -1732,6 +1787,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, natural
 		{
 			code: '{"a":1, "_":2, "b":3} // desc, natural',
+			output: '{"a":1, "b":3, "_":2} // desc, natural',
 			language: "json/jsonc",
 			options: ["desc", { natural: true }],
 			errors: [
@@ -1753,6 +1809,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"c":2, "a":1, "b":3}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1773,6 +1830,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"b_":1, "b":3, "a":2}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1793,6 +1851,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"c":2, "b_":1, "C":3}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1813,6 +1872,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"_":2, "$":1, "a":4, "A":3}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1861,6 +1921,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "A":3, "11":2}',
+			output: '{"2":4, "1":1, "A":3, "11":2}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1895,6 +1956,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"À":3, "#":1, "è":4, "Z":2}',
 			options: ["desc", { natural: true }],
 			errors: [
 				{
@@ -1931,6 +1993,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, natural should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"a":1, "b":3, "_":2}',
 			options: ["desc", { natural: true, minKeys: 3 }],
 			errors: [
 				{
@@ -1953,6 +2016,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, natural, insensitive
 		{
 			code: '{"a":1, "_":2, "b":3} // desc, natural, insensitive',
+			output: '{"a":1, "b":3, "_":2} // desc, natural, insensitive',
 			language: "json/jsonc",
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
@@ -1974,6 +2038,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"a":1, "c":2, "b":3}',
+			output: '{"c":2, "a":1, "b":3}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -1994,6 +2059,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "a":2, "b":3}',
+			output: '{"b_":1, "b":3, "a":2}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -2014,6 +2080,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"b_":1, "c":2, "C":3}',
+			output: '{"c":2, "b_":1, "C":3}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -2034,6 +2101,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"$":1, "_":2, "A":3, "a":4}',
+			output: '{"_":2, "$":1, "A":3, "a":4}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -2068,6 +2136,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"1":1, "2":4, "11":2, "A":3}',
+			output: '{"2":4, "1":1, "A":3, "11":2}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -2116,6 +2185,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"#":1, "À":3, "Z":2, "è":4}',
+			output: '{"À":3, "#":1, "è":4, "Z":2}',
 			options: ["desc", { natural: true, caseSensitive: false }],
 			errors: [
 				{
@@ -2152,6 +2222,7 @@ ruleTester.run("sort-keys", rule, {
 		// desc, natural, insensitive should error when number of keys is greater than or equal to minKeys
 		{
 			code: '{"a":1, "_":2, "b":3}',
+			output: '{"a":1, "b":3, "_":2}',
 			options: [
 				"desc",
 				{ natural: true, caseSensitive: false, minKeys: 2 },
@@ -2183,6 +2254,13 @@ ruleTester.run("sort-keys", rule, {
 								"a": 3
 						}
 				`,
+			output: `
+						{
+								"b": 1,
+								"a": 3,
+								"c": 2
+						}
+				`,
 			options: ["asc", { allowLineSeparatedGroups: false }],
 			errors: [
 				{
@@ -2209,6 +2287,15 @@ ruleTester.run("sort-keys", rule, {
 								"c": 2,
 
 								"a": 3
+						}
+				`,
+			output: `
+						{
+								"b": 1,
+
+								"a": 3,
+
+								"c": 2
 						}
 				`,
 			options: ["asc", { allowLineSeparatedGroups: false }],
@@ -2238,6 +2325,12 @@ ruleTester.run("sort-keys", rule, {
 								"a": "*/"
 						}
 				`,
+			output: `
+						{
+								"a": "*/",
+								"b": "/*"
+						}
+				`,
 			options: ["asc", { allowLineSeparatedGroups: true }],
 			errors: [
 				{
@@ -2262,6 +2355,13 @@ ruleTester.run("sort-keys", rule, {
 								"b": 1
 								// comment before comma
 								, "a": 2
+						}
+				`,
+			output: `
+						{
+								"a": 2
+								// comment before comma
+								, "b": 1
 						}
 				`,
 			language: "json/jsonc",
@@ -2298,6 +2398,20 @@ ruleTester.run("sort-keys", rule, {
 							}
 						]
 				`,
+			output: `
+						[
+							{
+								"b":1,
+								"a": {
+									"y":1,
+									"x":1
+								},
+
+								"d":1,
+								"c":1
+							}
+						]
+				`,
 			options: ["desc", { allowLineSeparatedGroups: true }],
 			errors: [
 				{
@@ -2323,6 +2437,14 @@ ruleTester.run("sort-keys", rule, {
 					// some multiline comment
 					// using line comment style
 					"a": 2 // "a" and "b" are not line separated
+				}
+			`,
+			output: `
+				{
+					"a": 2,
+					// some multiline comment
+					// using line comment style
+					"b": /*foo */ 1 // "a" and "b" are not line separated
 				}
 			`,
 			language: "json/jsonc",
@@ -2356,6 +2478,17 @@ ruleTester.run("sort-keys", rule, {
 					"a": 2 // "a" and "b" are not line separated
 				}
 			`,
+			output: `
+				{
+					"a": 2,
+					/* some multiline comment
+					using block comment style */
+					/* the empty line...
+
+					...in this one doesn't count */
+					"b": 1 // "a" and "b" are not line separated
+				}
+			`,
 			language: "json/jsonc",
 			options: ["asc", { allowLineSeparatedGroups: true }],
 			errors: [
@@ -2383,6 +2516,13 @@ ruleTester.run("sort-keys", rule, {
 				"a": 2
 			}
 			`,
+			output: `
+			{
+				"a": 2
+				,
+				"b": 1
+			}
+			`,
 			options: ["asc", { allowLineSeparatedGroups: true }],
 			errors: [
 				{
@@ -2405,6 +2545,7 @@ ruleTester.run("sort-keys", rule, {
 		// Escape sequences in keys
 		{
 			code: '{"\\u0061":1, "\\u0063":2, "\\u0062":3}',
+			output: '{"\\u0061":1, "\\u0062":3, "\\u0063":2}',
 			errors: [
 				{
 					messageId: "sortKeys",
@@ -2424,6 +2565,7 @@ ruleTester.run("sort-keys", rule, {
 		},
 		{
 			code: '{"\\u0061\\n":1, "\\u0063\\n":2, "\\u0062\\n":3}',
+			output: '{"\\u0061\\n":1, "\\u0062\\n":3, "\\u0063\\n":2}',
 			errors: [
 				{
 					messageId: "sortKeys",
