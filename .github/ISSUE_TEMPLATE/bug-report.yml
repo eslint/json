@@ -29,6 +29,7 @@ body:
           options:
               - json
               - jsonc
+              - json5
       validations:
           required: true
     - type: textarea

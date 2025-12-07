@@ -18,10 +18,8 @@ import { visitorKeys } from "@humanwhocodes/momoa";
 /**
  * @import { DocumentNode, AnyNode } from "@humanwhocodes/momoa";
  * @import { Language, OkParseResult, ParseResult, File } from "@eslint/core";
- *
  * @typedef {OkParseResult<DocumentNode>} JSONOkParseResult
  * @typedef {ParseResult<DocumentNode>} JSONParseResult
- *
  * @typedef {Object} JSONLanguageOptions
  * @property {boolean} [allowTrailingCommas] Whether to allow trailing commas in JSONC mode.
  */

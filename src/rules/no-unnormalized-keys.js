@@ -4,12 +4,17 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
- *
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
@@ -58,10 +63,7 @@ const rule = {
 
 		return {
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+				const key = getKey(node);
 
 				if (key.normalize(form) !== key) {
 					context.report({
