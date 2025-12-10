@@ -1,5 +1,4 @@
 import json, { JSONSourceCode } from "@eslint/json";
-import type { ESLint } from "eslint";
 import type {
 	JSONSyntaxElement,
 	JSONRuleDefinition,
@@ -21,9 +20,9 @@ import type {
 	StringNode,
 	LocationRange,
 } from "@humanwhocodes/momoa";
-import type { SourceLocation, SourceRange } from "@eslint/core";
+import type { Plugin, SourceLocation, SourceRange } from "@eslint/core";
 
-json satisfies ESLint.Plugin;
+json satisfies Plugin;
 json.meta.name satisfies string;
 json.meta.version satisfies string;
 
