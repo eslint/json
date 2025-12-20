@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.14.0](https://github.com/eslint/json/compare/json-v0.13.2...json-v0.14.0) (2025-11-04)
+
+
+### Features
+
+* add support for `getLocFromIndex` and `getIndexFromLoc` ([#109](https://github.com/eslint/json/issues/109)) ([3292cc1](https://github.com/eslint/json/commit/3292cc1fce03b3c4fc19fe3f45a85eddb9f46804))
+
+
+### Bug Fixes
+
+* correct the return type of `applyInlineConfig` ([#162](https://github.com/eslint/json/issues/162)) ([95c6238](https://github.com/eslint/json/commit/95c6238f90a0576b802fe1e41a85f3c660398da6))
+* handle CR in `JSONSourceCode` ([#170](https://github.com/eslint/json/issues/170)) ([0f6cf86](https://github.com/eslint/json/commit/0f6cf86bcb602e77df33248b6c06f7d5ab011308))
+
+## [0.13.2](https://github.com/eslint/json/compare/json-v0.13.1...json-v0.13.2) (2025-08-25)
+
+
+### Bug Fixes
+
+* allow any type for `meta.docs.recommended` in custom rules ([#132](https://github.com/eslint/json/issues/132)) ([d2c0d5a](https://github.com/eslint/json/commit/d2c0d5a98c54c61c626c4a3302d63227326d03c4))
+
 ## [0.13.1](https://github.com/eslint/json/compare/json-v0.13.0...json-v0.13.1) (2025-07-22)
 
 

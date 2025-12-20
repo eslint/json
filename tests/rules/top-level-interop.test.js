@@ -25,6 +25,16 @@ const ruleTester = new RuleTester({
 ruleTester.run("top-level-interop", rule, {
 	valid: [
 		"[]",
+		"[1]",
+		"[1, 2]",
+		{
+			code: "[1]",
+			language: "json/jsonc",
+		},
+		{
+			code: "[1, 2]",
+			language: "json/jsonc",
+		},
 		{
 			code: "[1]",
 			language: "json/json5",
@@ -34,6 +44,16 @@ ruleTester.run("top-level-interop", rule, {
 			language: "json/json5",
 		},
 		"{}",
+		'{"foo": 1}',
+		'{"foo": 1, "foo": 2}',
+		{
+			code: '{"foo": 1}',
+			language: "json/jsonc",
+		},
+		{
+			code: '{"foo": 1, "foo": 2}',
+			language: "json/jsonc",
+		},
 		{
 			code: '{"foo": 1}',
 			language: "json/json5",

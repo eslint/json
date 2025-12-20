@@ -4,12 +4,17 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
 /**
  * @import { JSONRuleDefinition } from "../types.ts";
- *
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
@@ -45,19 +50,20 @@ const rule = {
 				additionalProperties: false,
 			},
 		],
+
+		defaultOptions: [
+			{
+				form: "NFC",
+			},
+		],
 	},
 
 	create(context) {
-		const form = context.options.length
-			? context.options[0].form
-			: undefined;
+		const [{ form }] = context.options;
 
 		return {
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+				const key = getKey(node);
 
 				if (key.normalize(form) !== key) {
 					context.report({

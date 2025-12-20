@@ -66,3 +66,6 @@ package-lock.json
 
 # Build
 src/build
+
+# Automatically generated files by GitHub Actions workflow
+/.shared-workflows
