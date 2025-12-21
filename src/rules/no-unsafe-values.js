@@ -71,7 +71,10 @@ const rule = {
 						// fraction or non-zero part before the e-, this is a very small
 						// number that doesn't fit inside an f64.
 						const match = value.match(NUMBER);
-						// assert(match, "If the regex is right, match is always truthy")
+
+						if (match === null) {
+							return;
+						}
 
 						// If any part of the number other than the exponent has a
 						// non-zero digit in it, this number was not intended to be

@@ -38,6 +38,14 @@ ruleTester.run("no-unsafe-values", rule, {
 		"0.00000",
 		"0e0000000",
 		"0.00000e0000",
+		{
+			code: "0x0",
+			language: "json/json5",
+		},
+		{
+			code: "0X0",
+			language: "json/json5",
+		},
 	],
 	invalid: [
 		{
