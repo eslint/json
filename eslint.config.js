@@ -103,4 +103,18 @@ export default defineConfig([
 		language: "json/json",
 		extends: ["json/recommended"],
 	},
+	{
+		name: "json/jsonc",
+		plugins: { json },
+		files: ["**/*.jsonc"],
+		language: "json/jsonc",
+		extends: ["json/recommended"],
+	},
+	{
+		name: "json/json5",
+		plugins: { json },
+		files: ["**/*.json5"],
+		language: "json/json5",
+		extends: ["json/recommended"],
+	},
 ]);
