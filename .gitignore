@@ -68,9 +68,9 @@ package-lock.json
 src/build
 
 # Local test files
-/test.json
-/test.jsonc
-/test.json5
+test.json
+test.jsonc
+test.json5
 
 # Automatically generated files by GitHub Actions workflow
 /.shared-workflows
