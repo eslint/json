@@ -311,6 +311,22 @@ ruleTester.run("no-unsafe-values", rule, {
 			],
 		},
 		{
+			code: "-10.e-402",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "-10.e-402",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 11,
+				},
+			],
+		},
+		{
 			code: `0.${"0".repeat(400)}1`,
 			errors: [
 				{

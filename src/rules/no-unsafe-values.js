@@ -28,7 +28,7 @@
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
 const NUMBER =
-	/^[+-]?(?<int>0|([1-9]\d*))?(?:\.(?<frac>\d+))?(?:e[+-]?\d+)?$/iu;
+	/^[+-]?(?<int>0|([1-9]\d*))?(?:\.(?<frac>\d*))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
 
 //-----------------------------------------------------------------------------
