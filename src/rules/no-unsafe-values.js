@@ -21,6 +21,9 @@
  * This rule is based on the JSON grammar from RFC 8259, section 6.
  * https://tools.ietf.org/html/rfc8259#section-6
  *
+ * Also, this rule is based on the JSON5 grammar from json5.org, section 6.
+ * https://spec.json5.org/#numbers
+ *
  * We separately capture the integer and fractional parts of a number, so that
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
