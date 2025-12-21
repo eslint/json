@@ -322,7 +322,7 @@ ruleTester.run("no-unsafe-values", rule, {
 					line: 1,
 					column: 1,
 					endLine: 1,
-					endColumn: 11,
+					endColumn: 10,
 				},
 			],
 		},
