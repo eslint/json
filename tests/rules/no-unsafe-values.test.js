@@ -156,6 +156,22 @@ ruleTester.run("no-unsafe-values", rule, {
 			],
 		},
 		{
+			code: "+1e-400",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "+1e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 8,
+				},
+			],
+		},
+		{
 			code: "-1e-400",
 			errors: [
 				{
@@ -182,6 +198,22 @@ ruleTester.run("no-unsafe-values", rule, {
 					column: 1,
 					endLine: 1,
 					endColumn: 10,
+				},
+			],
+		},
+		{
+			code: "+0.01e-400",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "+0.01e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 11,
 				},
 			],
 		},

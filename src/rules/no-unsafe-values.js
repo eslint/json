@@ -24,7 +24,7 @@
  * We separately capture the integer and fractional parts of a number, so that
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
-const NUMBER = /^-?(?<int>0|([1-9]\d*))(?:\.(?<frac>\d+))?(?:e[+-]?\d+)?$/iu;
+const NUMBER = /^[+-]?(?<int>0|([1-9]\d*))(?:\.(?<frac>\d+))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
 
 //-----------------------------------------------------------------------------
@@ -99,7 +99,7 @@ const rule = {
 							});
 						}
 					} else {
-						// Floating point.  Check for subnormal.
+						// Floating point. Check for subnormal.
 						const buffer = new ArrayBuffer(8);
 						const view = new DataView(buffer);
 						view.setFloat64(0, node.value, false);
@@ -128,8 +128,11 @@ const rule = {
 				// match any low surrogate not already matched
 				const surrogatePattern =
 					/[\uD800-\uDBFF][\uDC00-\uDFFF]?|[\uDC00-\uDFFF]/gu;
-				let match = surrogatePattern.exec(node.value);
-				while (match) {
+
+				/** @type {RegExpExecArray | null} */
+				let match;
+
+				while ((match = surrogatePattern.exec(node.value)) !== null) {
 					// only need to report non-paired surrogates
 					if (match[0].length < 2) {
 						context.report({
@@ -143,7 +146,6 @@ const rule = {
 							},
 						});
 					}
-					match = surrogatePattern.exec(node.value);
 				}
 			},
 		};
