@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.0.0](https://github.com/eslint/json/compare/json-v0.14.0...json-v1.0.0) (2025-12-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require Node.js ^20.19.0 || ^22.13.0 || >=24 ([#165](https://github.com/eslint/json/issues/165))
+
+### Features
+
+* Require Node.js ^20.19.0 || ^22.13.0 || &gt;=24 ([#165](https://github.com/eslint/json/issues/165)) ([019fbcd](https://github.com/eslint/json/commit/019fbcd351d159a0c8ba10f58cbbe731069859fb))
+
+
+### Bug Fixes
+
+* add missing `name` property to `recommended` config ([#189](https://github.com/eslint/json/issues/189)) ([a3c26ca](https://github.com/eslint/json/commit/a3c26caccd210fa0762acff77fcb12d81c570b5a))
+* display raw key in the message ([#179](https://github.com/eslint/json/issues/179)) ([3d63c38](https://github.com/eslint/json/commit/3d63c38fd2000418aceee64feb054b598a8a956a))
+* program crashes in `no-unsafe-values` ([#194](https://github.com/eslint/json/issues/194)) ([8a536d2](https://github.com/eslint/json/commit/8a536d2ae1dbad4c3d589dbcdd88a6c472df0dae))
+
+
+### Miscellaneous Chores
+
+* Bump version to 1.0.0 ([4f63024](https://github.com/eslint/json/commit/4f6302468d2c31686b5198da479b6fc1183dff95))
+
 ## [0.14.0](https://github.com/eslint/json/compare/json-v0.13.2...json-v0.14.0) (2025-11-04)
 
 
