@@ -38,6 +38,38 @@ ruleTester.run("no-unsafe-values", rule, {
 		"0.00000",
 		"0e0000000",
 		"0.00000e0000",
+		{
+			code: "0x0",
+			language: "json/json5",
+		},
+		{
+			code: "0X0",
+			language: "json/json5",
+		},
+		{
+			code: "+0x0",
+			language: "json/json5",
+		},
+		{
+			code: "+0X0",
+			language: "json/json5",
+		},
+		{
+			code: "-0x0",
+			language: "json/json5",
+		},
+		{
+			code: "-0X0",
+			language: "json/json5",
+		},
+		{
+			code: ".0",
+			language: "json/json5",
+		},
+		{
+			code: "0.",
+			language: "json/json5",
+		},
 	],
 	invalid: [
 		{
@@ -156,6 +188,37 @@ ruleTester.run("no-unsafe-values", rule, {
 			],
 		},
 		{
+			code: "1E-400",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "1E-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 7,
+				},
+			],
+		},
+		{
+			code: "+1e-400",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "+1e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 8,
+				},
+			],
+		},
+		{
 			code: "-1e-400",
 			errors: [
 				{
@@ -186,6 +249,53 @@ ruleTester.run("no-unsafe-values", rule, {
 			],
 		},
 		{
+			code: "+0.01e-400",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "+0.01e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 11,
+				},
+			],
+		},
+		{
+			code: "-0.01e-400",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "-0.01e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 11,
+				},
+			],
+		},
+		{
+			code: ".01e-400",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: ".01e-400",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 9,
+				},
+			],
+		},
+		{
 			code: "-10.2e-402",
 			errors: [
 				{
@@ -197,6 +307,38 @@ ruleTester.run("no-unsafe-values", rule, {
 					column: 1,
 					endLine: 1,
 					endColumn: 11,
+				},
+			],
+		},
+		{
+			code: "+10.e-402",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "+10.e-402",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 10,
+				},
+			],
+		},
+		{
+			code: "-10.e-402",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeZero",
+					data: {
+						value: "-10.e-402",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 10,
 				},
 			],
 		},
