@@ -16,14 +16,6 @@
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       }
-    },
-    "./types": {
-      "require": {
-        "types": "./dist/cjs/types.cts"
-      },
-      "import": {
-        "types": "./dist/esm/types.d.ts"
-      }
     }
   },
   "files": [
