@@ -4,26 +4,15 @@
   "description": "JSON linting plugin for ESLint",
   "author": "Nicholas C. Zakas",
   "type": "module",
-  "main": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      },
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./types": {
-      "require": {
-        "types": "./dist/cjs/types.cts"
-      },
-      "import": {
-        "types": "./dist/esm/types.d.ts"
-      }
+      "types": "./dist/types.d.ts"
     }
   },
   "files": [
@@ -55,8 +44,9 @@
   },
   "homepage": "https://github.com/eslint/json#readme",
   "scripts": {
-    "build": "npm run build:rules && tsc && npm run build:update-rules-docs",
+    "build": "npm run build:rules && npm run build:types && npm run build:update-rules-docs",
     "build:rules": "node tools/build-rules.js",
+    "build:types": "tsc",
     "build:update-rules-docs": "node tools/update-rules-docs.js",
     "prepare": "npm run build",
     "pretest": "npm run build",

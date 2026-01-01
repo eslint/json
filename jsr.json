@@ -1,7 +1,7 @@
 {
   "name": "@eslint/json",
   "version": "0.14.0",
-  "exports": "./dist/esm/index.js",
+  "exports": "./dist/index.js",
   "publish": {
     "include": [
       "dist",
