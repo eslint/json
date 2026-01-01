@@ -44,3 +44,4 @@ const plugin = {
 export default plugin;
 export { JSONSourceCode };
 export * from "./languages/json-language.js";
+export * from "./types.js";

@@ -3,7 +3,7 @@ import type {
 	JSONSyntaxElement,
 	JSONRuleDefinition,
 	JSONRuleVisitor,
-} from "@eslint/json/types";
+} from "@eslint/json/types"; // TODO
 import type {
 	AnyNode,
 	ArrayNode,
