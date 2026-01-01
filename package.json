@@ -52,6 +52,7 @@
     "pretest": "npm run build",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "lint:types": "attw --pack --profile esm-only",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "test": "mocha \"tests/**/*.test.js\"",
@@ -74,6 +75,7 @@
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "c8": "^10.1.3",
     "dedent": "^1.5.3",
     "eslint": "^9.36.0",
