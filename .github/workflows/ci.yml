@@ -68,3 +68,5 @@ jobs:
               run: npm install
             - name: Run --dry-run
               run: npm run test:jsr
+
+              # TODO: lint:types

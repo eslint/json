@@ -41,10 +41,7 @@
       "prettier --write"
     ],
     "!(*.js)": "prettier --write --ignore-unknown",
-    "README.md": [
-      "npm run build:update-rules-docs"
-    ],
-    "{src/rules/*.js,tools/update-rules-docs.js}": [
+    "{src/rules/*.js,tools/update-rules-docs.js,README.md}": [
       "npm run build:update-rules-docs",
       "git add README.md"
     ]
@@ -58,10 +55,8 @@
   },
   "homepage": "https://github.com/eslint/json#readme",
   "scripts": {
-    "build:dedupe-types": "node tools/dedupe-types.js dist/cjs/index.cjs dist/esm/index.js",
-    "build:cts": "node tools/build-cts.js",
+    "build": "npm run build:rules && tsc && npm run build:update-rules-docs",
     "build:rules": "node tools/build-rules.js",
-    "build": "npm run build:rules && rollup -c && npm run build:dedupe-types && tsc -p tsconfig.esm.json && npm run build:cts",
     "build:update-rules-docs": "node tools/update-rules-docs.js",
     "prepare": "npm run build",
     "pretest": "npm run build",
@@ -71,7 +66,7 @@
     "fmt:check": "prettier --check .",
     "test": "mocha \"tests/**/*.test.js\"",
     "test:coverage": "c8 npm test",
-    "test:jsr": "npx jsr@latest publish --dry-run",
+    "test:jsr": "npx -y jsr@latest publish --dry-run",
     "test:types": "tsc -p tests/types/tsconfig.json"
   },
   "keywords": [
@@ -99,9 +94,6 @@
     "mdast-util-from-markdown": "^2.0.2",
     "mocha": "^11.3.0",
     "prettier": "^3.4.1",
-    "rollup": "^4.52.3",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^3.0.1",
     "typescript": "^5.9.2",
     "yorkie": "^2.0.0"
   },

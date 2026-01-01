@@ -2,14 +2,12 @@
   "include": ["src/**/*.js", "src/**/*.ts"],
   "compilerOptions": {
     "declaration": true,
-    "emitDeclarationOnly": true,
     "allowJs": true,
     "checkJs": true,
     "outDir": "dist/esm",
     "target": "ESNext",
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
-    "allowImportingTsExtensions": true,
     "types": []
   }
 }
