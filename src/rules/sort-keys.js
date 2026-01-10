@@ -16,7 +16,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.ts";
+ * @import { JSONRuleDefinition } from "../types.js";
  * @import { MemberNode } from "@humanwhocodes/momoa";
  * @typedef {Object} SortOptions
  * @property {boolean} caseSensitive Whether key comparisons are case-sensitive.

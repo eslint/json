@@ -22,7 +22,7 @@ import {
 /**
  * @import { DocumentNode, AnyNode, Token, LocationRange } from "@humanwhocodes/momoa";
  * @import { FileProblem, DirectiveType, RulesConfig } from "@eslint/core";
- * @import { JSONSyntaxElement } from "../types.ts";
+ * @import { JSONSyntaxElement } from "../types.js";
  * @import { JSONLanguageOptions } from "./json-language.js";
  */
 
