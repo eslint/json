@@ -83,8 +83,8 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@eslint/core": "^1.0.0",
-    "@eslint/plugin-kit": "^0.5.0",
+    "@eslint/core": "^1.0.1",
+    "@eslint/plugin-kit": "^0.5.1",
     "@humanwhocodes/momoa": "^3.3.10",
     "natural-compare": "^1.4.0"
   },
