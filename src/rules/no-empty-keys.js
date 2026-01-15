@@ -14,7 +14,7 @@ import { getKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.ts";
+ * @import { JSONRuleDefinition } from "../types.js";
  * @typedef {"emptyKey"} NoEmptyKeysMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoEmptyKeysMessageIds }>} NoEmptyKeysRuleDefinition
  */
