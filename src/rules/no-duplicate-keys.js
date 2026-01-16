@@ -15,7 +15,7 @@ import { getKey, getRawKey } from "../util.js";
 
 /**
  * @import { MemberNode } from "@humanwhocodes/momoa";
- * @import { JSONRuleDefinition } from "../types.ts";
+ * @import { JSONRuleDefinition } from "../types.js";
  * @typedef {"duplicateKey"} NoDuplicateKeysMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoDuplicateKeysMessageIds }>} NoDuplicateKeysRuleDefinition
  */

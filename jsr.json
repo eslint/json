@@ -1,12 +1,10 @@
 {
   "name": "@eslint/json",
   "version": "0.14.0",
-  "exports": "./dist/esm/index.js",
+  "exports": "./dist/index.js",
   "publish": {
     "include": [
-      "dist/esm/index.js",
-      "dist/esm/index.d.ts",
-      "dist/esm/types.ts",
+      "dist",
       "README.md",
       "jsr.json",
       "LICENSE"

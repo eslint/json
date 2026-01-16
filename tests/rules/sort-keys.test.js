@@ -83,11 +83,6 @@ ruleTester.run("sort-keys", rule, {
 				`,
 			language: "json/json5",
 			options: [],
-			errors: [
-				{
-					messageId: "sortKeys",
-				},
-			],
 		},
 
 		// asc
