@@ -1,6 +1,6 @@
 {
   "name": "@eslint/json",
-  "version": "0.14.0",
+  "version": "1.0.0",
   "description": "JSON linting plugin for ESLint",
   "author": "Nicholas C. Zakas",
   "type": "module",
