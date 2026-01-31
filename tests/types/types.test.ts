@@ -159,12 +159,21 @@ json.configs.recommended.plugins satisfies object;
 			description: 42,
 		},
 	},
-	create({ options }) {
+	create(context) {
 		// Types for rule options
-		options[0] satisfies string;
-		options[1] satisfies number;
+		context.options[0] satisfies string;
+		context.options[1] satisfies number;
 
-		return {};
+		return {
+			Document(node) {
+				for (const token of node.tokens ?? []) {
+					context.report({
+						node: token,
+						messageId: "foo",
+					});
+				}
+			},
+		};
 	},
 });
 
