@@ -1,9 +1,10 @@
-import json, { JSONSourceCode } from "@eslint/json";
+import json from "@eslint/json";
 import type {
-	JSONSyntaxElement,
 	JSONRuleDefinition,
 	JSONRuleVisitor,
-} from "@eslint/json/types";
+	JSONSourceCode,
+	JSONSyntaxElement,
+} from "@eslint/json";
 import type {
 	AnyNode,
 	ArrayNode,
