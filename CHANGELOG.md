@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/eslint/json/compare/json-v1.0.0...json-v1.0.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* update eslint ([#208](https://github.com/eslint/json/issues/208)) ([249ccda](https://github.com/eslint/json/commit/249ccda36767d3b508cfec615728d1b5bfde177a))
+
 ## [1.0.0](https://github.com/eslint/json/compare/json-v0.14.0...json-v1.0.0) (2026-01-28)
 
 
