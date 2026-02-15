@@ -172,6 +172,13 @@ json.configs.recommended.plugins satisfies object;
 						messageId: "foo",
 					});
 				}
+
+				for (const comment of context.sourceCode.comments ?? []) {
+					context.report({
+						node: comment,
+						messageId: "foo",
+					});
+				}
 			},
 		};
 	},
