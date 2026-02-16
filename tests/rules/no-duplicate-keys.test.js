@@ -152,11 +152,66 @@ ruleTester.run("no-duplicate-keys", rule, {
 			],
 		},
 		{
+			code: '{"foot": 1, "fo\\u006ft": 2}',
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "fo\\u006ft" },
+					line: 1,
+					column: 13,
+					endLine: 1,
+					endColumn: 24,
+				},
+			],
+		},
+		{
+			code: '{"foot": 1, "fo\\u006ft": 2}',
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "fo\\u006ft" },
+					line: 1,
+					column: 13,
+					endLine: 1,
+					endColumn: 24,
+				},
+			],
+		},
+		{
+			code: '{"foot": 1, "fo\\u006ft": 2}',
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "fo\\u006ft" },
+					line: 1,
+					column: 13,
+					endLine: 1,
+					endColumn: 24,
+				},
+			],
+		},
+		{
+			code: "{foot: 1, fo\\u006ft: 2}",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "duplicateKey",
+					data: { key: "fo\\u006ft" },
+					line: 1,
+					column: 11,
+					endLine: 1,
+					endColumn: 20,
+				},
+			],
+		},
+		{
 			code: '{"f\\u006fot": 1, "fo\\u006ft": 2}',
 			errors: [
 				{
 					messageId: "duplicateKey",
-					data: { key: "foot" },
+					data: { key: "fo\\u006ft" },
 					line: 1,
 					column: 18,
 					endLine: 1,
@@ -170,7 +225,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
-					data: { key: "foot" },
+					data: { key: "fo\\u006ft" },
 					line: 1,
 					column: 18,
 					endLine: 1,
@@ -184,7 +239,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
-					data: { key: "foot" },
+					data: { key: "fo\\u006ft" },
 					line: 1,
 					column: 18,
 					endLine: 1,
@@ -198,7 +253,7 @@ ruleTester.run("no-duplicate-keys", rule, {
 			errors: [
 				{
 					messageId: "duplicateKey",
-					data: { key: "foot" },
+					data: { key: "fo\\u006ft" },
 					line: 1,
 					column: 16,
 					endLine: 1,

@@ -8,8 +8,7 @@
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.ts";
- *
+ * @import { JSONRuleDefinition } from "../types.js";
  * @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoUnsafeValuesMessageIds }>} NoUnsafeValuesRuleDefinition
  */
@@ -22,10 +21,14 @@
  * This rule is based on the JSON grammar from RFC 8259, section 6.
  * https://tools.ietf.org/html/rfc8259#section-6
  *
+ * Also, this rule is based on the JSON5 grammar from json5.org, section 6.
+ * https://spec.json5.org/#numbers
+ *
  * We separately capture the integer and fractional parts of a number, so that
  * we can check for unsafe numbers that will evaluate to Infinity.
  */
-const NUMBER = /^-?(?<int>0|([1-9]\d*))(?:\.(?<frac>\d+))?(?:e[+-]?\d+)?$/iu;
+const NUMBER =
+	/^[+-]?(?<int>0|([1-9]\d*))?(?:\.(?<frac>\d*))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
 
 //-----------------------------------------------------------------------------
@@ -72,7 +75,10 @@ const rule = {
 						// fraction or non-zero part before the e-, this is a very small
 						// number that doesn't fit inside an f64.
 						const match = value.match(NUMBER);
-						// assert(match, "If the regex is right, match is always truthy")
+
+						if (match === null) {
+							return;
+						}
 
 						// If any part of the number other than the exponent has a
 						// non-zero digit in it, this number was not intended to be
@@ -100,7 +106,7 @@ const rule = {
 							});
 						}
 					} else {
-						// Floating point.  Check for subnormal.
+						// Floating point. Check for subnormal.
 						const buffer = new ArrayBuffer(8);
 						const view = new DataView(buffer);
 						view.setFloat64(0, node.value, false);
@@ -129,8 +135,11 @@ const rule = {
 				// match any low surrogate not already matched
 				const surrogatePattern =
 					/[\uD800-\uDBFF][\uDC00-\uDFFF]?|[\uDC00-\uDFFF]/gu;
-				let match = surrogatePattern.exec(node.value);
-				while (match) {
+
+				/** @type {RegExpExecArray | null} */
+				let match;
+
+				while ((match = surrogatePattern.exec(node.value)) !== null) {
 					// only need to report non-paired surrogates
 					if (match[0].length < 2) {
 						context.report({
@@ -144,7 +153,6 @@ const rule = {
 							},
 						});
 					}
-					match = surrogatePattern.exec(node.value);
 				}
 			},
 		};

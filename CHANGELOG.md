@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.0.1](https://github.com/eslint/json/compare/json-v1.0.0...json-v1.0.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* update eslint ([#208](https://github.com/eslint/json/issues/208)) ([249ccda](https://github.com/eslint/json/commit/249ccda36767d3b508cfec615728d1b5bfde177a))
+
+## [1.0.0](https://github.com/eslint/json/compare/json-v0.14.0...json-v1.0.0) (2026-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* export types from main entry and remove `/types` export ([#198](https://github.com/eslint/json/issues/198))
+* remove `rollup`, extraneous types and migrate to ESM-only ([#197](https://github.com/eslint/json/issues/197))
+* Require Node.js ^20.19.0 || ^22.13.0 || >=24 ([#165](https://github.com/eslint/json/issues/165))
+
+### Features
+
+* export types from main entry and remove `/types` export ([#198](https://github.com/eslint/json/issues/198)) ([368c47b](https://github.com/eslint/json/commit/368c47beabfb14528e74e14afbc2917ee79b5bba))
+* Require Node.js ^20.19.0 || ^22.13.0 || &gt;=24 ([#165](https://github.com/eslint/json/issues/165)) ([019fbcd](https://github.com/eslint/json/commit/019fbcd351d159a0c8ba10f58cbbe731069859fb))
+
+
+### Bug Fixes
+
+* add missing `name` property to `recommended` config ([#189](https://github.com/eslint/json/issues/189)) ([a3c26ca](https://github.com/eslint/json/commit/a3c26caccd210fa0762acff77fcb12d81c570b5a))
+* display raw key in the message ([#179](https://github.com/eslint/json/issues/179)) ([3d63c38](https://github.com/eslint/json/commit/3d63c38fd2000418aceee64feb054b598a8a956a))
+* program crashes in `no-unsafe-values` ([#194](https://github.com/eslint/json/issues/194)) ([8a536d2](https://github.com/eslint/json/commit/8a536d2ae1dbad4c3d589dbcdd88a6c472df0dae))
+* remove `rollup`, extraneous types and migrate to ESM-only ([#197](https://github.com/eslint/json/issues/197)) ([55edfb9](https://github.com/eslint/json/commit/55edfb90cd8b2e892cbc5b7cd5a2f14fcbc0593f))
+* update `@eslint/core` to `v1.0.0` and adjust tests ([#190](https://github.com/eslint/json/issues/190)) ([ba31cc2](https://github.com/eslint/json/commit/ba31cc20f241d20979573e4b1c01b7c418a71f69))
+* update eslint ([#200](https://github.com/eslint/json/issues/200)) ([8d94c4a](https://github.com/eslint/json/commit/8d94c4ac54a1a09ec490bbcc5bec5fd91c3cf1d2))
+
+
+### Miscellaneous Chores
+
+* Bump version to 1.0.0 ([4f63024](https://github.com/eslint/json/commit/4f6302468d2c31686b5198da479b6fc1183dff95))
+
+## [0.14.0](https://github.com/eslint/json/compare/json-v0.13.2...json-v0.14.0) (2025-11-04)
+
+
+### Features
+
+* add support for `getLocFromIndex` and `getIndexFromLoc` ([#109](https://github.com/eslint/json/issues/109)) ([3292cc1](https://github.com/eslint/json/commit/3292cc1fce03b3c4fc19fe3f45a85eddb9f46804))
+
+
+### Bug Fixes
+
+* correct the return type of `applyInlineConfig` ([#162](https://github.com/eslint/json/issues/162)) ([95c6238](https://github.com/eslint/json/commit/95c6238f90a0576b802fe1e41a85f3c660398da6))
+* handle CR in `JSONSourceCode` ([#170](https://github.com/eslint/json/issues/170)) ([0f6cf86](https://github.com/eslint/json/commit/0f6cf86bcb602e77df33248b6c06f7d5ab011308))
+
 ## [0.13.2](https://github.com/eslint/json/compare/json-v0.13.1...json-v0.13.2) (2025-08-25)
 
 

@@ -67,5 +67,10 @@ package-lock.json
 # Build
 src/build
 
+# Local test files
+test.json
+test.jsonc
+test.json5
+
 # Automatically generated files by GitHub Actions workflow
-tools/update-readme.js
+/.shared-workflows

@@ -4,12 +4,17 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.ts";
- *
+ * @import { JSONRuleDefinition } from "../types.js";
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
@@ -59,11 +64,13 @@ const rule = {
 		const [{ form }] = context.options;
 
 		return {
-			Member({ name }) {
-				const key = name.type === "String" ? name.value : name.name;
+			Member(node) {
+				const key = getKey(node);
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
+					const { name } = node;
+
 					context.report({
 						loc: name.loc,
 						messageId: "unnormalizedKey",

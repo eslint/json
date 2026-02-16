@@ -4,12 +4,17 @@
  */
 
 //-----------------------------------------------------------------------------
+// Imports
+//-----------------------------------------------------------------------------
+
+import { getKey } from "../util.js";
+
+//-----------------------------------------------------------------------------
 // Type Definitions
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.ts";
- *
+ * @import { JSONRuleDefinition } from "../types.js";
  * @typedef {"emptyKey"} NoEmptyKeysMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoEmptyKeysMessageIds }>} NoEmptyKeysRuleDefinition
  */
@@ -37,10 +42,7 @@ const rule = {
 	create(context) {
 		return {
 			Member(node) {
-				const key =
-					node.name.type === "String"
-						? node.name.value
-						: node.name.name;
+				const key = getKey(node);
 
 				if (key.trim() === "") {
 					context.report({

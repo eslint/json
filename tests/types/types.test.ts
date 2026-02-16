@@ -1,10 +1,10 @@
-import json, { JSONSourceCode } from "@eslint/json";
-import type { ESLint } from "eslint";
+import json from "@eslint/json";
 import type {
-	JSONSyntaxElement,
 	JSONRuleDefinition,
 	JSONRuleVisitor,
-} from "@eslint/json/types";
+	JSONSourceCode,
+	JSONSyntaxElement,
+} from "@eslint/json";
 import type {
 	AnyNode,
 	ArrayNode,
@@ -19,10 +19,11 @@ import type {
 	NumberNode,
 	ObjectNode,
 	StringNode,
+	LocationRange,
 } from "@humanwhocodes/momoa";
-import type { SourceLocation, SourceRange } from "@eslint/core";
+import type { Plugin, SourceLocation, SourceRange } from "@eslint/core";
 
-json satisfies ESLint.Plugin;
+json satisfies Plugin;
 json.meta.name satisfies string;
 json.meta.version satisfies string;
 
@@ -41,6 +42,18 @@ json.configs.recommended.plugins satisfies object;
 
 	// Check that all recommended rule names match the names of existing rules in this plugin.
 	null as AssertAllNamesIn<RecommendedRuleName, RuleName>;
+}
+
+{
+	type ApplyInlineConfigLoc = ReturnType<
+		JSONSourceCode["applyInlineConfig"]
+	>["configs"][0]["loc"];
+
+	// Check that `applyInlineConfig`'s return type includes correct `loc` structure.
+	const loc: ApplyInlineConfigLoc = {
+		start: { line: 1, column: 1, offset: 0 },
+		end: { line: 1, column: 1, offset: 0 },
+	};
 }
 
 // Check that types are imported correctly from `@humanwhocodes/momoa`.
@@ -80,6 +93,10 @@ json.configs.recommended.plugins satisfies object;
 			sourceCode.getParent(node) satisfies AnyNode | undefined;
 			sourceCode.getAncestors(node) satisfies JSONSyntaxElement[];
 			sourceCode.getText(node) satisfies string;
+			sourceCode.applyInlineConfig().configs[0].loc.start
+				.offset satisfies LocationRange["start"]["offset"];
+			sourceCode.applyInlineConfig().configs[0].loc.end
+				.offset satisfies LocationRange["end"]["offset"];
 		}
 
 		return {
