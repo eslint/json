@@ -54,7 +54,27 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			options: [{ form: "NFC" }],
 		},
 		{
+			code: `{"${escapedNfcO}":"NFC"}`,
+			language: "json/jsonc",
+			options: [{ form: "NFC" }],
+		},
+		{
+			code: `{"${escapedNfcO}":"NFC"}`,
+			language: "json/json5",
+			options: [{ form: "NFC" }],
+		},
+		{
 			code: `{"${escapedNfdO}":"NFD"}`,
+			options: [{ form: "NFD" }],
+		},
+		{
+			code: `{"${escapedNfdO}":"NFD"}`,
+			language: "json/jsonc",
+			options: [{ form: "NFD" }],
+		},
+		{
+			code: `{"${escapedNfdO}":"NFD"}`,
+			language: "json/json5",
 			options: [{ form: "NFD" }],
 		},
 		{
@@ -62,7 +82,27 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			options: [{ form: "NFKC" }],
 		},
 		{
+			code: `{"${escapedNfkcO}":"NFKC"}`,
+			language: "json/jsonc",
+			options: [{ form: "NFKC" }],
+		},
+		{
+			code: `{"${escapedNfkcO}":"NFKC"}`,
+			language: "json/json5",
+			options: [{ form: "NFKC" }],
+		},
+		{
 			code: `{"${escapedNfkdO}":"NFKD"}`,
+			options: [{ form: "NFKD" }],
+		},
+		{
+			code: `{"${escapedNfkdO}":"NFKD"}`,
+			language: "json/jsonc",
+			options: [{ form: "NFKD" }],
+		},
+		{
+			code: `{"${escapedNfkdO}":"NFKD"}`,
+			language: "json/json5",
 			options: [{ form: "NFKD" }],
 		},
 	],
