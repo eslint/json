@@ -79,6 +79,11 @@ const rule = {
 							key: rawKey,
 						},
 						fix(fixer) {
+							if (key !== rawKey) {
+								// Do not perform auto-fix when the raw key contains escape sequences.
+								return null;
+							}
+
 							return fixer.replaceTextRange(
 								name.type === "String"
 									? [name.range[0] + 1, name.range[1] - 1]

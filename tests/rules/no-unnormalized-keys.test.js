@@ -262,8 +262,38 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		// escaped form
 		{
+			code: `{"${escapedNfcO}":"NFC"}`,
+			// No auto-fix due to the presence of escape sequences in the raw key.
+			options: [{ form: "NFD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: escapedNfcO },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 16,
+				},
+			],
+		},
+		{
+			code: `{"${escapedNfcO}\\n":42}`,
+			// No auto-fix due to the presence of escape sequences in the raw key.
+			options: [{ form: "NFD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: `${escapedNfcO}\\n` },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 18,
+				},
+			],
+		},
+		{
 			code: `{"${escapedNfdO}":"NFD"}`,
-			output: `{"${o.normalize("NFC")}":"NFD"}`,
+			// No auto-fix due to the presence of escape sequences in the raw key.
 			errors: [
 				{
 					messageId: "unnormalizedKey",
@@ -277,7 +307,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 		},
 		{
 			code: `{"${escapedNfkcO}":"NFKC"}`,
-			output: `{"${o.normalize("NFKD")}":"NFKC"}`,
+			// No auto-fix due to the presence of escape sequences in the raw key.
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
