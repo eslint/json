@@ -7,7 +7,7 @@
 // Imports
 //-----------------------------------------------------------------------------
 
-import { getKey } from "../util.js";
+import { getKey, getRawKey } from "../util.js";
 
 //-----------------------------------------------------------------------------
 // Type Definitions
@@ -66,6 +66,7 @@ const rule = {
 		return {
 			Member(node) {
 				const key = getKey(node);
+				const rawKey = getRawKey(node, context.sourceCode);
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
@@ -75,7 +76,7 @@ const rule = {
 						loc: name.loc,
 						messageId: "unnormalizedKey",
 						data: {
-							key,
+							key: rawKey,
 						},
 						fix(fixer) {
 							return fixer.replaceTextRange(

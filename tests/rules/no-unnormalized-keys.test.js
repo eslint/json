@@ -227,7 +227,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: o.normalize("NFD") },
+					data: { key: escapedNfdO },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -242,7 +242,7 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: o.normalize("NFKC") },
+					data: { key: escapedNfkcO },
 					line: 1,
 					column: 2,
 					endLine: 1,
