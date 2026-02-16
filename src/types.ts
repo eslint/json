@@ -72,7 +72,7 @@ export type JSONRuleDefinition<
 		LangOptions: JSONLanguageOptions;
 		Code: JSONSourceCode;
 		Visitor: JSONRuleVisitor;
-		Node: AnyNode;
+		Node: JSONSyntaxElement;
 	},
 	Options
 >;
