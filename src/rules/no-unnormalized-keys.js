@@ -7,7 +7,7 @@
 // Imports
 //-----------------------------------------------------------------------------
 
-import { getKey } from "../util.js";
+import { getKey, getRawKey } from "../util.js";
 
 //-----------------------------------------------------------------------------
 // Type Definitions
@@ -28,6 +28,8 @@ import { getKey } from "../util.js";
 const rule = {
 	meta: {
 		type: "problem",
+
+		fixable: "code",
 
 		docs: {
 			recommended: true,
@@ -64,13 +66,30 @@ const rule = {
 		return {
 			Member(node) {
 				const key = getKey(node);
+				const rawKey = getRawKey(node, context.sourceCode);
+				const normalizedKey = key.normalize(form);
 
-				if (key.normalize(form) !== key) {
+				if (normalizedKey !== key) {
+					const { name } = node;
+
 					context.report({
-						loc: node.name.loc,
+						loc: name.loc,
 						messageId: "unnormalizedKey",
 						data: {
-							key,
+							key: rawKey,
+						},
+						fix(fixer) {
+							if (key !== rawKey) {
+								// Do not perform auto-fix when the raw key contains escape sequences.
+								return null;
+							}
+
+							return fixer.replaceTextRange(
+								name.type === "String"
+									? [name.range[0] + 1, name.range[1] - 1]
+									: name.range,
+								normalizedKey,
+							);
 						},
 					});
 				}
