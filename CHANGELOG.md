@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/eslint/json/compare/json-v1.0.1...json-v1.1.0) (2026-02-26)
+
+
+### Features
+
+* implement autofix for `no-unnormalized-keys` ([#151](https://github.com/eslint/json/issues/151)) ([fc3beec](https://github.com/eslint/json/commit/fc3beecdb782847d62fa729fe94ade5cf8ebae5f))
+
+
+### Bug Fixes
+
+* allow `JSONRuleDefinition` to report on tokens ([#210](https://github.com/eslint/json/issues/210)) ([87ea56f](https://github.com/eslint/json/commit/87ea56f17fb6a1c9a41cab29ae49459e77c15eac))
+
 ## [1.0.1](https://github.com/eslint/json/compare/json-v1.0.0...json-v1.0.1) (2026-02-10)
 
 
