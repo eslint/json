@@ -79,6 +79,8 @@ const rule = {
 	meta: {
 		type: "suggestion",
 
+		fixable: "code",
+
 		defaultOptions: [
 			"asc",
 			{
@@ -186,6 +188,23 @@ const rule = {
 
 		return {
 			Object(node) {
+				const hasUnsafeComments =
+					sourceCode.comments.length > 0 &&
+					sourceCode.comments.some(comment => {
+						if (
+							comment.range[0] < node.range[0] ||
+							comment.range[1] > node.range[1]
+						) {
+							return false;
+						}
+
+						return !node.members.some(
+							member =>
+								comment.range[0] >= member.range[0] &&
+								comment.range[1] <= member.range[1],
+						);
+					});
+
 				/** @type {MemberNode} */
 				let prevMember;
 				/** @type {string} */
@@ -200,6 +219,7 @@ const rule = {
 				for (const member of node.members) {
 					const thisName = getKey(member);
 					const thisRawName = getRawKey(member, sourceCode);
+					const prevMemberNode = prevMember;
 
 					if (
 						prevMember &&
@@ -216,6 +236,22 @@ const rule = {
 								direction,
 								sensitivity,
 								sortName,
+							},
+							fix(fixer) {
+								if (hasUnsafeComments) {
+									return null;
+								}
+
+								return [
+									fixer.replaceText(
+										member,
+										sourceCode.getText(prevMemberNode),
+									),
+									fixer.replaceText(
+										prevMemberNode,
+										sourceCode.getText(member),
+									),
+								];
 							},
 						});
 					}
