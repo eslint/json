@@ -39,6 +39,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 const hasNonWhitespace = /\S/u;
+const commentTypes = new Set(["LineComment", "BlockComment"]);
 
 /** @type {ComparatorMap} */
 const comparators = {
@@ -186,25 +187,32 @@ const rule = {
 			return false;
 		}
 
+		/**
+		 * Checks if a member has a comment before or after it.
+		 * @param {MemberNode} member The member to check.
+		 * @returns {boolean} True if a comment is adjacent to the member.
+		 */
+		function hasAdjacentComment(member) {
+			const before = sourceCode.getTokenBefore(member, {
+				includeComments: true,
+			});
+			let after = sourceCode.getTokenAfter(member, {
+				includeComments: true,
+			});
+
+			if (after?.type === "Comma") {
+				after = sourceCode.getTokenAfter(after, {
+					includeComments: true,
+				});
+			}
+
+			return (
+				commentTypes.has(before?.type) || commentTypes.has(after?.type)
+			);
+		}
+
 		return {
 			Object(node) {
-				const hasUnsafeComments =
-					sourceCode.comments.length > 0 &&
-					sourceCode.comments.some(comment => {
-						if (
-							comment.range[0] < node.range[0] ||
-							comment.range[1] > node.range[1]
-						) {
-							return false;
-						}
-
-						return !node.members.some(
-							member =>
-								comment.range[0] >= member.range[0] &&
-								comment.range[1] <= member.range[1],
-						);
-					});
-
 				/** @type {MemberNode} */
 				let prevMember;
 				/** @type {string} */
@@ -219,6 +227,8 @@ const rule = {
 				for (const member of node.members) {
 					const thisName = getKey(member);
 					const thisRawName = getRawKey(member, sourceCode);
+					// Capture `prevMember` for this iteration so the fixer closure uses the
+					// intended node even though `prevMember` is reassigned in the loop.
 					const prevMemberNode = prevMember;
 
 					if (
@@ -238,7 +248,10 @@ const rule = {
 								sortName,
 							},
 							fix(fixer) {
-								if (hasUnsafeComments) {
+								if (
+									hasAdjacentComment(member) ||
+									hasAdjacentComment(prevMemberNode)
+								) {
 									return null;
 								}
 

@@ -2601,6 +2601,92 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+		{
+			code: `
+			{
+				// comment
+				"a": 1,
+				"c": 3,
+				"b": 2
+			}
+			`,
+			output: `
+			{
+				// comment
+				"a": 1,
+				"b": 2,
+				"c": 3
+			}
+			`,
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "b",
+						prevName: "c",
+					},
+					line: 6,
+					column: 5,
+					endLine: 6,
+					endColumn: 8,
+				},
+			],
+		},
+		{
+			code: `
+			{
+				"b": 1,
+				// comment
+				"a": 2
+			}
+			`,
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 5,
+					column: 5,
+					endLine: 5,
+					endColumn: 8,
+				},
+			],
+		},
+		{
+			code: `
+			{
+				"b": 1,
+				"a": 2, // comment
+			}
+			`,
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 4,
+					column: 5,
+					endLine: 4,
+					endColumn: 8,
+				},
+			],
+		},
 
 		// Escape sequences in keys
 		{
