@@ -200,14 +200,14 @@ const rule = {
 				includeComments: true,
 			});
 
-			if (after?.type === "Comma") {
+			if (after.type === "Comma") {
 				after = sourceCode.getTokenAfter(after, {
 					includeComments: true,
 				});
 			}
 
 			return (
-				commentTypes.has(before?.type) || commentTypes.has(after?.type)
+				commentTypes.has(before.type) || commentTypes.has(after.type)
 			);
 		}
 
