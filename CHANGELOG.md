@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/eslint/json/compare/json-v1.1.0...json-v1.2.0) (2026-03-16)
+
+
+### Features
+
+* implement autofix for `sort-keys` ([#216](https://github.com/eslint/json/issues/216)) ([3534818](https://github.com/eslint/json/commit/35348184da75159395a375a14b94fa3f32cdeec8))
+
 ## [1.1.0](https://github.com/eslint/json/compare/json-v1.0.1...json-v1.1.0) (2026-03-09)
 
 
