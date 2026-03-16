@@ -39,6 +39,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 const hasNonWhitespace = /\S/u;
+const commentTypes = new Set(["LineComment", "BlockComment"]);
 
 /** @type {ComparatorMap} */
 const comparators = {
@@ -78,6 +79,8 @@ const comparators = {
 const rule = {
 	meta: {
 		type: "suggestion",
+
+		fixable: "code",
 
 		defaultOptions: [
 			"asc",
@@ -184,6 +187,30 @@ const rule = {
 			return false;
 		}
 
+		/**
+		 * Checks if a member has a comment before or after it.
+		 * @param {MemberNode} member The member to check.
+		 * @returns {boolean} True if a comment is adjacent to the member.
+		 */
+		function hasAdjacentComment(member) {
+			const before = sourceCode.getTokenBefore(member, {
+				includeComments: true,
+			});
+			let after = sourceCode.getTokenAfter(member, {
+				includeComments: true,
+			});
+
+			if (after.type === "Comma") {
+				after = sourceCode.getTokenAfter(after, {
+					includeComments: true,
+				});
+			}
+
+			return (
+				commentTypes.has(before.type) || commentTypes.has(after.type)
+			);
+		}
+
 		return {
 			Object(node) {
 				/** @type {MemberNode} */
@@ -200,6 +227,9 @@ const rule = {
 				for (const member of node.members) {
 					const thisName = getKey(member);
 					const thisRawName = getRawKey(member, sourceCode);
+					// Capture `prevMember` for this iteration so the fixer closure uses the
+					// intended node even though `prevMember` is reassigned in the loop.
+					const prevMemberNode = prevMember;
 
 					if (
 						prevMember &&
@@ -216,6 +246,25 @@ const rule = {
 								direction,
 								sensitivity,
 								sortName,
+							},
+							fix(fixer) {
+								if (
+									hasAdjacentComment(member) ||
+									hasAdjacentComment(prevMemberNode)
+								) {
+									return null;
+								}
+
+								return [
+									fixer.replaceText(
+										member,
+										sourceCode.getText(prevMemberNode),
+									),
+									fixer.replaceText(
+										prevMemberNode,
+										sourceCode.getText(member),
+									),
+								];
 							},
 						});
 					}
