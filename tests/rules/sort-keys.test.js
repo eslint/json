@@ -2674,6 +2674,58 @@ ruleTester.run("sort-keys", rule, {
 		{
 			code: `
 			{
+				// comment
+				"b": 1,
+				"a": 2
+			}
+			`,
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 5,
+					column: 5,
+					endLine: 5,
+					endColumn: 8,
+				},
+			],
+		},
+		{
+			code: `
+			{
+				/* comment */
+				"b": 1,
+				"a": 2
+			}
+			`,
+			language: "json/jsonc",
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 5,
+					column: 5,
+					endLine: 5,
+					endColumn: 8,
+				},
+			],
+		},
+		{
+			code: `
+			{
 				"b": 1,
 				// comment
 				"a": 2
