@@ -8,6 +8,9 @@
     "target": "ESNext",
     "moduleResolution": "NodeNext",
     "module": "NodeNext",
+    "rootDir": "./src",
+    "strictNullChecks": false,
+    "useUnknownInCatchVariables": false,
     "types": []
   }
 }
