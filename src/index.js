@@ -30,16 +30,13 @@ const plugin = {
 	configs: {
 		recommended: {
 			name: "@eslint/json/recommended",
-			// eslint-disable-next-line jsdoc/ts-no-empty-object-type -- The `@type {{}}` syntax ensures that TypeScript does not get confused about the type of `plugin`.
-			plugins: /** @type {{}} */ ({
-				get json() {
-					return plugin;
-				},
-			}),
+			plugins: {},
 			rules: recommendedRules,
 		},
 	},
 };
+
+Object.assign(plugin.configs.recommended.plugins, { json: plugin });
 
 export default plugin;
 export { JSONSourceCode };
