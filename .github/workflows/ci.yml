@@ -63,6 +63,10 @@ jobs:
               run: npm install
             - name: Check Types
               run: npm run test:types
+            - name: Check Types (TypeScript 5.3)
+              run: npx -p typescript@5.3 -y -- tsc -p tests/types/tsconfig.dist.json
+            - name: Check Types (TypeScript 5.x)
+              run: npx -p typescript@5.x -y -- tsc -p tests/types/tsconfig.dist.json
     are_the_types_wrong:
         name: Are the types wrong?
         runs-on: ubuntu-latest

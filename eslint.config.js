@@ -107,8 +107,9 @@ export default defineConfig([
 	{
 		name: "json/jsonc",
 		plugins: { json },
-		files: ["**/*.jsonc"],
+		files: ["**/*.jsonc", "**/tsconfig*.json"],
 		language: "json/jsonc",
+		languageOptions: { allowTrailingCommas: true },
 		extends: ["json/recommended"],
 	},
 	{
