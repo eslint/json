@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "allowJs": false,
-    "checkJs": false, // The JSDoc @import tag used in JS files is not supported in TypeScript < 5.5.
+    "checkJs": false,
     "noEmit": true,
     "rootDir": "../..",
     "strict": true,
@@ -13,5 +13,5 @@
     // "erasableSyntaxOnly" is not supported in TypeScript < 5.8.
   },
   "files": [],
-  "include": ["../../dist"]
+  "include": [".", "../../dist"]
 }

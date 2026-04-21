@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
     "noEmit": true,
     "rootDir": "../..",
     "strict": true,
@@ -11,5 +13,5 @@
     "erasableSyntaxOnly": true
   },
   "files": [],
-  "include": ["**/*.test.ts", "**/*.test.cts", "../../dist"]
+  "include": [".", "../../dist"]
 }
