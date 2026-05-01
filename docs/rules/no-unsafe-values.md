@@ -20,6 +20,8 @@ This rule warns on values that are unsafe for interchange, such as strings with 
 
 Examples of **incorrect** code for this rule:
 
+<!-- prettier-ignore-start -->
+
 ```jsonc
 /* eslint json/no-unsafe-values: "error" */
 
@@ -34,9 +36,11 @@ Examples of **incorrect** code for this rule:
 
 	9007199254740992, // Unsafe integer (outside safe integer range)
 
-	2.2250738585072009e-308, // Subnormal number
+	2.2250738585072009e-308 // Subnormal number
 ]
 ```
+
+<!-- prettier-ignore-end -->
 
 Examples of **correct** code for this rule:
 
@@ -55,8 +59,8 @@ Examples of **correct** code for this rule:
 	"\ud83d\udd25", // Same character with proper surrogate pair
 
 	0.00000,
-    	0e0000000,
-    	0.00000e0000 // Zero represented in different valid ways
+	0e0000000,
+	0.00000e0000 // Zero represented in different valid ways
 ]
 ```
 
