@@ -28,12 +28,14 @@ import { getKey, getRawKey } from "../util.js";
 const rule = {
 	meta: {
 		type: "problem",
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		fixable: "code",
 
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unnormalized-keys.md",
 		},
 

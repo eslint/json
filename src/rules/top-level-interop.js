@@ -21,11 +21,13 @@
 const rule = {
 	meta: {
 		type: "problem",
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		docs: {
 			recommended: false,
 			description:
 				"Require the JSON top-level value to be an array or object",
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/top-level-interop.md",
 		},
 
