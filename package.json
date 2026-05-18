@@ -94,6 +94,11 @@
     "typescript": "^6.0.2",
     "yorkie": "^2.0.0"
   },
+  "overrides": {
+    "@arethetypeswrong/core": {
+      "fflate": "0.8.2"
+    }
+  },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
   }
