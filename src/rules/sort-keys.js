@@ -27,11 +27,11 @@ import { getKey, getRawKey } from "../util.js";
  * @typedef {"asc"|"desc"} SortDirection
  * @typedef {[SortDirection, SortOptions]} SortKeysRuleOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: SortKeysRuleOptions, MessageIds: SortKeysMessageIds }>} SortKeysRuleDefinition
- * @typedef {(a:string,b:string) => boolean} Comparator
  * @typedef {"ascending"|"descending"} DirectionName
  * @typedef {"alphanumeric"|"natural"} SortName
  * @typedef {"sensitive"|"insensitive"} Sensitivity
- * @typedef {Record<DirectionName, Record<SortName, Record<Sensitivity, Comparator>>>} ComparatorMap
+ * @typedef {{ member: MemberNode, name: string, rawName: string, hasAdjacentComment: boolean, text: string }} MemberInfo
+ * @typedef {{ members: MemberInfo[], sortedMembers: MemberInfo[] }} SegmentFixPlan
  */
 
 //-----------------------------------------------------------------------------
@@ -40,36 +40,6 @@ import { getKey, getRawKey } from "../util.js";
 
 const hasNonWhitespace = /\S/u;
 const commentTypes = new Set(["LineComment", "BlockComment"]);
-
-/** @type {ComparatorMap} */
-const comparators = {
-	ascending: {
-		alphanumeric: {
-			sensitive: (a, b) => a <= b,
-			insensitive: (a, b) => a.toLowerCase() <= b.toLowerCase(),
-		},
-		natural: {
-			sensitive: (a, b) => naturalCompare(a, b) <= 0,
-			insensitive: (a, b) =>
-				naturalCompare(a.toLowerCase(), b.toLowerCase()) <= 0,
-		},
-	},
-	descending: {
-		alphanumeric: {
-			sensitive: (a, b) =>
-				comparators.ascending.alphanumeric.sensitive(b, a),
-
-			insensitive: (a, b) =>
-				comparators.ascending.alphanumeric.insensitive(b, a),
-		},
-		natural: {
-			sensitive: (a, b) => comparators.ascending.natural.sensitive(b, a),
-
-			insensitive: (a, b) =>
-				comparators.ascending.natural.insensitive(b, a),
-		},
-	},
-};
 
 //-----------------------------------------------------------------------------
 // Rule Definition
@@ -142,8 +112,6 @@ const rule = {
 		const sortName = natural ? "natural" : "alphanumeric";
 		/** @type {Sensitivity} */
 		const sensitivity = caseSensitive ? "sensitive" : "insensitive";
-		/** @type {Comparator} */
-		const isValidOrder = comparators[direction][sortName][sensitivity];
 
 		// Note that @humanwhocodes/momoa doesn't include comments in the object.members tree, so we can't just see if a member is preceded by a comment
 		const commentLineNums = new Set();
@@ -211,67 +179,240 @@ const rule = {
 			);
 		}
 
+		/**
+		 * Compares two keys using the configured sort order.
+		 * @param {string} a The first key.
+		 * @param {string} b The second key.
+		 * @returns {number} A negative number when `a` should come before `b`,
+		 * a positive number when `a` should come after `b`, or 0 when they are equivalent.
+		 */
+		function compareKeys(a, b) {
+			const left = caseSensitive ? a : a.toLowerCase();
+			const right = caseSensitive ? b : b.toLowerCase();
+			let comparison;
+
+			if (natural) {
+				comparison = naturalCompare(left, right);
+			} else if (left === right) {
+				comparison = 0;
+			} else if (left < right) {
+				comparison = -1;
+			} else {
+				comparison = 1;
+			}
+
+			return direction === "ascending" ? comparison : -comparison;
+		}
+
+		/**
+		 * Determines whether two keys are already in the configured order.
+		 * @param {string} a The previous key.
+		 * @param {string} b The current key.
+		 * @returns {boolean} True if the keys are already in the expected order.
+		 */
+		function isValidOrder(a, b) {
+			return compareKeys(a, b) <= 0;
+		}
+
+		/**
+		 * Creates metadata for a member that can be reused while checking and fixing an object.
+		 * @param {MemberNode} member The member to describe.
+		 * @returns {MemberInfo} The member metadata.
+		 */
+		function createMemberInfo(member) {
+			return {
+				member,
+				name: getKey(member),
+				rawName: getRawKey(member, sourceCode),
+				hasAdjacentComment: hasAdjacentComment(member),
+				text: sourceCode.getText(member),
+			};
+		}
+
+		/**
+		 * Builds fix plans for each movable segment inside a group.
+		 * Members with adjacent comments are treated as barriers and are never moved.
+		 * @param {MemberInfo[]} group The members in one sortable group.
+		 * @returns {SegmentFixPlan[]} The fix plans for unsorted, comment-free segments.
+		 */
+		function getSegmentFixPlans(group) {
+			/** @type {SegmentFixPlan[]} */
+			const plans = [];
+			/** @type {MemberInfo[]} */
+			let segment = [];
+
+			/**
+			 * Finalizes the current segment if it contains movable members.
+			 * @returns {void}
+			 */
+			function flushSegment() {
+				if (segment.length > 1) {
+					const sortedMembers = segment
+						.map((memberInfo, index) => ({
+							index,
+							memberInfo,
+						}))
+						.sort((a, b) => {
+							const result = compareKeys(
+								a.memberInfo.name,
+								b.memberInfo.name,
+							);
+
+							return result || a.index - b.index;
+						})
+						.map(({ memberInfo }) => memberInfo);
+
+					if (
+						sortedMembers.some(
+							(memberInfo, index) =>
+								memberInfo !== segment[index],
+						)
+					) {
+						plans.push({
+							members: segment,
+							sortedMembers,
+						});
+					}
+				}
+
+				segment = [];
+			}
+
+			for (const memberInfo of group) {
+				if (memberInfo.hasAdjacentComment) {
+					flushSegment();
+					continue;
+				}
+
+				segment.push(memberInfo);
+			}
+
+			flushSegment();
+
+			return plans;
+		}
+
 		return {
 			Object(node) {
-				/** @type {MemberNode} */
-				let prevMember;
-				/** @type {string} */
-				let prevName;
-				/** @type {string} */
-				let prevRawName;
+				const memberInfos = node.members.map(createMemberInfo);
 
-				if (node.members.length < minKeys) {
+				if (memberInfos.length < minKeys) {
 					return;
 				}
 
-				for (const member of node.members) {
-					const thisName = getKey(member);
-					const thisRawName = getRawKey(member, sourceCode);
-					// Capture `prevMember` for this iteration so the fixer closure uses the
-					// intended node even though `prevMember` is reassigned in the loop.
-					const prevMemberNode = prevMember;
+				/** @type {MemberInfo[][]} */
+				const groups = [];
+				/** @type {MemberInfo[]} */
+				let currentGroup = [];
+
+				for (const memberInfo of memberInfos) {
+					const prevMemberInfo = currentGroup.at(-1);
 
 					if (
-						prevMember &&
-						!isValidOrder(prevName, thisName) &&
-						(!allowLineSeparatedGroups ||
-							!isLineSeparated(prevMember, member))
+						prevMemberInfo &&
+						allowLineSeparatedGroups &&
+						isLineSeparated(
+							prevMemberInfo.member,
+							memberInfo.member,
+						)
 					) {
-						context.report({
-							loc: member.name.loc,
-							messageId: "sortKeys",
-							data: {
-								thisName: thisRawName,
-								prevName: prevRawName,
-								direction,
-								sensitivity,
-								sortName,
-							},
-							fix(fixer) {
-								if (
-									hasAdjacentComment(member) ||
-									hasAdjacentComment(prevMemberNode)
-								) {
-									return null;
-								}
-
-								return [
-									fixer.replaceText(
-										member,
-										sourceCode.getText(prevMemberNode),
-									),
-									fixer.replaceText(
-										prevMemberNode,
-										sourceCode.getText(member),
-									),
-								];
-							},
-						});
+						groups.push(currentGroup);
+						currentGroup = [];
 					}
 
-					prevMember = member;
-					prevName = thisName;
-					prevRawName = thisRawName;
+					currentGroup.push(memberInfo);
+				}
+
+				if (currentGroup.length > 0) {
+					groups.push(currentGroup);
+				}
+
+				for (const group of groups) {
+					const segmentFixPlans = getSegmentFixPlans(group);
+					const segmentPlanByMember = new WeakMap(
+						segmentFixPlans.flatMap(plan =>
+							plan.members.map(memberInfo => [
+								memberInfo.member,
+								plan,
+							]),
+						),
+					);
+					let hasReportedFix = false;
+
+					for (let index = 1; index < group.length; index += 1) {
+						const prevMemberInfo = group[index - 1];
+						const memberInfo = group[index];
+
+						if (
+							isValidOrder(prevMemberInfo.name, memberInfo.name)
+						) {
+							continue;
+						}
+
+						const data = {
+							thisName: memberInfo.rawName,
+							prevName: prevMemberInfo.rawName,
+							direction,
+							sensitivity,
+							sortName,
+						};
+						const segmentPlan = segmentPlanByMember.get(
+							memberInfo.member,
+						);
+
+						if (
+							!hasReportedFix &&
+							segmentPlan &&
+							segmentPlan ===
+								segmentPlanByMember.get(prevMemberInfo.member)
+						) {
+							context.report({
+								loc: memberInfo.member.name.loc,
+								messageId: "sortKeys",
+								data,
+								fix(fixer) {
+									const fixes = [];
+
+									for (const {
+										members,
+										sortedMembers,
+									} of segmentFixPlans) {
+										for (
+											let memberIndex = 0;
+											memberIndex < members.length;
+											memberIndex += 1
+										) {
+											if (
+												members[memberIndex] ===
+												sortedMembers[memberIndex]
+											) {
+												continue;
+											}
+
+											fixes.push(
+												fixer.replaceTextRange(
+													members[memberIndex].member
+														.range,
+													sortedMembers[memberIndex]
+														.text,
+												),
+											);
+										}
+									}
+
+									return fixes;
+								},
+							});
+							hasReportedFix = true;
+							continue;
+						}
+
+						context.report({
+							loc: memberInfo.member.name.loc,
+							messageId: "sortKeys",
+							data,
+						});
+					}
 				}
 			},
 		};
