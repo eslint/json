@@ -25,6 +25,7 @@ import type { Plugin, SourceLocation, SourceRange } from "@eslint/core";
 
 json satisfies Plugin;
 json.meta.name satisfies string;
+json.meta.namespace satisfies string;
 json.meta.version satisfies string;
 
 // Check that these languages are defined:
