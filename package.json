@@ -77,7 +77,7 @@
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.2",
+    "@arethetypeswrong/cli": "^0.18.3",
     "@types/natural-compare": "^1.4.3",
     "@types/node": "^20.19.0",
     "c8": "^11.0.0",
@@ -93,11 +93,6 @@
     "prettier": "3.8.3",
     "typescript": "^6.0.2",
     "yorkie": "^2.0.0"
-  },
-  "overrides": {
-    "@arethetypeswrong/core": {
-      "fflate": "0.8.2"
-    }
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
