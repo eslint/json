@@ -49,6 +49,7 @@ const commentTypes = new Set(["LineComment", "BlockComment"]);
 const rule = {
 	meta: {
 		type: "suggestion",
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		fixable: "code",
 
@@ -65,6 +66,7 @@ const rule = {
 		docs: {
 			recommended: false,
 			description: `Require JSON object keys to be sorted`,
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/sort-keys.md",
 		},
 

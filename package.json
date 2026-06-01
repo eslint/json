@@ -1,6 +1,6 @@
 {
   "name": "@eslint/json",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "JSON linting plugin for ESLint",
   "author": "Nicholas C. Zakas",
   "type": "module",
@@ -72,17 +72,17 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@eslint/core": "^1.2.1",
-    "@eslint/plugin-kit": "^0.7.1",
+    "@eslint/plugin-kit": "^0.7.2",
     "@humanwhocodes/momoa": "^3.3.10",
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.2",
+    "@arethetypeswrong/cli": "^0.18.3",
     "@types/natural-compare": "^1.4.3",
     "@types/node": "^20.19.0",
     "c8": "^11.0.0",
     "dedent": "^1.5.3",
-    "eslint": "^10.0.0",
+    "eslint": "^10.4.0",
     "eslint-config-eslint": "^14.0.0",
     "eslint-plugin-eslint-plugin": "^7.3.2",
     "globals": "^17.0.0",
@@ -93,11 +93,6 @@
     "prettier": "3.8.3",
     "typescript": "^6.0.2",
     "yorkie": "^2.0.0"
-  },
-  "overrides": {
-    "@arethetypeswrong/core": {
-      "fflate": "0.8.2"
-    }
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"

@@ -44,6 +44,42 @@ describe("when the plugin is used with ESLint", () => {
 				.map(([name]) => `json/${name}`);
 			assert.deepStrictEqual(actualRuleIds, expectedRuleIds);
 		});
+
+		it("rules should work when the plugin is registered under a custom namespace", async () => {
+			for (const language of ["json", "jsonc", "json5"]) {
+				const eslint = new ESLint({
+					overrideConfigFile: true,
+					overrideConfig: {
+						files: [`**/*.${language}`],
+						plugins: {
+							eslintjson: json,
+						},
+						language: `eslintjson/${language}`,
+						rules: {
+							"eslintjson/no-duplicate-keys": "error",
+						},
+					},
+				});
+
+				const results = await eslint.lintText(
+					'{"foo": 42, "foo": 43}',
+					{
+						filePath: `test.${language}`,
+					},
+				);
+
+				assert.strictEqual(results.length, 1);
+				assert.strictEqual(results[0].messages.length, 1);
+				assert.strictEqual(
+					results[0].messages[0].ruleId,
+					"eslintjson/no-duplicate-keys",
+				);
+				assert.strictEqual(
+					results[0].messages[0].messageId,
+					"duplicateKey",
+				);
+			}
+		});
 	});
 
 	describe("config comments", () => {

@@ -19,7 +19,8 @@ import rules from "./build/rules.js";
 const plugin = {
 	meta: {
 		name: "@eslint/json",
-		version: "1.2.0", // x-release-please-version
+		namespace: "json",
+		version: "2.0.0", // x-release-please-version
 	},
 	languages: {
 		json: new JSONLanguage({ mode: "json" }),
