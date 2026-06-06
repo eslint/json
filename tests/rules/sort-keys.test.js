@@ -2693,5 +2693,25 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+		{
+			code: '{"b":1, "b":2, "a":3}',
+			output: '{"a":3, "b":1, "b":2}',
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 1,
+					column: 16,
+					endLine: 1,
+					endColumn: 19,
+				},
+			],
+		},
 	],
 });

@@ -273,7 +273,7 @@ const rule = {
 									group = node.members.slice(start, end + 1);
 								}
 
-								const sortedGroup = [...group].sort((a, b) => {
+								const sortedGroup = group.toSorted((a, b) => {
 									const nameA = getKey(a);
 									const nameB = getKey(b);
 
