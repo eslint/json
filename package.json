@@ -90,7 +90,7 @@
     "lint-staged": "^16.0.0",
     "mdast-util-from-markdown": "^2.0.2",
     "mocha": "^11.3.0",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "typescript": "^6.0.2",
     "yorkie": "^2.0.0"
   },
