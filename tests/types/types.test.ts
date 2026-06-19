@@ -25,8 +25,8 @@ import type { Plugin, SourceLocation, SourceRange } from "@eslint/core";
 import type { ESLint } from "eslint";
 
 json satisfies Plugin;
-// This type check verifies that the plugin is compatible with ESLint v9.39.0, v9.x, and v10.x.
-// See: https://github.com/eslint/markdown/pull/648
+// This type check verifies that the plugin is compatible with ESLint v9.15.0, v9.x, and v10.x.
+// See: https://github.com/eslint/json/pull/248
 json satisfies ESLint.Plugin;
 json.meta.name satisfies string;
 json.meta.namespace satisfies string;
