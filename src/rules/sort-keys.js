@@ -75,7 +75,7 @@ const comparators = {
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-export default /** @type {SortKeysRuleDefinition} */ ({
+export default /** @satisfies {SortKeysRuleDefinition} */ ({
 	meta: {
 		type: "suggestion",
 		// languages: ["json/json", "json/jsonc", "json/json5"],

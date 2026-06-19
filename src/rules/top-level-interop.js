@@ -17,7 +17,7 @@
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-export default /** @type {TopLevelInteropRuleDefinition} */ ({
+export default /** @satisfies {TopLevelInteropRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		// languages: ["json/json", "json/jsonc", "json/json5"],

@@ -24,7 +24,7 @@ import { getKey, getRawKey } from "../util.js";
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-export default /** @type {NoUnnormalizedKeysRuleDefinition} */ ({
+export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		// languages: ["json/json", "json/jsonc", "json/json5"],

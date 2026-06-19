@@ -23,7 +23,7 @@ import { getKey } from "../util.js";
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-export default /** @type {NoEmptyKeysRuleDefinition} */ ({
+export default /** @satisfies {NoEmptyKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		// languages: ["json/json", "json/jsonc", "json/json5"],
