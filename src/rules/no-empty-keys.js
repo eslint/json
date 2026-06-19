@@ -31,7 +31,7 @@ export default /** @satisfies {NoEmptyKeysRuleDefinition} */ ({
 		docs: {
 			recommended: true,
 			description: "Disallow empty keys in JSON objects",
-			// dialects: ["JSON", "JSONC", "JSON5"],
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-empty-keys.md",
 		},
 

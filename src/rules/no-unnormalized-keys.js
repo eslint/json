@@ -34,7 +34,7 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 		docs: {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
-			// dialects: ["JSON", "JSONC", "JSON5"],
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unnormalized-keys.md",
 		},
 

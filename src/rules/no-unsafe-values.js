@@ -43,7 +43,7 @@ export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 		docs: {
 			recommended: true,
 			description: "Disallow JSON values that are unsafe for interchange",
-			// dialects: ["JSON", "JSONC", "JSON5"],
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unsafe-values.md",
 		},
 

@@ -32,7 +32,7 @@ export default /** @satisfies {NoDuplicateKeysRuleDefinition} */ ({
 		docs: {
 			recommended: true,
 			description: "Disallow duplicate keys in JSON objects",
-			// dialects: ["JSON", "JSONC", "JSON5"],
+			dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-duplicate-keys.md",
 		},
 
