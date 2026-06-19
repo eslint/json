@@ -78,7 +78,7 @@ const comparators = {
 export default /** @type {SortKeysRuleDefinition} */ ({
 	meta: {
 		type: "suggestion",
-		languages: ["json/json", "json/jsonc", "json/json5"],
+		// languages: ["json/json", "json/jsonc", "json/json5"],
 
 		fixable: "code",
 
@@ -95,7 +95,7 @@ export default /** @type {SortKeysRuleDefinition} */ ({
 		docs: {
 			recommended: false,
 			description: `Require JSON object keys to be sorted`,
-			dialects: ["JSON", "JSONC", "JSON5"],
+			// dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/sort-keys.md",
 		},
 

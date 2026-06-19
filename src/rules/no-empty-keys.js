@@ -26,12 +26,12 @@ import { getKey } from "../util.js";
 export default /** @type {NoEmptyKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
-		languages: ["json/json", "json/jsonc", "json/json5"],
+		// languages: ["json/json", "json/jsonc", "json/json5"],
 
 		docs: {
 			recommended: true,
 			description: "Disallow empty keys in JSON objects",
-			dialects: ["JSON", "JSONC", "JSON5"],
+			// dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-empty-keys.md",
 		},
 

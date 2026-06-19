@@ -38,12 +38,12 @@ const NON_ZERO = /[1-9]/u;
 export default /** @type {NoUnsafeValuesRuleDefinition} */ ({
 	meta: {
 		type: "problem",
-		languages: ["json/json", "json/jsonc", "json/json5"],
+		// languages: ["json/json", "json/jsonc", "json/json5"],
 
 		docs: {
 			recommended: true,
 			description: "Disallow JSON values that are unsafe for interchange",
-			dialects: ["JSON", "JSONC", "JSON5"],
+			// dialects: ["JSON", "JSONC", "JSON5"],
 			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unsafe-values.md",
 		},
 
