@@ -35,8 +35,7 @@ const NON_ZERO = /[1-9]/u;
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {NoUnsafeValuesRuleDefinition} */
-const rule = {
+export default /** @type {NoUnsafeValuesRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -159,6 +158,4 @@ const rule = {
 			},
 		};
 	},
-};
-
-export default rule;
+});

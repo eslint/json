@@ -17,8 +17,7 @@
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {TopLevelInteropRuleDefinition} */
-const rule = {
+export default /** @type {TopLevelInteropRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -51,6 +50,4 @@ const rule = {
 			},
 		};
 	},
-};
-
-export default rule;
+});

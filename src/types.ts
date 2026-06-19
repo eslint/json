@@ -14,18 +14,18 @@ import type {
 	CustomRuleVisitorWithExit,
 } from "@eslint/plugin-kit";
 import type {
-	DocumentNode,
-	MemberNode,
-	ElementNode,
-	ObjectNode,
-	ArrayNode,
-	StringNode,
-	NullNode,
-	NumberNode,
-	BooleanNode,
-	NaNNode,
-	InfinityNode,
-	IdentifierNode,
+	DocumentNode as MomoaDocumentNode,
+	MemberNode as MomoaMemberNode,
+	ElementNode as MomoaElementNode,
+	ObjectNode as MomoaObjectNode,
+	ArrayNode as MomoaArrayNode,
+	StringNode as MomoaStringNode,
+	NullNode as MomoaNullNode,
+	NumberNode as MomoaNumberNode,
+	BooleanNode as MomoaBooleanNode,
+	NaNNode as MomoaNaNNode,
+	InfinityNode as MomoaInfinityNode,
+	IdentifierNode as MomoaIdentifierNode,
 	AnyNode,
 	Token,
 } from "@humanwhocodes/momoa";
@@ -34,6 +34,20 @@ import type { JSONLanguageOptions, JSONSourceCode } from "./index.js";
 //------------------------------------------------------------------------------
 // Types
 //------------------------------------------------------------------------------
+
+// TODO: Workaround. Remove it when a solution is found.
+export interface DocumentNode extends MomoaDocumentNode {}
+export interface MemberNode extends MomoaMemberNode {}
+export interface ElementNode extends MomoaElementNode {}
+export interface ObjectNode extends MomoaObjectNode {}
+export interface ArrayNode extends MomoaArrayNode {}
+export interface StringNode extends MomoaStringNode {}
+export interface NullNode extends MomoaNullNode {}
+export interface NumberNode extends MomoaNumberNode {}
+export interface BooleanNode extends MomoaBooleanNode {}
+export interface NaNNode extends MomoaNaNNode {}
+export interface InfinityNode extends MomoaInfinityNode {}
+export interface IdentifierNode extends MomoaIdentifierNode {}
 
 type ValueNodeParent = DocumentNode | MemberNode | ElementNode;
 
