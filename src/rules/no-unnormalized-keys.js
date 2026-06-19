@@ -14,7 +14,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
@@ -64,7 +64,7 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	create(context) {
 		const [{ form }] = context.options;
 
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
 				const rawKey = getRawKey(node, context.sourceCode);
@@ -95,6 +95,6 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 					});
 				}
 			},
-		};
+		});
 	},
 });

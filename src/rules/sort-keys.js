@@ -16,7 +16,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @import { MemberNode } from "@humanwhocodes/momoa";
  * @typedef {Object} SortOptions
  * @property {boolean} caseSensitive Whether key comparisons are case-sensitive.
@@ -212,7 +212,7 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 			);
 		}
 
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Object(node) {
 				/** @type {MemberNode} */
 				let prevMember;
@@ -275,6 +275,6 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 					prevRawName = thisRawName;
 				}
 			},
-		};
+		});
 	},
 });

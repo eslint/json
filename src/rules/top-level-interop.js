@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"topLevel"} TopLevelInteropMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: TopLevelInteropMessageIds }>} TopLevelInteropRuleDefinition
  */
@@ -37,7 +37,7 @@ export default /** @satisfies {TopLevelInteropRuleDefinition} */ ({
 	},
 
 	create(context) {
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Document(node) {
 				const { type } = node.body;
 				if (type !== "Object" && type !== "Array") {
@@ -48,6 +48,6 @@ export default /** @satisfies {TopLevelInteropRuleDefinition} */ ({
 					});
 				}
 			},
-		};
+		});
 	},
 });
