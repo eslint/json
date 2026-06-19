@@ -26,7 +26,7 @@ import { getKey } from "../util.js";
 export default /** @satisfies {NoEmptyKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
-		// languages: ["json/json", "json/jsonc", "json/json5"],
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		docs: {
 			recommended: true,

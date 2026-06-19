@@ -78,7 +78,7 @@ const comparators = {
 export default /** @satisfies {SortKeysRuleDefinition} */ ({
 	meta: {
 		type: "suggestion",
-		// languages: ["json/json", "json/jsonc", "json/json5"],
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		fixable: "code",
 

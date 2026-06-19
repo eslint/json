@@ -20,7 +20,7 @@
 export default /** @satisfies {TopLevelInteropRuleDefinition} */ ({
 	meta: {
 		type: "problem",
-		// languages: ["json/json", "json/jsonc", "json/json5"],
+		languages: ["json/json", "json/jsonc", "json/json5"],
 
 		docs: {
 			recommended: false,
