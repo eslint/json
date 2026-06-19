@@ -60,6 +60,7 @@ jobs:
             fail-fast: false # TODO: Remove
             matrix:
                 eslint:
+                    - 9.15.0
                     - 9.15.x
                     - 9.16.x
                     - 9.17.x
