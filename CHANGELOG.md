@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/eslint/json/compare/json-v2.0.0...json-v2.0.1) (2026-07-01)
+
+
+### Bug Fixes
+
+* update dependency @eslint/plugin-kit to ^0.7.2 ([#244](https://github.com/eslint/json/issues/244)) ([f262565](https://github.com/eslint/json/commit/f262565724f3b0b3c80c008a881db526eb97b2c3))
+
 ## [2.0.0](https://github.com/eslint/json/compare/json-v1.2.0...json-v2.0.0) (2026-05-28)
 
 
