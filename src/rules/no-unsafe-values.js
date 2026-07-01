@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoUnsafeValuesMessageIds }>} NoUnsafeValuesRuleDefinition
  */
@@ -35,8 +35,7 @@ const NON_ZERO = /[1-9]/u;
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {NoUnsafeValuesRuleDefinition} */
-const rule = {
+export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -60,7 +59,7 @@ const rule = {
 	},
 
 	create(context) {
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Number(node) {
 				const value = context.sourceCode.getText(node);
 
@@ -157,8 +156,6 @@ const rule = {
 					}
 				}
 			},
-		};
+		});
 	},
-};
-
-export default rule;
+});
