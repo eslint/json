@@ -20,7 +20,7 @@ const plugin = {
 	meta: {
 		name: "@eslint/json",
 		namespace: "json",
-		version: "2.0.0", // x-release-please-version
+		version: "2.0.1", // x-release-please-version
 	},
 	languages: {
 		json: new JSONLanguage({ mode: "json" }),
