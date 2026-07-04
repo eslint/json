@@ -2713,5 +2713,48 @@ ruleTester.run("sort-keys", rule, {
 				},
 			],
 		},
+		{
+			code: `
+			{
+				"c": 1,
+				"d": 2,
+
+				"b": 3,
+				"a": 4,
+
+				"e": 5,
+				"f": 6
+			}
+			`,
+			output: `
+			{
+				"c": 1,
+				"d": 2,
+
+				"a": 4,
+				"b": 3,
+
+				"e": 5,
+				"f": 6
+			}
+			`,
+			options: ["asc", { allowLineSeparatedGroups: true }],
+			errors: [
+				{
+					messageId: "sortKeys",
+					data: {
+						sortName: "alphanumeric",
+						sensitivity: "sensitive",
+						direction: "ascending",
+						thisName: "a",
+						prevName: "b",
+					},
+					line: 7,
+					column: 5,
+					endLine: 7,
+					endColumn: 8,
+				},
+			],
+		},
 	],
 });

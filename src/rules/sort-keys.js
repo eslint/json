@@ -277,10 +277,6 @@ const rule = {
 									const nameA = getKey(a);
 									const nameB = getKey(b);
 
-									if (nameA === nameB) {
-										return 0;
-									}
-
 									const aFirst = isValidOrder(nameA, nameB);
 									const bFirst = isValidOrder(nameB, nameA);
 
