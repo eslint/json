@@ -86,8 +86,8 @@ const rule = {
 						// non-zero digit in it, this number was not intended to be
 						// evaluated down to a zero.
 						if (
-							NON_ZERO.test(match.groups.int) ||
-							NON_ZERO.test(match.groups.frac)
+							NON_ZERO.test(match.groups.int ?? "") ||
+							NON_ZERO.test(match.groups.frac ?? "")
 						) {
 							context.report({
 								loc: node.loc,
