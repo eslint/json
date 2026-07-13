@@ -11,13 +11,13 @@ This package contains a plugin that allows you to natively lint JSON, JSONC, and
 For Node.js and compatible runtimes:
 
 ```shell
-npm install @eslint/json -D
+npm install eslint @eslint/json -D
 # or
-yarn add @eslint/json -D
+yarn add eslint @eslint/json -D
 # or
-pnpm install @eslint/json -D
+pnpm install eslint @eslint/json -D
 # or
-bun add @eslint/json -D
+bun add eslint @eslint/json -D
 ```
 
 For Deno:
