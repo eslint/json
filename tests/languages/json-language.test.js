@@ -165,6 +165,126 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.ast.type, "Document");
 			assert.strictEqual(result.ast.body.type, "Object");
 		});
+
+		it("should return an error when JSON input is empty", () => {
+			const language = new JSONLanguage({ mode: "json" });
+			const result = language.parse({
+				body: "",
+				path: "test.json",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
+
+		it("should return an error when JSON input contains only whitespace", () => {
+			const language = new JSONLanguage({ mode: "json" });
+			const result = language.parse({
+				body: "   ",
+				path: "test.json",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
+
+		it("should return an error when JSONC input is empty", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const result = language.parse({
+				body: "",
+				path: "test.jsonc",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
+
+		it("should return an error when JSONC input contains only whitespace", () => {
+			const language = new JSONLanguage({ mode: "jsonc" });
+			const result = language.parse({
+				body: "   ",
+				path: "test.jsonc",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
+
+		it("should return an error when JSON5 input is empty", () => {
+			const language = new JSONLanguage({ mode: "json5" });
+			const result = language.parse({
+				body: "",
+				path: "test.json5",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
+
+		it("should return an error when JSON5 input contains only whitespace", () => {
+			const language = new JSONLanguage({ mode: "json5" });
+			const result = language.parse({
+				body: "   ",
+				path: "test.json5",
+			});
+
+			assert.deepStrictEqual(result, {
+				ok: false,
+				errors: [
+					{
+						line: 1,
+						column: 1,
+						offset: 0,
+						message: "Unexpected end of input found.",
+					},
+				],
+			});
+		});
 	});
 
 	describe("createSourceCode()", () => {
