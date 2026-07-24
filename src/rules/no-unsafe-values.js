@@ -44,7 +44,7 @@ export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 			recommended: true,
 			description: "Disallow JSON values that are unsafe for interchange",
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unsafe-values.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/no-unsafe-values.md",
 		},
 
 		messages: {

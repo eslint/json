@@ -96,7 +96,7 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 			recommended: false,
 			description: `Require JSON object keys to be sorted`,
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/sort-keys.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/sort-keys.md",
 		},
 
 		messages: {

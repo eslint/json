@@ -27,7 +27,7 @@ export default /** @satisfies {TopLevelInteropRuleDefinition} */ ({
 			description:
 				"Require the JSON top-level value to be an array or object",
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/top-level-interop.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/top-level-interop.md",
 		},
 
 		messages: {
