@@ -71,7 +71,7 @@ export default defineConfig([
 				"error",
 				{
 					pattern:
-						"https://github.com/eslint/json/tree/main/docs/rules/{{name}}.md",
+						"https://github.com/eslint/json/blob/main/docs/rules/{{name}}.md",
 				},
 			],
 		},
