@@ -30,6 +30,7 @@
 const NUMBER =
 	/^[+-]?(?<int>0|([1-9]\d*))?(?:\.(?<frac>\d*))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
+const HEX = /^[+-]?0x/iu;
 
 //-----------------------------------------------------------------------------
 // Rule Definition
@@ -94,8 +95,8 @@ export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 								data: { value },
 							});
 						}
-					} else if (!/[.e]/iu.test(value)) {
-						// Intended to be an integer
+					} else if (HEX.test(value) || !/[.e]/iu.test(value)) {
+						// Intended to be an integer; in hex, `e` is a digit, not an exponent
 						if (
 							node.value > Number.MAX_SAFE_INTEGER ||
 							node.value < Number.MIN_SAFE_INTEGER
