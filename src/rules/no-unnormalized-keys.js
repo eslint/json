@@ -14,7 +14,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"unnormalizedKey"} NoUnnormalizedKeysMessageIds
  * @typedef {{ form: string }} NoUnnormalizedKeysOptions
  * @typedef {JSONRuleDefinition<{ RuleOptions: [NoUnnormalizedKeysOptions], MessageIds: NoUnnormalizedKeysMessageIds }>} NoUnnormalizedKeysRuleDefinition
@@ -24,8 +24,7 @@ import { getKey, getRawKey } from "../util.js";
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {NoUnnormalizedKeysRuleDefinition} */
-const rule = {
+export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -36,7 +35,7 @@ const rule = {
 			recommended: true,
 			description: "Disallow JSON keys that are not normalized",
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unnormalized-keys.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/no-unnormalized-keys.md",
 		},
 
 		messages: {
@@ -65,7 +64,7 @@ const rule = {
 	create(context) {
 		const [{ form }] = context.options;
 
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
 				const rawKey = getRawKey(node, context.sourceCode);
@@ -96,8 +95,6 @@ const rule = {
 					});
 				}
 			},
-		};
+		});
 	},
-};
-
-export default rule;
+});

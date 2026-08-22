@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"unsafeNumber"|"unsafeInteger"|"unsafeZero"|"subnormal"|"loneSurrogate"} NoUnsafeValuesMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoUnsafeValuesMessageIds }>} NoUnsafeValuesRuleDefinition
  */
@@ -30,13 +30,13 @@
 const NUMBER =
 	/^[+-]?(?<int>0|([1-9]\d*))?(?:\.(?<frac>\d*))?(?:e[+-]?\d+)?$/iu;
 const NON_ZERO = /[1-9]/u;
+const HEX = /^[+-]?0x/iu;
 
 //-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {NoUnsafeValuesRuleDefinition} */
-const rule = {
+export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -45,7 +45,7 @@ const rule = {
 			recommended: true,
 			description: "Disallow JSON values that are unsafe for interchange",
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/no-unsafe-values.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/no-unsafe-values.md",
 		},
 
 		messages: {
@@ -60,7 +60,7 @@ const rule = {
 	},
 
 	create(context) {
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Number(node) {
 				const value = context.sourceCode.getText(node);
 
@@ -95,8 +95,8 @@ const rule = {
 								data: { value },
 							});
 						}
-					} else if (!/[.e]/iu.test(value)) {
-						// Intended to be an integer
+					} else if (HEX.test(value) || !/[.e]/iu.test(value)) {
+						// Intended to be an integer; in hex, `e` is a digit, not an exponent
 						if (
 							node.value > Number.MAX_SAFE_INTEGER ||
 							node.value < Number.MIN_SAFE_INTEGER
@@ -157,8 +157,6 @@ const rule = {
 					}
 				}
 			},
-		};
+		});
 	},
-};
-
-export default rule;
+});

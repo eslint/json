@@ -16,7 +16,7 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @import { MemberNode } from "@humanwhocodes/momoa";
  * @typedef {Object} SortOptions
  * @property {boolean} caseSensitive Whether key comparisons are case-sensitive.
@@ -75,8 +75,7 @@ const comparators = {
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {SortKeysRuleDefinition} */
-const rule = {
+export default /** @satisfies {SortKeysRuleDefinition} */ ({
 	meta: {
 		type: "suggestion",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -97,7 +96,7 @@ const rule = {
 			recommended: false,
 			description: `Require JSON object keys to be sorted`,
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/sort-keys.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/sort-keys.md",
 		},
 
 		messages: {
@@ -213,7 +212,7 @@ const rule = {
 			);
 		}
 
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Object(node) {
 				/** @type {MemberNode} */
 				let prevMember;
@@ -276,8 +275,6 @@ const rule = {
 					prevRawName = thisRawName;
 				}
 			},
-		};
+		});
 	},
-};
-
-export default rule;
+});

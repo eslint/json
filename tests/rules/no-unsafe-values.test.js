@@ -63,6 +63,10 @@ ruleTester.run("no-unsafe-values", rule, {
 			language: "json/json5",
 		},
 		{
+			code: "0xDEADBEEF",
+			language: "json/json5",
+		},
+		{
 			code: ".0",
 			language: "json/json5",
 		},
@@ -414,6 +418,86 @@ ruleTester.run("no-unsafe-values", rule, {
 					column: 1,
 					endLine: 1,
 					endColumn: 25,
+				},
+			],
+		},
+		{
+			code: "0xe0000000000000",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					data: {
+						value: "0xe0000000000000",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 17,
+				},
+			],
+		},
+		{
+			code: "0XE0000000000000",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					data: {
+						value: "0XE0000000000000",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 17,
+				},
+			],
+		},
+		{
+			code: "0xdeadbeefdeadbeef",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					data: {
+						value: "0xdeadbeefdeadbeef",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 19,
+				},
+			],
+		},
+		{
+			code: "+0xe0000000000000",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					data: {
+						value: "+0xe0000000000000",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 18,
+				},
+			],
+		},
+		{
+			code: "-0xe0000000000000",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeInteger",
+					data: {
+						value: "-0xe0000000000000",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 18,
 				},
 			],
 		},

@@ -90,11 +90,14 @@
     "lint-staged": "^16.0.0",
     "mdast-util-from-markdown": "^2.0.2",
     "mocha": "^11.3.0",
-    "prettier": "3.9.4",
+    "prettier": "3.9.6",
     "typescript": "^7.0.2",
     "yorkie": "^2.0.0"
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "allowScripts": {
+    "yorkie": true
   }
 }

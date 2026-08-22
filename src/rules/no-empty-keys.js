@@ -14,7 +14,7 @@ import { getKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { JSONRuleDefinition } from "../types.js";
+ * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"emptyKey"} NoEmptyKeysMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoEmptyKeysMessageIds }>} NoEmptyKeysRuleDefinition
  */
@@ -23,8 +23,7 @@ import { getKey } from "../util.js";
 // Rule Definition
 //-----------------------------------------------------------------------------
 
-/** @type {NoEmptyKeysRuleDefinition} */
-const rule = {
+export default /** @satisfies {NoEmptyKeysRuleDefinition} */ ({
 	meta: {
 		type: "problem",
 		languages: ["json/json", "json/jsonc", "json/json5"],
@@ -33,7 +32,7 @@ const rule = {
 			recommended: true,
 			description: "Disallow empty keys in JSON objects",
 			dialects: ["JSON", "JSONC", "JSON5"],
-			url: "https://github.com/eslint/json/tree/main/docs/rules/no-empty-keys.md",
+			url: "https://github.com/eslint/json/blob/main/docs/rules/no-empty-keys.md",
 		},
 
 		messages: {
@@ -42,7 +41,7 @@ const rule = {
 	},
 
 	create(context) {
-		return {
+		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
 
@@ -53,8 +52,6 @@ const rule = {
 					});
 				}
 			},
-		};
+		});
 	},
-};
-
-export default rule;
+});
