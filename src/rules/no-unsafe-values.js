@@ -127,6 +127,15 @@ export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 					}
 				}
 			},
+			Infinity(node) {
+				const value = context.sourceCode.getText(node);
+
+				context.report({
+					loc: node.loc,
+					messageId: "unsafeNumber",
+					data: { value },
+				});
+			},
 			String(node) {
 				if (node.value.isWellFormed) {
 					if (node.value.isWellFormed()) {
