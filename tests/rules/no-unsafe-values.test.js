@@ -107,6 +107,38 @@ ruleTester.run("no-unsafe-values", rule, {
 			],
 		},
 		{
+			code: "Infinity",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					data: {
+						value: "Infinity",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 9,
+				},
+			],
+		},
+		{
+			code: "-Infinity",
+			language: "json/json5",
+			errors: [
+				{
+					messageId: "unsafeNumber",
+					data: {
+						value: "-Infinity",
+					},
+					line: 1,
+					column: 1,
+					endLine: 1,
+					endColumn: 10,
+				},
+			],
+		},
+		{
 			code: '"\ud83d"',
 			errors: [
 				{
