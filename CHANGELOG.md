@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.0](https://github.com/eslint/json/compare/json-v2.0.1...json-v2.1.0) (2026-09-01)
+
+
+### Features
+
+* treat hexadecimal literals as integers in `no-unsafe-values` ([#267](https://github.com/eslint/json/issues/267)) ([8d76ca7](https://github.com/eslint/json/commit/8d76ca73e198702b7d25fea5895f60c6a1f98631))
+
+
+### Bug Fixes
+
+* allow additional properties in `JSONLanguageOptions` ([#271](https://github.com/eslint/json/issues/271)) ([7046bd8](https://github.com/eslint/json/commit/7046bd8ec3c244ec1561d70b1c81b85ab5168244))
+* type compatibility issue between JSON v2 and ESLint v9 ([#248](https://github.com/eslint/json/issues/248)) ([b9643c5](https://github.com/eslint/json/commit/b9643c50a659ab03a8957f4f336ce3a269a8ff32))
+
 ## [2.0.1](https://github.com/eslint/json/compare/json-v2.0.0...json-v2.0.1) (2026-07-01)
 
 

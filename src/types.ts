@@ -7,7 +7,7 @@
 // Imports
 //------------------------------------------------------------------------------
 
-import type { RuleVisitor } from "@eslint/core";
+import type { LanguageOptions, RuleVisitor } from "@eslint/core";
 import type {
 	CustomRuleDefinitionType,
 	CustomRuleTypeDefinitions,
@@ -29,13 +29,24 @@ import type {
 	AnyNode,
 	Token,
 } from "@humanwhocodes/momoa";
-import type { JSONLanguageOptions, JSONSourceCode } from "./index.js";
+import type { JSONSourceCode } from "./index.js";
 
 //------------------------------------------------------------------------------
 // Types
 //------------------------------------------------------------------------------
 
 type ValueNodeParent = DocumentNode | MemberNode | ElementNode;
+
+/**
+ * Language options provided for JSON files.
+ */
+export interface JSONLanguageOptions extends LanguageOptions {
+	/**
+	 * Whether to allow trailing commas in JSONC mode.
+	 * @default false
+	 */
+	allowTrailingCommas?: boolean;
+}
 
 /**
  * A JSON syntax element, including nodes and tokens.
