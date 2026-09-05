@@ -85,6 +85,8 @@ describe("JSONLanguage", () => {
 				result.errors[0].message,
 				"Unexpected character '/' found.",
 			);
+			assert.strictEqual(result.errors[0].line, 2);
+			assert.strictEqual(result.errors[0].column, 1);
 		});
 
 		it("should not parse trailing commas by default in json mode", () => {
@@ -99,6 +101,8 @@ describe("JSONLanguage", () => {
 				result.errors[0].message,
 				"Unexpected token RBrace found.",
 			);
+			assert.strictEqual(result.errors[0].line, 3);
+			assert.strictEqual(result.errors[0].column, 1);
 		});
 
 		it("should not parse trailing commas by default in jsonc mode", () => {
@@ -113,6 +117,8 @@ describe("JSONLanguage", () => {
 				result.errors[0].message,
 				"Unexpected token RBrace found.",
 			);
+			assert.strictEqual(result.errors[0].line, 3);
+			assert.strictEqual(result.errors[0].column, 1);
 		});
 
 		it("should parse trailing commas when enabled in jsonc mode", () => {

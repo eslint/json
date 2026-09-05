@@ -143,6 +143,8 @@ export class JSONLanguage {
 				errors: [
 					{
 						...ex,
+						line: ex.line,
+						column: ex.column,
 						message,
 					},
 				],
