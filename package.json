@@ -73,7 +73,7 @@
   "dependencies": {
     "@eslint/core": "^1.2.1",
     "@eslint/plugin-kit": "^0.7.2",
-    "@humanwhocodes/momoa": "^3.3.12",
+    "@humanwhocodes/momoa": "^3.3.13",
     "natural-compare": "^1.4.0"
   },
   "devDependencies": {
