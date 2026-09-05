@@ -1,5 +1,6 @@
 import json from "@eslint/json";
 import type {
+	JSONLanguageOptions,
 	JSONRuleDefinition,
 	JSONRuleVisitor,
 	JSONSourceCode,
@@ -74,6 +75,23 @@ json.configs.recommended.plugins satisfies object;
 	start: 100,
 	end: { line: 1, column: 1, offset: 1 },
 }) satisfies JSONSyntaxElement["loc"];
+
+const validLanguageOptions1: JSONLanguageOptions = {};
+const validLanguageOptions2: JSONLanguageOptions = {
+	allowTrailingCommas: true,
+};
+const validLanguageOptions3: JSONLanguageOptions = {
+	allowTrailingCommas: false,
+};
+const validLanguageOptions4: JSONLanguageOptions = {
+	allowTrailingCommas: true,
+	unknownOption: "unknown",
+};
+
+const invalidLanguageOptions1: JSONLanguageOptions = {
+	// @ts-expect-error -- Invalid value for `allowTrailingCommas`
+	allowTrailingCommas: "true",
+};
 
 (): JSONRuleDefinition => ({
 	create({ sourceCode }): JSONRuleVisitor {
