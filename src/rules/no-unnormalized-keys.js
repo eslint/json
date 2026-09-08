@@ -21,6 +21,25 @@ import { getKey, getRawKey } from "../util.js";
  */
 
 //-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
+
+/**
+ * Escapes a normalized string key and wraps it in its original quotes.
+ * @param {string} normalizedKey The normalized key to escape.
+ * @param {string} keyText The original key text, including quotes.
+ * @returns {string} The escaped and quoted key.
+ */
+function escapeKey(normalizedKey, keyText) {
+	const quote = keyText[0];
+	const escapedKey = normalizedKey
+		.replaceAll("\\", "\\\\")
+		.replaceAll(quote, `\\${quote}`);
+
+	return `${quote}${escapedKey}${quote}`;
+}
+
+//-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
@@ -85,20 +104,15 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 								return null;
 							}
 
-							if (name.type === "String") {
-								const quote =
-									context.sourceCode.getText(name)[0];
-								const escapedKey = normalizedKey
-									.replaceAll("\\", "\\\\")
-									.replaceAll(quote, `\\${quote}`);
+							const fixedKey =
+								name.type === "String"
+									? escapeKey(
+											normalizedKey,
+											context.sourceCode.getText(name),
+										)
+									: normalizedKey;
 
-								return fixer.replaceTextRange(
-									[name.range[0] + 1, name.range[1] - 1],
-									escapedKey,
-								);
-							}
-
-							return fixer.replaceText(name, normalizedKey);
+							return fixer.replaceText(name, fixedKey);
 						},
 					});
 				}
