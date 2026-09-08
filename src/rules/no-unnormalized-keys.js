@@ -85,12 +85,20 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 								return null;
 							}
 
-							return fixer.replaceTextRange(
-								name.type === "String"
-									? [name.range[0] + 1, name.range[1] - 1]
-									: name.range,
-								normalizedKey,
-							);
+							if (name.type === "String") {
+								const quote =
+									context.sourceCode.getText(name)[0];
+								const escapedKey = normalizedKey
+									.replaceAll("\\", "\\\\")
+									.replaceAll(quote, `\\${quote}`);
+
+								return fixer.replaceTextRange(
+									[name.range[0] + 1, name.range[1] - 1],
+									escapedKey,
+								);
+							}
+
+							return fixer.replaceText(name, normalizedKey);
 						},
 					});
 				}

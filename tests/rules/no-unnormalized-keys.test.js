@@ -260,6 +260,132 @@ ruleTester.run("no-unnormalized-keys", rule, {
 				},
 			],
 		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			options: [{ form: "NFKC" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			language: "json/jsonc",
+			options: [{ form: "NFKC" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			language: "json/json5",
+			options: [{ form: "NFKC" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{'a＇b＼c＂＇＼': 1}`,
+			output: `{'a\\'b\\\\c"\\'\\\\': 1}`,
+			language: "json/json5",
+			options: [{ form: "NFKC" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＇b＼c＂＇＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			language: "json/jsonc",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{"a＂b＼c＇＂＼": 1}`,
+			output: `{"a\\"b\\\\c'\\"\\\\": 1}`,
+			language: "json/json5",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＂b＼c＇＂＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
+		{
+			code: `{'a＇b＼c＂＇＼': 1}`,
+			output: `{'a\\'b\\\\c"\\'\\\\': 1}`,
+			language: "json/json5",
+			options: [{ form: "NFKD" }],
+			errors: [
+				{
+					messageId: "unnormalizedKey",
+					data: { key: "a＇b＼c＂＇＼" },
+					line: 1,
+					column: 2,
+					endLine: 1,
+					endColumn: 12,
+				},
+			],
+		},
 		// escaped form
 		{
 			code: `{"${escapedNfcO}":"NFC"}`,
