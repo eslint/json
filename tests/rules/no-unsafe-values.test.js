@@ -74,6 +74,30 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "0.",
 			language: "json/json5",
 		},
+		{
+			code: "Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "+Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "-Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "NaN",
+			language: "json/json5",
+		},
+		{
+			code: "+NaN",
+			language: "json/json5",
+		},
+		{
+			code: "-NaN",
+			language: "json/json5",
+		},
 	],
 	invalid: [
 		{
@@ -103,38 +127,6 @@ ruleTester.run("no-unsafe-values", rule, {
 					column: 1,
 					endLine: 1,
 					endColumn: 7,
-				},
-			],
-		},
-		{
-			code: "Infinity",
-			language: "json/json5",
-			errors: [
-				{
-					messageId: "unsafeNumber",
-					data: {
-						value: "Infinity",
-					},
-					line: 1,
-					column: 1,
-					endLine: 1,
-					endColumn: 9,
-				},
-			],
-		},
-		{
-			code: "-Infinity",
-			language: "json/json5",
-			errors: [
-				{
-					messageId: "unsafeNumber",
-					data: {
-						value: "-Infinity",
-					},
-					line: 1,
-					column: 1,
-					endLine: 1,
-					endColumn: 10,
 				},
 			],
 		},
