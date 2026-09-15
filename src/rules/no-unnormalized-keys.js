@@ -27,11 +27,10 @@ import { getKey, getRawKey } from "../util.js";
 /**
  * Escapes a normalized string key and wraps it in its original quotes.
  * @param {string} normalizedKey The normalized key to escape.
- * @param {string} keyText The original key text, including quotes.
+ * @param {string} quote The quote character used in the original key.
  * @returns {string} The escaped and quoted key.
  */
-function escapeKey(normalizedKey, keyText) {
-	const quote = keyText[0];
+function escapeKey(normalizedKey, quote) {
 	const escapedKey = normalizedKey
 		.replaceAll("\\", "\\\\")
 		.replaceAll(quote, `\\${quote}`);
@@ -81,12 +80,13 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	},
 
 	create(context) {
+		const { sourceCode } = context;
 		const [{ form }] = context.options;
 
 		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
-				const rawKey = getRawKey(node, context.sourceCode);
+				const rawKey = getRawKey(node, sourceCode);
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
@@ -108,7 +108,7 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 								name.type === "String"
 									? escapeKey(
 											normalizedKey,
-											context.sourceCode.getText(name),
+											sourceCode.text[name.range[0]],
 										)
 									: normalizedKey;
 

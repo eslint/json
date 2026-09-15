@@ -261,13 +261,13 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b": 1}`,
+			code: `{"a\uff02b": 1}`,
 			output: String.raw`{"a\"b": 1}`,
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b" },
+					data: { key: "a\uff02b" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -276,13 +276,13 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＇b": 1}`,
+			code: `{"a\uff07b": 1}`,
 			output: String.raw`{"a'b": 1}`,
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＇b" },
+					data: { key: "a\uff07b" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -291,13 +291,13 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＼b": 1}`,
+			code: `{"a\uff3cb": 1}`,
 			output: String.raw`{"a\\b": 1}`,
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＼b" },
+					data: { key: "a\uff3cb" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -306,14 +306,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{'a＇b': 1}`,
+			code: `{'a\uff07b': 1}`,
 			output: String.raw`{'a\'b': 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＇b" },
+					data: { key: "a\uff07b" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -322,14 +322,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{'a＂b': 1}`,
+			code: `{'a\uff02b': 1}`,
 			output: String.raw`{'a"b': 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b" },
+					data: { key: "a\uff02b" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -338,13 +338,13 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -353,14 +353,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			language: "json/jsonc",
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -369,14 +369,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -385,14 +385,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{'a＇b＼c＂＇＼': 1}`,
+			code: `{'a\uff07b\uff3cc\uff02\uff07\uff3c': 1}`,
 			output: String.raw`{'a\'b\\c"\'\\': 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKC" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＇b＼c＂＇＼" },
+					data: { key: "a\uff07b\uff3cc\uff02\uff07\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -401,13 +401,13 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -416,14 +416,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			language: "json/jsonc",
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -432,14 +432,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{"a＂b＼c＇＂＼": 1}`,
+			code: `{"a\uff02b\uff3cc\uff07\uff02\uff3c": 1}`,
 			output: String.raw`{"a\"b\\c'\"\\": 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＂b＼c＇＂＼" },
+					data: { key: "a\uff02b\uff3cc\uff07\uff02\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
@@ -448,14 +448,14 @@ ruleTester.run("no-unnormalized-keys", rule, {
 			],
 		},
 		{
-			code: `{'a＇b＼c＂＇＼': 1}`,
+			code: `{'a\uff07b\uff3cc\uff02\uff07\uff3c': 1}`,
 			output: String.raw`{'a\'b\\c"\'\\': 1}`,
 			language: "json/json5",
 			options: [{ form: "NFKD" }],
 			errors: [
 				{
 					messageId: "unnormalizedKey",
-					data: { key: "a＇b＼c＂＇＼" },
+					data: { key: "a\uff07b\uff3cc\uff02\uff07\uff3c" },
 					line: 1,
 					column: 2,
 					endLine: 1,
