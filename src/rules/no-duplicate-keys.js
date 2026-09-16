@@ -14,7 +14,6 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * @import { MemberNode } from "@humanwhocodes/momoa";
  * @import { JSONRuleVisitor, JSONRuleDefinition } from "../types.js";
  * @typedef {"duplicateKey"} NoDuplicateKeysMessageIds
  * @typedef {JSONRuleDefinition<{ MessageIds: NoDuplicateKeysMessageIds }>} NoDuplicateKeysRuleDefinition
@@ -42,16 +41,16 @@ export default /** @satisfies {NoDuplicateKeysRuleDefinition} */ ({
 	},
 
 	create(context) {
-		/** @type {Array<Map<string, MemberNode>|undefined>} */
+		/** @type {Array<Set<string>|undefined>} */
 		const objectKeys = [];
 
-		/** @type {Map<string, MemberNode>|undefined} */
+		/** @type {Set<string>|undefined} */
 		let keys;
 
 		return /** @type {JSONRuleVisitor} */ ({
 			Object() {
 				objectKeys.push(keys);
-				keys = new Map();
+				keys = new Set();
 			},
 
 			Member(node) {
@@ -67,7 +66,7 @@ export default /** @satisfies {NoDuplicateKeysRuleDefinition} */ ({
 						},
 					});
 				} else {
-					keys.set(key, node);
+					keys.add(key);
 				}
 			},
 
