@@ -21,6 +21,24 @@ import { getKey, getRawKey } from "../util.js";
  */
 
 //-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
+
+/**
+ * Escapes a normalized string key and wraps it in its original quotes.
+ * @param {string} normalizedKey The normalized key to escape.
+ * @param {string} quote The quote character used in the original key.
+ * @returns {string} The escaped and quoted key.
+ */
+function escapeKey(normalizedKey, quote) {
+	const escapedKey = normalizedKey
+		.replaceAll("\\", "\\\\")
+		.replaceAll(quote, `\\${quote}`);
+
+	return `${quote}${escapedKey}${quote}`;
+}
+
+//-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
@@ -62,12 +80,13 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	},
 
 	create(context) {
+		const { sourceCode } = context;
 		const [{ form }] = context.options;
 
 		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
-				const rawKey = getRawKey(node, context.sourceCode);
+				const rawKey = getRawKey(node, sourceCode);
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
@@ -85,12 +104,15 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 								return null;
 							}
 
-							return fixer.replaceTextRange(
+							const fixedKey =
 								name.type === "String"
-									? [name.range[0] + 1, name.range[1] - 1]
-									: name.range,
-								normalizedKey,
-							);
+									? escapeKey(
+											normalizedKey,
+											sourceCode.text[name.range[0]],
+										)
+									: normalizedKey;
+
+							return fixer.replaceText(name, fixedKey);
 						},
 					});
 				}
