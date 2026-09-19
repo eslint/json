@@ -18,6 +18,8 @@ These issues can lead to data corruption, silent failures, or inconsistent behav
 
 This rule warns on values that are unsafe for interchange, such as strings with unmatched [surrogates](https://en.wikipedia.org/wiki/UTF-16), numbers that evaluate to Infinity, numbers that evaluate to zero unintentionally, numbers that look like integers but are too large, and [subnormal numbers](https://en.wikipedia.org/wiki/Subnormal_number).
 
+NOTE: For JSON5, this rule does not report explicit [`Infinity` and `NaN`](https://spec.json5.org/#summary-of-features-numbers) values because the specification defines how they are interpreted. These values differ from numeric literals such as `1e400`, which evaluate to `Infinity` because they exceed JavaScript's number range.
+
 Examples of **incorrect** code for this rule:
 
 <!-- prettier-ignore-start -->
