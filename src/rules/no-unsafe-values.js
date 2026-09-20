@@ -128,10 +128,8 @@ export default /** @satisfies {NoUnsafeValuesRuleDefinition} */ ({
 				}
 			},
 			String(node) {
-				if (node.value.isWellFormed) {
-					if (node.value.isWellFormed()) {
-						return;
-					}
+				if (node.value.isWellFormed()) {
+					return;
 				}
 				// match any high surrogate and, if it exists, a paired low surrogate
 				// match any low surrogate not already matched
