@@ -25,17 +25,15 @@ import { getKey, getRawKey } from "../util.js";
 //-----------------------------------------------------------------------------
 
 /**
- * Escapes a normalized string key and wraps it in its original quotes.
+ * Escapes a normalized string key for use inside its original quotes.
  * @param {string} normalizedKey The normalized key to escape.
  * @param {string} quote The quote character used in the original key.
- * @returns {string} The escaped and quoted key.
+ * @returns {string} The escaped key.
  */
 function escapeKey(normalizedKey, quote) {
-	const escapedKey = normalizedKey
+	return normalizedKey
 		.replaceAll("\\", "\\\\")
 		.replaceAll(quote, `\\${quote}`);
-
-	return `${quote}${escapedKey}${quote}`;
 }
 
 //-----------------------------------------------------------------------------
@@ -90,10 +88,10 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
-					const { name } = node;
+					const { loc, range, type } = node.name;
 
 					context.report({
-						loc: name.loc,
+						loc,
 						messageId: "unnormalizedKey",
 						data: {
 							key: rawKey,
@@ -104,15 +102,17 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 								return null;
 							}
 
-							const fixedKey =
-								name.type === "String"
+							return fixer.replaceTextRange(
+								type === "String"
+									? [range[0] + 1, range[1] - 1]
+									: range,
+								type === "String"
 									? escapeKey(
 											normalizedKey,
-											sourceCode.text[name.range[0]],
+											sourceCode.text[range[0]],
 										)
-									: normalizedKey;
-
-							return fixer.replaceText(name, fixedKey);
+									: normalizedKey,
+							);
 						},
 					});
 				}
