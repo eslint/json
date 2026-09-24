@@ -74,6 +74,30 @@ ruleTester.run("no-unsafe-values", rule, {
 			code: "0.",
 			language: "json/json5",
 		},
+		{
+			code: "Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "+Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "-Infinity",
+			language: "json/json5",
+		},
+		{
+			code: "NaN",
+			language: "json/json5",
+		},
+		{
+			code: "+NaN",
+			language: "json/json5",
+		},
+		{
+			code: "-NaN",
+			language: "json/json5",
+		},
 	],
 	invalid: [
 		{
