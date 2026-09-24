@@ -21,6 +21,22 @@ import { getKey, getRawKey } from "../util.js";
  */
 
 //-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
+
+/**
+ * Escapes a normalized string key for use inside its original quotes.
+ * @param {string} normalizedKey The normalized key to escape.
+ * @param {string} quote The quote character used in the original key.
+ * @returns {string} The escaped key.
+ */
+function escapeKey(normalizedKey, quote) {
+	return normalizedKey
+		.replaceAll("\\", "\\\\")
+		.replaceAll(quote, `\\${quote}`);
+}
+
+//-----------------------------------------------------------------------------
 // Rule Definition
 //-----------------------------------------------------------------------------
 
@@ -62,19 +78,20 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 	},
 
 	create(context) {
+		const { sourceCode } = context;
 		const [{ form }] = context.options;
 
 		return /** @type {JSONRuleVisitor} */ ({
 			Member(node) {
 				const key = getKey(node);
-				const rawKey = getRawKey(node, context.sourceCode);
+				const rawKey = getRawKey(node, sourceCode);
 				const normalizedKey = key.normalize(form);
 
 				if (normalizedKey !== key) {
-					const { name } = node;
+					const { loc, range, type } = node.name;
 
 					context.report({
-						loc: name.loc,
+						loc,
 						messageId: "unnormalizedKey",
 						data: {
 							key: rawKey,
@@ -86,10 +103,15 @@ export default /** @satisfies {NoUnnormalizedKeysRuleDefinition} */ ({
 							}
 
 							return fixer.replaceTextRange(
-								name.type === "String"
-									? [name.range[0] + 1, name.range[1] - 1]
-									: name.range,
-								normalizedKey,
+								type === "String"
+									? [range[0] + 1, range[1] - 1]
+									: range,
+								type === "String"
+									? escapeKey(
+											normalizedKey,
+											sourceCode.text[range[0]],
+										)
+									: normalizedKey,
 							);
 						},
 					});
