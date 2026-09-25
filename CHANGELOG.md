@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.1.1](https://github.com/eslint/json/compare/json-v2.1.0...json-v2.1.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* escape normalized keys in `no-unnormalized-keys` autofix ([#283](https://github.com/eslint/json/issues/283)) ([35790d4](https://github.com/eslint/json/commit/35790d4e66a93406e585b8ca660dc7da62473787))
+* handle empty and whitespace-only JSON inputs ([#259](https://github.com/eslint/json/issues/259)) ([85ca99b](https://github.com/eslint/json/commit/85ca99b6456f0c8c959d2fc09e7578768c58199a))
+* preserve parsing error locations in Bun ([#281](https://github.com/eslint/json/issues/281)) ([bbaa18f](https://github.com/eslint/json/commit/bbaa18f076be8cef088e575944f3773dd220e102))
+* update dependency @eslint/plugin-kit to ^0.7.3 ([#276](https://github.com/eslint/json/issues/276)) ([780bfcd](https://github.com/eslint/json/commit/780bfcdb0e51ab406735c34007595706efff759f))
+
 ## [2.1.0](https://github.com/eslint/json/compare/json-v2.0.1...json-v2.1.0) (2026-09-01)
 
 
