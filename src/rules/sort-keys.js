@@ -214,6 +214,10 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 
 		return /** @type {JSONRuleVisitor} */ ({
 			Object(node) {
+				if (node.members.length < minKeys) {
+					return;
+				}
+
 				/** @type {MemberNode} */
 				let prevMember;
 				/** @type {string} */
@@ -221,16 +225,9 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 				/** @type {string} */
 				let prevRawName;
 
-				if (node.members.length < minKeys) {
-					return;
-				}
-
 				for (const member of node.members) {
 					const thisName = getKey(member);
 					const thisRawName = getRawKey(member, sourceCode);
-					// Capture `prevMember` for this iteration so the fixer closure uses the
-					// intended node even though `prevMember` is reassigned in the loop.
-					const prevMemberNode = prevMember;
 
 					if (
 						prevMember &&
@@ -249,25 +246,76 @@ export default /** @satisfies {SortKeysRuleDefinition} */ ({
 								sortName,
 							},
 							fix(fixer) {
-								if (
-									hasAdjacentComment(member) ||
-									hasAdjacentComment(prevMemberNode)
-								) {
-									return null;
+								let group = node.members;
+
+								if (allowLineSeparatedGroups) {
+									let start = node.members.indexOf(member);
+									while (
+										start > 0 &&
+										!isLineSeparated(
+											node.members[start - 1],
+											node.members[start],
+										)
+									) {
+										start--;
+									}
+									let end = node.members.indexOf(member);
+									while (
+										end < node.members.length - 1 &&
+										!isLineSeparated(
+											node.members[end],
+											node.members[end + 1],
+										)
+									) {
+										end++;
+									}
+									group = node.members.slice(start, end + 1);
 								}
 
-								return [
-									fixer.replaceText(
-										member,
-										sourceCode.getText(prevMemberNode),
-									),
-									fixer.replaceText(
-										prevMemberNode,
-										sourceCode.getText(member),
-									),
-								];
+								const sortedGroup = group.toSorted((a, b) => {
+									const nameA = getKey(a);
+									const nameB = getKey(b);
+
+									const aFirst = isValidOrder(nameA, nameB);
+									const bFirst = isValidOrder(nameB, nameA);
+
+									if (aFirst && bFirst) {
+										return 0;
+									}
+									return aFirst ? -1 : 1;
+								});
+
+								const fixes = [];
+								for (let i = 0; i < group.length; i++) {
+									const origMember = group[i];
+									const replacementMember = sortedGroup[i];
+
+									if (origMember === replacementMember) {
+										continue;
+									}
+
+									if (
+										hasAdjacentComment(origMember) ||
+										hasAdjacentComment(replacementMember)
+									) {
+										return null;
+									}
+
+									fixes.push(
+										fixer.replaceText(
+											origMember,
+											sourceCode.getText(
+												replacementMember,
+											),
+										),
+									);
+								}
+
+								return fixes;
 							},
 						});
+
+						break;
 					}
 
 					prevMember = member;
