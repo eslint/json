@@ -67,6 +67,10 @@ Examples of **correct** code for this rule:
 {}
 ```
 
+## Options
+
+This rule has no options.
+
 ## When Not to Use It
 
 You might want to disable this rule when working with specific JSON files that intentionally use empty keys as part of their schema or format. For example, as noted in the background, `package-lock.json` files sometimes use empty keys by design.

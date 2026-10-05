@@ -43,6 +43,10 @@ Examples of **correct** code for this rule:
 []
 ```
 
+## Options
+
+This rule has no options.
+
 ## When Not to Use It
 
 You might want to disable this rule if:
