@@ -74,6 +74,10 @@ Examples of **correct** code for this rule:
 }
 ```
 
+## Options
+
+This rule has no options.
+
 ## When Not to Use It
 
 You might want to disable this rule in the rare case where you intentionally need to include duplicate keys in a JSON document for interoperability with systems that rely on this pattern. However, this is not recommended and usually indicates a design issue in the consuming application.
