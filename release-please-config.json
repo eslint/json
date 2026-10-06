@@ -2,6 +2,7 @@
   "bootstrap-sha": "505795a1312e90f1ce3b59b530622929bc38b4fe",
   "bump-minor-pre-major": true,
   "extra-label": "triage:no",
+  "pull-request-footer": "This PR was generated with [Release Please](https://github.com/googleapis/release-please). See [documentation](https://github.com/googleapis/release-please#release-please).\n\n<!-- @coderabbitai ignore -->",
   "packages": {
     ".": {
       "release-type": "node",
