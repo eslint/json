@@ -89,6 +89,26 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.errors[0].column, 1);
 		});
 
+		it("should not parse jsonc when mode is omitted", () => {
+			const language = new JSONLanguage({});
+			const result = language.parse({
+				body: "{\n//test\n}",
+				path: "test.json",
+			});
+
+			assert.strictEqual(result.ok, false);
+		});
+
+		it("should not parse jsonc when mode is undefined", () => {
+			const language = new JSONLanguage({ mode: undefined });
+			const result = language.parse({
+				body: "{\n//test\n}",
+				path: "test.json",
+			});
+
+			assert.strictEqual(result.ok, false);
+		});
+
 		it("should not parse trailing commas by default in json mode", () => {
 			const language = new JSONLanguage({ mode: "json" });
 			const result = language.parse({

@@ -1,4 +1,4 @@
-import json from "@eslint/json";
+import json, { JSONLanguage } from "@eslint/json";
 import type {
 	JSONLanguageOptions,
 	JSONRuleDefinition,
@@ -37,6 +37,11 @@ json.meta.version satisfies string;
 json.languages.json satisfies object;
 json.languages.json5 satisfies object;
 json.languages.jsonc satisfies object;
+
+// Check that constructor options and mode are optional.
+new JSONLanguage();
+new JSONLanguage(undefined);
+new JSONLanguage({});
 
 declare const ruleName: keyof typeof json.rules;
 json.rules[ruleName] satisfies JSONRuleDefinition;
