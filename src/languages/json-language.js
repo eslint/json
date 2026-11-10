@@ -105,7 +105,7 @@ export class JSONLanguage {
 	/**
 	 * Parses the given file into an AST.
 	 * @param {File} file The virtual file to parse.
-	 * @param {{languageOptions: JSONLanguageOptions}} context The options to use for parsing.
+	 * @param {{languageOptions: JSONLanguageOptions}} [context] The options to use for parsing.
 	 * @returns {JSONParseResult} The result of parsing.
 	 */
 	parse(file, context) {
