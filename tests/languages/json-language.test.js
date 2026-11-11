@@ -89,8 +89,8 @@ describe("JSONLanguage", () => {
 			assert.strictEqual(result.errors[0].column, 1);
 		});
 
-		it("should not parse jsonc when mode is omitted", () => {
-			const language = new JSONLanguage({});
+		it("should not parse jsonc when constructor options are omitted", () => {
+			const language = new JSONLanguage();
 			const result = language.parse({
 				body: "{\n//test\n}",
 				path: "test.json",
