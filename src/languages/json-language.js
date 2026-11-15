@@ -70,11 +70,13 @@ export class JSONLanguage {
 
 	/**
 	 * Creates a new instance.
-	 * @param {Object} options The options to use for this instance.
-	 * @param {"json"|"jsonc"|"json5"} options.mode The parser mode to use.
+	 * @param {Object} [options] The options to use for this instance.
+	 * @param {"json"|"jsonc"|"json5"} [options.mode] The parser mode to use.
 	 */
-	constructor({ mode }) {
-		this.#mode = mode;
+	constructor({ mode } = {}) {
+		if (mode) {
+			this.#mode = mode;
+		}
 	}
 
 	/**
