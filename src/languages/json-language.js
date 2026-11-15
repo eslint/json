@@ -81,12 +81,12 @@ export class JSONLanguage {
 
 	/**
 	 * Validates the language options.
-	 * @param {JSONLanguageOptions} languageOptions The language options to validate.
+	 * @param {JSONLanguageOptions} [languageOptions] The language options to validate.
 	 * @returns {void}
 	 * @throws {Error} When the language options are invalid.
 	 */
 	validateLanguageOptions(languageOptions) {
-		if (languageOptions.allowTrailingCommas !== undefined) {
+		if (languageOptions?.allowTrailingCommas !== undefined) {
 			if (typeof languageOptions.allowTrailingCommas !== "boolean") {
 				throw new Error(
 					"allowTrailingCommas must be a boolean if provided.",

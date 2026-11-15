@@ -15,6 +15,14 @@ import assert from "node:assert";
 //-----------------------------------------------------------------------------
 
 describe("JSONLanguage", () => {
+	describe("constructor()", () => {
+		it("should not throw an error when options or mode are not provided", () => {
+			assert.doesNotThrow(() => new JSONLanguage());
+			assert.doesNotThrow(() => new JSONLanguage(undefined));
+			assert.doesNotThrow(() => new JSONLanguage({}));
+		});
+	});
+
 	describe("visitorKeys", () => {
 		it("should have visitorKeys property", () => {
 			const language = new JSONLanguage({ mode: "json" });
@@ -59,8 +67,20 @@ describe("JSONLanguage", () => {
 
 		it("should not throw an error when allowTrailingCommas is not provided", () => {
 			const language = new JSONLanguage({ mode: "jsonc" });
+
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions();
+			});
 			assert.doesNotThrow(() => {
 				language.validateLanguageOptions({});
+			});
+		});
+
+		it("should not throw an error when language options are explicitly undefined", () => {
+			const language = new JSONLanguage();
+
+			assert.doesNotThrow(() => {
+				language.validateLanguageOptions(undefined);
 			});
 		});
 
@@ -162,6 +182,21 @@ describe("JSONLanguage", () => {
 				body: "{\n\n}",
 				path: "test.json",
 			});
+
+			assert.strictEqual(result.ok, true);
+			assert.strictEqual(result.ast.type, "Document");
+			assert.strictEqual(result.ast.body.type, "Object");
+		});
+
+		it("should parse json when context is explicitly undefined", () => {
+			const language = new JSONLanguage();
+			const result = language.parse(
+				{
+					body: "{\n\n}",
+					path: "test.json",
+				},
+				undefined,
+			);
 
 			assert.strictEqual(result.ok, true);
 			assert.strictEqual(result.ast.type, "Document");
