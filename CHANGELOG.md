@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/eslint/json/compare/json-v2.1.1...json-v2.1.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* preserve default JSON mode when options are omitted ([#296](https://github.com/eslint/json/issues/296)) ([70ec84b](https://github.com/eslint/json/commit/70ec84b9bf752a5a0bb79de875e6faca2ee0f176))
+
 ## [2.1.1](https://github.com/eslint/json/compare/json-v2.1.0...json-v2.1.1) (2026-10-06)
 
 
