@@ -22,7 +22,7 @@ import type {
 	StringNode,
 	LocationRange,
 } from "@humanwhocodes/momoa";
-import type { Plugin, SourceLocation, SourceRange } from "@eslint/core";
+import type { File, Plugin, SourceLocation, SourceRange } from "@eslint/core";
 import type { ESLint } from "eslint";
 
 json satisfies Plugin;
@@ -80,6 +80,15 @@ json.configs.recommended.plugins satisfies object;
 	start: 100,
 	end: { line: 1, column: 1, offset: 1 },
 }) satisfies JSONSyntaxElement["loc"];
+
+// Check that language options can be omitted or explicitly undefined.
+json.languages.json.validateLanguageOptions();
+json.languages.json.validateLanguageOptions(undefined);
+
+// Check that parse context can be omitted or explicitly undefined.
+declare const file: File;
+json.languages.json.parse(file);
+json.languages.json.parse(file, undefined);
 
 const validLanguageOptions1: JSONLanguageOptions = {};
 const validLanguageOptions2: JSONLanguageOptions = {

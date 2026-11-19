@@ -81,12 +81,12 @@ export class JSONLanguage {
 
 	/**
 	 * Validates the language options.
-	 * @param {JSONLanguageOptions} languageOptions The language options to validate.
+	 * @param {JSONLanguageOptions} [languageOptions] The language options to validate.
 	 * @returns {void}
 	 * @throws {Error} When the language options are invalid.
 	 */
 	validateLanguageOptions(languageOptions) {
-		if (languageOptions.allowTrailingCommas !== undefined) {
+		if (languageOptions?.allowTrailingCommas !== undefined) {
 			if (typeof languageOptions.allowTrailingCommas !== "boolean") {
 				throw new Error(
 					"allowTrailingCommas must be a boolean if provided.",
@@ -107,7 +107,7 @@ export class JSONLanguage {
 	/**
 	 * Parses the given file into an AST.
 	 * @param {File} file The virtual file to parse.
-	 * @param {{languageOptions: JSONLanguageOptions}} context The options to use for parsing.
+	 * @param {{languageOptions: JSONLanguageOptions}} [context] The options to use for parsing.
 	 * @returns {JSONParseResult} The result of parsing.
 	 */
 	parse(file, context) {
